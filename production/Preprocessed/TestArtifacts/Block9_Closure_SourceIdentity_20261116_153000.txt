@@ -1,0 +1,51 @@
+BLOCK 9 CLOSURE - SOURCE/EVIDENCE IDENTITY RECORD (20261116_153000)
+=================================================================
+Generated: 2026-11-16 14:42:52
+MATLAB R2024b (24.2.0.3212159) Update 9 | Windows | host OMEN-LARIZZ
+*** EVIDENCE CORRECTION 2026-11-16 (verification result) ***
+Section 1 'Self-verification' originally read '0 OK / 20 FAILED' while marked
+PASS. CAUSE: that text was captured from the FIRST sha256sum -c run, executed
+against the manifest while it still had CRLF line endings (Windows text-mode
+write appended \r to each line), so sha256sum matched 'filename\r' and reported
+all 20 as 'FAILED open or read'. The manifest was then corrected to LF-only and
+re-verified; only its hash was patched into this report, not the count line.
+OLD: 0 OK / 20 FAILED (marked PASS - inconsistent).
+NEW: 20 OK / 0 FAILED (re-verified 2026-11-16 from +preprocessing/ against the
+actual 20 files). Manifest is LF-only; its own SHA-256 independently confirmed
+= 71528264c9cf54039422ff3f4ccbba0da39c13db0517af798c15dca5f8ada9f4.
+Source files and manifest CONTENTS unchanged by this correction.
+
+
+1. FINAL SOURCE INVENTORY (20 MATLAB files in +preprocessing/)
+   Manifest: Block9_Closure_SourceManifest_20261116_153000.sha256
+   Files: 20   Manifest self-SHA256: 71528264c9cf54039422ff3f4ccbba0da39c13db0517af798c15dca5f8ada9f4
+   Self-verification (sha256sum -c): 20 OK / 0 FAILED   [CORRECTED 2026-11-16]
+
+2. VERSION-IDENTITY FINDING (why the earlier 128/128 logs were NOT accepted)
+   The 2026-11-15 128/128 regression logs (Block9_Final_VariantA/B_20261115_192615)
+   predate BOTH the final RunPreprocessingTests.m (b71ad161...) AND the
+   ExportPreprocessedData.m CSV timestamp read-back correction. They were
+   therefore NOT treated as proof for the latest source. Both regressions were
+   re-executed in this closure against the exact final source (see below).
+
+3. SOURCE DELTA vs 20261115 APPROVED BASELINE (Block9_Final_SourceManifest_20261115_193252)
+   18 of 20 files byte-identical. 2 files changed, both justified and documented:
+     - ExportPreprocessedData.m   f9bad60b... -> 548e76aa...
+         DEFECT FIX (reproducible, found by M/Corrupted_CsvTimestamp):
+         CSV read-back validation loop began at column 7, so columns 2-6
+         (Time_s, SegmentID, RowValid, MeasurementValid, Available) were written
+         but never compared. Timestamp corruption passed silently. Narrow
+         correction: loop start 7 -> 2. No schema/contract/math change.
+     - RunPreprocessingStressTests.m  231604b7... -> c7658a6c...
+         TEST/STRESS HARNESS additions only (categories K,L,M,N + fixes).
+         No production behaviour change.
+
+4. REGRESSION EVIDENCE ON FINAL SOURCE
+   Variant A (fresh session, cd tempdir)  : 128 passed / 0 failed / 128 total
+   Variant B (fresh session, project root): 128 passed / 0 failed / 128 total
+   Logs: Block9_Closure_VariantA_20261116_153000.log, Block9_Closure_VariantB_20261116_153000.log
+
+5. STRESS EVIDENCE ON FINAL SOURCE
+   Consolidated A-N: 70 PASS / 0 FAIL / 3 SKIP (73 total), 3 skips resource-based.
+   Log(s): Block9_Closure_StressMaster_20261116_153000.log + per-category named logs.
+   Results: Block9_Closure_StressResults_20261116_153000.json

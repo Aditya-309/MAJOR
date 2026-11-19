@@ -1,0 +1,45 @@
+{
+  "Run": {
+    "RunID": "Run_001_20260906_161056",
+    "Status": "EXECUTED",
+    "CreatedAt": "2026-09-06T16:10:56.291",
+    "MetadataWrittenAt": "2026-09-06T16:11:04.544"
+  },
+  "Project": {
+    "ProjectRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR",
+    "ProductionRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production"
+  },
+  "Scenario": {
+    "Selector": 4,
+    "ID": 4,
+    "Name": "CombinedManeuver"
+  },
+  "Configuration": {
+    "ScenarioConfigPath": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\+flightscenario\\ScenarioConfig.m"
+  },
+  "Paths": {
+    "WorkingRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260906_161056",
+    "Block7Directory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260906_161056\\Block7",
+    "GroundTruthDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260906_161056\\GroundTruth",
+    "IdealSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260906_161056\\IdealSensorTelemetry",
+    "RealisticSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260906_161056\\RealisticSensorTelemetry"
+  },
+  "Validation": {
+    "Status": "PASSED",
+    "ValidatedAt": "2026-09-06T16:11:03.894",
+    "TimelineSampleCount": 30001,
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002,
+    "Block7ArtifactCount": 4
+  },
+  "Telemetry": {
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002
+  }
+}

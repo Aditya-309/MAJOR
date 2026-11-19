@@ -1,0 +1,15 @@
+Block 9 closure stress evidence
+Closure tag: 20261116_153000
+Source: consolidated campaign (final source incl. CSV timestamp read-back fix)
+Result counts are authoritative from Block9_StressResults_20261116_153000.json
+====================================================
+
+-- Category L: MAT v7/v7.3 ingestion stress --
+[PASS] L/MatV7_100000Samples - -v7 MAT, 100000 samples/stream, 13.5 MB: loaded in 1.09 s (format MatLevel5), values preserved, row counts exact
+[PASS] L/MatV73_100000Samples - -v7.3 MAT, 100000 samples/stream, 13.6 MB: loaded in 0.73 s (format MatV73), values preserved, row counts exact
+[PASS] L/MatV7_500000Samples - -v7 MAT, 500000 samples/stream, 67.5 MB: loaded in 5.17 s (format MatLevel5), values preserved, row counts exact
+[PASS] L/MatV73_500000Samples - -v7.3 MAT, 500000 samples/stream, 67.9 MB: loaded in 3.38 s (format MatV73), values preserved, row counts exact
+[PASS] L/UnknownVariableDiscovery - MAT variable named TelemetryDumpUnknownName discovered by whos-based scanning (TelemetryDumpUnknownName)
+[PASS] L/MissingStreamVariable - missing stream sub-struct -> Malformed with recorded issue; other streams loaded
+[PASS] L/MalformedMatFile - garbage MAT file -> Malformed with recorded issue (never silently accepted)
+

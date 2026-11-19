@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<initialize name="Block7InitialCondition">
+  <description>
+    Block 7 generated initialization condition.
+  </description>
+
+  <property value="4921.25984251968">ic/h-sl-ft</property>
+  <property value="202.42782152231">ic/vt-fps</property>
+
+</initialize>

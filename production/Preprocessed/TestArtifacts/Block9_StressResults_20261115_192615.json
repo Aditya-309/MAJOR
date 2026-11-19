@@ -1,0 +1,413 @@
+{
+  "Generated": "2026-11-16 01:02:12",
+  "Results": [
+    {
+      "Category": "A",
+      "Name": "RepeatedConfigCreation",
+      "Status": "PASS",
+      "Detail": "200 repeated default creations + 50 coexisting configs",
+      "Seconds": 0.4021203,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MinMaxAndBoundaryValues",
+      "Status": "PASS",
+      "Detail": "minimum and maximum valid values accepted",
+      "Seconds": 0.0179188,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "InvalidTypesAndThresholds",
+      "Status": "PASS",
+      "Detail": "typed errors: Preprocessing:ValidatePreprocessingConfig:InvalidGapAbsolute, Preprocessing:ValidatePreprocessingConfig:InvalidStatistical",
+      "Seconds": 0.0381053,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MissingFieldsRejected",
+      "Status": "PASS",
+      "Detail": "missing configuration fields rejected with typed errors",
+      "Seconds": 0.022458,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "RegistryDiscoveryReadOnly",
+      "Status": "PASS",
+      "Detail": "1 runs discovered read-only; registry bytes identical before/after",
+      "Seconds": 0.2409422,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ManyInvalidRunIDs",
+      "Status": "PASS",
+      "Detail": "100 invalid run selections all rejected with typed errors",
+      "Seconds": 0.9870504,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ProtectedTreeExclusions",
+      "Status": "PASS",
+      "Detail": "WorkingRuns/FailedRuns roots refused under all approvals",
+      "Seconds": 0.0565752,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "NameMismatchStorm",
+      "Status": "PASS",
+      "Detail": "50 RunID/directory mismatches rejected with typed errors",
+      "Seconds": 4.2283552,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "MissingSensorEligibility",
+      "Status": "PASS",
+      "Detail": "missing-sensor run proceeds PARTIAL under Continue policy",
+      "Seconds": 1.7061216,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "Ingest10Samples",
+      "Status": "PASS",
+      "Detail": "four streams loaded",
+      "Seconds": 0.0005337,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "Ingest1000Samples",
+      "Status": "PASS",
+      "Detail": "four streams loaded",
+      "Seconds": 0.0001248,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "Ingest10000Samples",
+      "Status": "PASS",
+      "Detail": "four streams loaded",
+      "Seconds": 0.0001589,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "Ingest100000Samples",
+      "Status": "PASS",
+      "Detail": "four streams loaded",
+      "Seconds": 0.0001706,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "UnequalStreamLengths",
+      "Status": "PASS",
+      "Detail": "unequal stream lengths (500/37/211/999) preserved exactly",
+      "Seconds": 0.1194138,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "MissingAndExtraColumns",
+      "Status": "PASS",
+      "Detail": "missing required column -> Malformed; extra unexpected column deterministically -> Malformed",
+      "Seconds": 0.3699415,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "NaNInfAndMixedValues",
+      "Status": "PASS",
+      "Detail": "NaN/Inf/-Inf rows preserved exactly and flagged, never dropped",
+      "Seconds": 0.1842658,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "EmptyStreamsLoad",
+      "Status": "PASS",
+      "Detail": "empty CSV handled safely (status Malformed)",
+      "Seconds": 0.2204091,
+      "ErrorId": ""
+    },
+    {
+      "Category": "C",
+      "Name": "IdealDialectSynthesis",
+      "Status": "PASS",
+      "Detail": "ideal dialect loaded with 1 synthesized fields",
+      "Seconds": 0.1601054,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "StrictlyIncreasing",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.053204,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "LongDuplicateSequences",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 199 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0432094,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "BackwardJumpsAndResets",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 500 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0382818,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "HugeAndTinyGaps",
+      "Status": "PASS",
+      "Detail": "5 rows -> 3 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0264518,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "NonFiniteTimestamps",
+      "Status": "PASS",
+      "Detail": "7 rows -> 4 segments, 3 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0323046,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "FpJitterNonuniformEnd",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0424279,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "ExtremeFiniteMeasurements",
+      "Status": "PASS",
+      "Detail": "extreme finite values retained unmodified and flagged",
+      "Seconds": 0.0223594,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "DeterministicSegmentation",
+      "Status": "PASS",
+      "Detail": "three timestamp resets -> exactly 3 segments, 300 rows kept",
+      "Seconds": 0.019932,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "ExtremeRateRatios",
+      "Status": "PASS",
+      "Detail": "reference 2000 vs source 2 samples: causal ZOH holds, 1 aligned valid",
+      "Seconds": 0.1286082,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CausalityPropertySweep",
+      "Status": "PASS",
+      "Detail": "5 randomized trials: no future sample ever selected; invalid samples never become valid",
+      "Seconds": 0.1912233,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "MaxAgeBoundaries",
+      "Status": "PASS",
+      "Detail": "age == MaxAge valid (inclusive); MaxAge + 1e-6 stale",
+      "Seconds": 0.0814401,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CoverageBoundaries",
+      "Status": "PASS",
+      "Detail": "before-first and after-last coverage edges handled exactly",
+      "Seconds": 0.0393488,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "SegmentsOutagesDuplicates",
+      "Status": "PASS",
+      "Detail": "segment boundaries, outages and duplicate exclusions respected",
+      "Seconds": 0.0331107,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "EmptyRefAndSource",
+      "Status": "PASS",
+      "Detail": "empty reference and empty source handled without fabrication",
+      "Seconds": 0.047488,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "RepeatedExportsUnique",
+      "Status": "PASS",
+      "Detail": "10 repeated exports to unique directories; 10 distinct MAT outputs (PreprocessID-differentiated); no overwrite",
+      "Seconds": 2.5547115,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "InterruptedExportUnretrievable",
+      "Status": "PASS",
+      "Detail": "4 interrupted-export seams: typed errors, no success JSON, no temp residue",
+      "Seconds": 0.9435504,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "CorruptedArtifactsRefused",
+      "Status": "PASS",
+      "Detail": "corrupted JSON refused with ReportDecodeFailure",
+      "Seconds": 0.0319219,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "MarkerPrecedenceStorm",
+      "Status": "PASS",
+      "Detail": "10 marked directories with SUCCESS JSON all refused (marker wins)",
+      "Seconds": 0.2080244,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "ValidResultRetrieval",
+      "Status": "PASS",
+      "Detail": "valid published result retrieved with embedded-ID verification",
+      "Seconds": 0.5068117,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ProcessingStageFailure",
+      "Status": "PASS",
+      "Detail": "injected failure: FAILED + marker + unretrievable + typed errors",
+      "Seconds": 0.1100413,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ExportSeamFailures",
+      "Status": "PASS",
+      "Detail": "all four export seams raise exact typed identifiers",
+      "Seconds": 0.9028286,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "RecoveryAfterFailure",
+      "Status": "PASS",
+      "Detail": "fresh valid run after failure: SUCCESS and retrievable",
+      "Seconds": 0.3000935,
+      "ErrorId": ""
+    },
+    {
+      "Category": "H",
+      "Name": "Sequential10Runs",
+      "Status": "PASS",
+      "Detail": "unique IDs",
+      "Seconds": 0.0037697,
+      "ErrorId": ""
+    },
+    {
+      "Category": "H",
+      "Name": "Sequential25Runs",
+      "Status": "PASS",
+      "Detail": "unique IDs",
+      "Seconds": 0.0002361,
+      "ErrorId": ""
+    },
+    {
+      "Category": "H",
+      "Name": "Sequential50Runs",
+      "Status": "PASS",
+      "Detail": "unique IDs",
+      "Seconds": 0.0002406,
+      "ErrorId": ""
+    },
+    {
+      "Category": "H",
+      "Name": "FirstOutputUntouched",
+      "Status": "PASS",
+      "Detail": "85 distinct output directories for the same synthetic run; earlier outputs never overwritten",
+      "Seconds": 0.0069216,
+      "ErrorId": ""
+    },
+    {
+      "Category": "G",
+      "Name": "EightProcessAttempt",
+      "Status": "SKIP",
+      "Detail": "8 workers skipped: <12 GB free memory",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "G",
+      "Name": "2ProcessAllocation",
+      "Status": "PASS",
+      "Detail": "2 independent MATLAB processes: 2 unique PreprocessIDs, all SUCCESS, no shared directories",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "G",
+      "Name": "4ProcessAllocation",
+      "Status": "PASS",
+      "Detail": "4 independent MATLAB processes: 4 unique PreprocessIDs, all SUCCESS, no shared directories",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "J",
+      "Name": "OneMillionSamples",
+      "Status": "SKIP",
+      "Detail": "1M samples skipped: <10 GB free memory",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "J",
+      "Name": "Scale10000Samples",
+      "Status": "PASS",
+      "Detail": "10000 samples/stream: ingest 3.3s, process 0.4s, align 0.46s, export 2.4s, retrieve 0.00s, total 6.6s, mem 2696MB",
+      "Seconds": 6.5776052999999992,
+      "ErrorId": ""
+    },
+    {
+      "Category": "J",
+      "Name": "Scale100000Samples",
+      "Status": "PASS",
+      "Detail": "100000 samples/stream: ingest 1.2s, process 1.7s, align 3.37s, export 9.7s, retrieve 0.01s, total 16.0s, mem 2767MB",
+      "Seconds": 15.979617300000001,
+      "ErrorId": ""
+    },
+    {
+      "Category": "J",
+      "Name": "Scale500000Samples",
+      "Status": "PASS",
+      "Detail": "500000 samples/stream: ingest 4.6s, process 8.5s, align 18.70s, export 48.8s, retrieve 0.00s, total 80.6s, mem 3043MB",
+      "Seconds": 80.608981199999988,
+      "ErrorId": ""
+    }
+  ]
+}

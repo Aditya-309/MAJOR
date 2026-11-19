@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<output name="Telemetry.csv" type="CSV" rate="200">
+  <description>
+    Block 7 generated raw ground-truth telemetry output.
+  </description>
+  <property>simulation/sim-time-sec</property>
+  <property>position/lat-geod-deg</property>
+  <property>position/long-gc-deg</property>
+  <property>position/h-sl-ft</property>
+  <property>velocities/u-fps</property>
+  <property>velocities/v-fps</property>
+  <property>velocities/w-fps</property>
+  <property>velocities/p-rad_sec</property>
+  <property>velocities/q-rad_sec</property>
+  <property>velocities/r-rad_sec</property>
+  <property>attitude/phi-rad</property>
+  <property>attitude/theta-rad</property>
+  <property>attitude/psi-rad</property>
+  <property>atmosphere/rho-slugs_ft3</property>
+</output>

@@ -1,0 +1,45 @@
+{
+  "Run": {
+    "RunID": "Run_001_20261107_110817",
+    "Status": "EXECUTED",
+    "CreatedAt": "2026-11-07T11:08:17.593",
+    "MetadataWrittenAt": "2026-11-07T11:08:37.268"
+  },
+  "Project": {
+    "ProjectRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR",
+    "ProductionRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production"
+  },
+  "Scenario": {
+    "Selector": 2,
+    "ID": 2,
+    "Name": "ControlledClimb"
+  },
+  "Configuration": {
+    "ScenarioConfigPath": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\+flightscenario\\ScenarioConfig.m"
+  },
+  "Paths": {
+    "WorkingRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261107_110817",
+    "Block7Directory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261107_110817\\Block7",
+    "GroundTruthDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261107_110817\\GroundTruth",
+    "IdealSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261107_110817\\IdealSensorTelemetry",
+    "RealisticSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261107_110817\\RealisticSensorTelemetry"
+  },
+  "Validation": {
+    "Status": "PASSED",
+    "ValidatedAt": "2026-11-07T11:08:35.996",
+    "TimelineSampleCount": 24001,
+    "GroundTruthSampleCount": 24002,
+    "GNSSSampleCount": 2402,
+    "IMUSampleCount": 24002,
+    "AirDataSampleCount": 12002,
+    "MagnetometerSampleCount": 12002,
+    "Block7ArtifactCount": 4
+  },
+  "Telemetry": {
+    "GroundTruthSampleCount": 24002,
+    "GNSSSampleCount": 2402,
+    "IMUSampleCount": 24002,
+    "AirDataSampleCount": 12002,
+    "MagnetometerSampleCount": 12002
+  }
+}

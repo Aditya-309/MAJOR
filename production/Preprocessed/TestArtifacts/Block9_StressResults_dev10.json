@@ -1,0 +1,45 @@
+{
+  "Generated": "2026-11-16 14:01:16",
+  "Results": [
+    {
+      "Category": "L",
+      "Name": "MatV7_100000Samples",
+      "Status": "PASS",
+      "Detail": "-v7 MAT, 100000 samples/stream, 13.5 MB: loaded in 1.32 s (format MatLevel5), values preserved, row counts exact",
+      "Seconds": 1.9006369,
+      "ErrorId": ""
+    },
+    {
+      "Category": "L",
+      "Name": "MatV73_100000Samples",
+      "Status": "PASS",
+      "Detail": "-v7.3 MAT, 100000 samples/stream, 13.6 MB: loaded in 0.78 s (format MatV73), values preserved, row counts exact",
+      "Seconds": 1.3418798,
+      "ErrorId": ""
+    },
+    {
+      "Category": "L",
+      "Name": "UnknownVariableDiscovery",
+      "Status": "PASS",
+      "Detail": "MAT variable named TelemetryDumpUnknownName discovered by whos-based scanning (TelemetryDumpUnknownName)",
+      "Seconds": 0.0748242,
+      "ErrorId": ""
+    },
+    {
+      "Category": "L",
+      "Name": "MissingStreamVariable",
+      "Status": "PASS",
+      "Detail": "missing stream sub-struct -> Malformed with recorded issue; other streams loaded",
+      "Seconds": 0.0677216,
+      "ErrorId": ""
+    },
+    {
+      "Category": "L",
+      "Name": "MalformedMatFile",
+      "Status": "PASS",
+      "Detail": "garbage MAT file -> Malformed with recorded issue (never silently accepted)",
+      "Seconds": 0.0285999,
+      "ErrorId": ""
+    }
+  ]
+}

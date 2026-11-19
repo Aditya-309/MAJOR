@@ -1,0 +1,141 @@
+{
+  "Generated": "2026-11-16 00:50:10",
+  "Results": [
+    {
+      "Category": "D",
+      "Name": "StrictlyIncreasing",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.4916812,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "LongDuplicateSequences",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 199 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0967025,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "BackwardJumpsAndResets",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 500 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0594002,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "HugeAndTinyGaps",
+      "Status": "PASS",
+      "Detail": "5 rows -> 3 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0326511,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "NonFiniteTimestamps",
+      "Status": "PASS",
+      "Detail": "7 rows -> 4 segments, 3 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0587836,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "FpJitterNonuniformEnd",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0460908,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "ExtremeFiniteMeasurements",
+      "Status": "PASS",
+      "Detail": "extreme finite values retained unmodified and flagged",
+      "Seconds": 0.0197533,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "DeterministicSegmentation",
+      "Status": "PASS",
+      "Detail": "three timestamp resets -> exactly 3 segments, 300 rows kept",
+      "Seconds": 0.0188496,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "ExtremeRateRatios",
+      "Status": "PASS",
+      "Detail": "reference 2000 vs source 2 samples: causal ZOH holds, 1 aligned valid",
+      "Seconds": 0.1431343,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CausalityPropertySweep",
+      "Status": "PASS",
+      "Detail": "5 randomized trials: no future sample ever selected; invalid samples never become valid",
+      "Seconds": 0.1665057,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "MaxAgeBoundaries",
+      "Status": "PASS",
+      "Detail": "age == MaxAge valid (inclusive); MaxAge + 1e-6 stale",
+      "Seconds": 0.0838772,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CoverageBoundaries",
+      "Status": "PASS",
+      "Detail": "before-first and after-last coverage edges handled exactly",
+      "Seconds": 0.03508,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "SegmentsOutagesDuplicates",
+      "Status": "PASS",
+      "Detail": "segment boundaries, outages and duplicate exclusions respected",
+      "Seconds": 0.0360645,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "EmptyRefAndSource",
+      "Status": "PASS",
+      "Detail": "empty reference and empty source handled without fabrication",
+      "Seconds": 0.0546717,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ProcessingStageFailure",
+      "Status": "PASS",
+      "Detail": "injected failure: FAILED + marker + unretrievable + typed errors",
+      "Seconds": 0.4574497,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ExportSeamFailures",
+      "Status": "PASS",
+      "Detail": "all four export seams raise exact typed identifiers",
+      "Seconds": 0.5277777,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "RecoveryAfterFailure",
+      "Status": "FAIL",
+      "Detail": "recovery run returned status PARTIAL (errors: )",
+      "Seconds": 0.2423032,
+      "ErrorId": "Preprocessing:Stress:RecoveryStatus"
+    }
+  ]
+}

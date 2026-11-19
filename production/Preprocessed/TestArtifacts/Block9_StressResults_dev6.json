@@ -1,0 +1,11 @@
+{
+  "Generated": "2026-11-16 13:51:13",
+  "Results": {
+    "Category": "K",
+    "Name": "SyntheticRegistryDiscovery",
+    "Status": "FAIL",
+    "Detail": "worker OK: assertion failed",
+    "Seconds": 12.6427144,
+    "ErrorId": "Preprocessing:Stress:AssertionFailed"
+  }
+}

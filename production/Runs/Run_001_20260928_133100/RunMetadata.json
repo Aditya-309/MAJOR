@@ -1,0 +1,45 @@
+{
+  "Run": {
+    "RunID": "Run_001_20260928_133100",
+    "Status": "EXECUTED",
+    "CreatedAt": "2026-09-28T13:31:00.708",
+    "MetadataWrittenAt": "2026-09-28T13:31:16.244"
+  },
+  "Project": {
+    "ProjectRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR",
+    "ProductionRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production"
+  },
+  "Scenario": {
+    "Selector": 6,
+    "ID": 6,
+    "Name": "GPSOutageReference"
+  },
+  "Configuration": {
+    "ScenarioConfigPath": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\+flightscenario\\ScenarioConfig.m"
+  },
+  "Paths": {
+    "WorkingRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260928_133100",
+    "Block7Directory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260928_133100\\Block7",
+    "GroundTruthDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260928_133100\\GroundTruth",
+    "IdealSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260928_133100\\IdealSensorTelemetry",
+    "RealisticSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20260928_133100\\RealisticSensorTelemetry"
+  },
+  "Validation": {
+    "Status": "PASSED",
+    "ValidatedAt": "2026-09-28T13:31:14.795",
+    "TimelineSampleCount": 30001,
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002,
+    "Block7ArtifactCount": 4
+  },
+  "Telemetry": {
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002
+  }
+}

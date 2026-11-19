@@ -1,0 +1,163 @@
+{
+  "RunInfo": {
+    "RunID": "Run_990_20260101_000000",
+    "PreprocessID": "Run_968_20260101_000000__PP_20260101_000000_02",
+    "Eligibility": "NotInspected",
+    "Category": "StressFixture",
+    "RunDirectory": "",
+    "OutputDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6",
+    "ProcessingTimestamp": "2026-11-16T00:48:55",
+    "MATLABRelease": "2024b",
+    "MATLABVersion": "24.2.0.3212159 (R2024b) Update 9",
+    "ApprovalUsed": true,
+    "Status": "SUCCESS"
+  },
+  "Configuration": {
+    "Name": "Block9PreprocessingConfiguration",
+    "Version": "1.0",
+    "Source": "RealisticSensorTelemetry",
+    "MissingSensors": {
+      "Policy": "Continue",
+      "RequiredSensors": [
+        "IMU",
+        "GNSS",
+        "AirData",
+        "Magnetometer"
+      ]
+    },
+    "Timestamps": {
+      "DuplicatePolicy": "KeepFirst",
+      "GapAbsolute_s": 1,
+      "GapRelative": 1.5,
+      "NominalRateSource": "Auto"
+    },
+    "Quality": {
+      "StartupTransient": {
+        "Enabled": true,
+        "WindowSamples": 5
+      },
+      "Statistical": {
+        "Enabled": true,
+        "WindowSamples": 51,
+        "SigmaThreshold": 4,
+        "DeviationFloor": 0
+      },
+      "SuddenChange": {
+        "Enabled": false,
+        "Thresholds": {}
+      },
+      "Physical": {
+        "Bounds": {}
+      }
+    },
+    "Alignment": {
+      "Enabled": false,
+      "ReferenceStream": "IMU",
+      "MaxSampleAge_s": {}
+    }
+  },
+  "ConfigurationProvenance": "Current preprocessing code defaults as configured for this run; not historical run settings.",
+  "RunRecorded": {
+    "Source": "RunMetadata.json",
+    "Status": "NotRecorded",
+    "DecodeError": "NotApplicable",
+    "Run": "NotRecorded",
+    "Scenario": "NotRecorded",
+    "ConfigurationPath": "NotRecorded",
+    "RecordedSampleCounts": "NotRecorded",
+    "SensorSampleRates_Hz": {
+      "IMU": "NotRecorded",
+      "GNSS": "NotRecorded",
+      "AirData": "NotRecorded",
+      "Magnetometer": "NotRecorded"
+    },
+    "SensorSampleRatesSource": "MAT artifact field SampleRate_Hz where present."
+  },
+  "CurrentCodeDefaults": {
+    "Description": "Current preprocessing code defaults; not evidence of historical run settings.",
+    "MissingSensorPolicy": "Continue",
+    "RequiredSensors": [
+      "IMU",
+      "GNSS",
+      "AirData",
+      "Magnetometer"
+    ],
+    "GapAbsolute_s": 1,
+    "GapRelative": 1.5,
+    "DuplicatePolicy": "KeepFirst",
+    "StartupTransientWindowSamples": 5,
+    "StatisticalWindowSamples": 51,
+    "StatisticalSigmaThreshold": 4,
+    "StatisticalDeviationFloor": 0,
+    "SensorRateFallbacks_Hz": {
+      "IMU": 100,
+      "GNSS": 10,
+      "AirData": 50,
+      "Magnetometer": 50
+    },
+    "SensorRateFallbackProvenance": "CodeDefault reference mirroring +sensormodels/SensorConfig.m; not evidence of historical run sample rates"
+  },
+  "MeasuredStatistics": {
+    "IMU": {
+      "Status": "Malformed",
+      "AllFields": "NotMeasured"
+    },
+    "GNSS": {
+      "Status": "Malformed",
+      "AllFields": "NotMeasured"
+    },
+    "AirData": {
+      "Status": "Malformed",
+      "AllFields": "NotMeasured"
+    },
+    "Magnetometer": {
+      "Status": "Malformed",
+      "AllFields": "NotMeasured"
+    }
+  },
+  "MissingSensors": [],
+  "MalformedSensors": [
+    "IMU",
+    "GNSS",
+    "AirData",
+    "Magnetometer"
+  ],
+  "Units": {
+    "IMU": "NotMeasured",
+    "GNSS": "NotMeasured",
+    "AirData": "NotMeasured",
+    "Magnetometer": "NotMeasured"
+  },
+  "CoordinateConventions": {
+    "NavigationFrame": "NED (North-East-Down)",
+    "BodyFrame": "x forward, y right, z down (JSBSim u/v/w mapping)",
+    "Quaternion": "[w x y z]; ZYX yaw-pitch-roll (+coordinates)",
+    "Accelerometer": "specific force f_b = dv_b/dt + omega_b x v_b - g_b (+sensormodels/GenerateIdealIMU.m)",
+    "Gravity": "standard g = 9.80665 m/s^2, +Z down in NED (+dynamics/GravityModel.m)",
+    "MagneticField": "body frame, canonical unit T"
+  },
+  "Alignment": {
+    "Enabled": false,
+    "Status": "Disabled",
+    "ReferenceStream": "",
+    "MaxSampleAge_s": {},
+    "ReferenceSampleCount": 0,
+    "StreamCounts": {}
+  },
+  "Outputs": {
+    "MatFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\PreprocessedData.mat",
+    "JsonFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\PreprocessingReport.json",
+    "ReviewDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\Review",
+    "ExpectedReviewFiles": {
+      "IMU": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\Review\\IMU.csv",
+      "GNSS": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\Review\\GNSS.csv",
+      "AirData": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\Review\\AirData.csv",
+      "Magnetometer": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressFFixture\\tp783b3bb8_7ad9_4215_b500_f2f90a38afb6\\Review\\Magnetometer.csv"
+    },
+    "ReviewFiles": {},
+    "ReviewFilesStatus": "Written"
+  },
+  "Warnings": [],
+  "Errors": [],
+  "Status": "SUCCESS"
+}

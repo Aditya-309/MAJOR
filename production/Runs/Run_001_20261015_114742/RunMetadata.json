@@ -1,0 +1,45 @@
+{
+  "Run": {
+    "RunID": "Run_001_20261015_114742",
+    "Status": "EXECUTED",
+    "CreatedAt": "2026-10-15T11:47:42.948",
+    "MetadataWrittenAt": "2026-10-15T11:47:51.658"
+  },
+  "Project": {
+    "ProjectRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR",
+    "ProductionRoot": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production"
+  },
+  "Scenario": {
+    "Selector": 1,
+    "ID": 1,
+    "Name": "StraightAndLevelCruise"
+  },
+  "Configuration": {
+    "ScenarioConfigPath": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\+flightscenario\\ScenarioConfig.m"
+  },
+  "Paths": {
+    "WorkingRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261015_114742",
+    "Block7Directory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261015_114742\\Block7",
+    "GroundTruthDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261015_114742\\GroundTruth",
+    "IdealSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261015_114742\\IdealSensorTelemetry",
+    "RealisticSensorDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\WorkingRuns\\Run_001_20261015_114742\\RealisticSensorTelemetry"
+  },
+  "Validation": {
+    "Status": "PASSED",
+    "ValidatedAt": "2026-10-15T11:47:50.906",
+    "TimelineSampleCount": 30001,
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002,
+    "Block7ArtifactCount": 4
+  },
+  "Telemetry": {
+    "GroundTruthSampleCount": 30002,
+    "GNSSSampleCount": 3002,
+    "IMUSampleCount": 30002,
+    "AirDataSampleCount": 15002,
+    "MagnetometerSampleCount": 15002
+  }
+}

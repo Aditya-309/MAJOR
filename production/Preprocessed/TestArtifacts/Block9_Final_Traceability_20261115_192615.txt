@@ -1,0 +1,249 @@
+BLOCK 9 FINAL TRACEABILITY MATRIX (20261115_192615)
+====================================================================================================
+Columns: Requirement | Original specification | Implementation file(s) | Test name(s) | Evidence | Final status
+Classification: Implemented and verified | Implemented, partially verified | Not implemented | Deferred with authorization
+
+[T0-1] Static integrity: 19 planned modules accounted
+     Spec   : Static integrity: 19 planned modules accounted
+     Impl   : +preprocessing (19 planned files)
+     Tests  : Closure/AllNineteenModulesAccounted; Closure/NoMissingModules
+     Evid.  : Block9_Final_DependencyAudit_20261115_192615.txt
+     Status : Implemented and verified
+
+[T0-2] Dependency closure via matlab.codetools.requiredFilesAndProducts
+     Spec   : Dependency closure via matlab.codetools.requiredFilesAndProducts
+     Impl   : dependencyAudit in RunPreprocessingTests.m
+     Tests  : Closure/NoUnexpectedProjectDependencies; Closure/ExpectedProductsIdentified
+     Evid.  : Block9_Final_DependencyAudit_20261115_192615.txt (19-file closure, 0 unexpected, MATLAB only)
+     Status : Implemented and verified
+
+[T0-3] Acyclic architecture, defensible graph method
+     Spec   : Acyclic architecture, defensible graph method
+     Impl   : dependencyAudit edge extraction + DFS
+     Tests  : Closure/AcyclicArchitecture; Closure/InjectedCycleDetected
+     Evid.  : Block9_Final_DependencyAudit_20261115_192615.txt (60 edges, 0 cycles)
+     Status : Implemented and verified
+
+[T0-4] Injected unexpected dependency detection
+     Spec   : Injected unexpected dependency detection
+     Impl   : dependencyAudit classification
+     Tests  : Closure/InjectedUnexpectedDependencyDetected
+     Evid.  : suite logs (Closure group)
+     Status : Implemented and verified
+
+[REL-1] Root/path independence; no hardcoded project paths
+     Spec   : Root/path independence; no hardcoded project paths
+     Impl   : ProjectPaths.m
+     Tests  : Phase1/ProjectPathsCwdIndependence; Phase2/DiscoverRunsCwdIndependence; stress run from tempdir
+     Evid.  : Block9_Final_VariantA_20261115_192615.log (Start dir = Temp)
+     Status : Implemented and verified
+
+[REL-2] Package/function integrity: resolve, no shadowing, no undefined refs
+     Spec   : Package/function integrity: resolve, no shadowing, no undefined refs
+     Impl   : all
+     Tests  : Static/* tests; which -all; checkcode
+     Evid.  : Block9_Final_Checkcode_20261115_192615.txt (0 undefined; 1 resolution each)
+     Status : Implemented and verified
+
+[REL-3] Integration: orchestrator order, single PreprocessID/output dir, retrieval
+     Spec   : Integration: orchestrator order, single PreprocessID/output dir, retrieval
+     Impl   : PreprocessRun.m, GetPreprocessingReport.m
+     Tests  : Phase5/PreprocessRunSuccessRealRun; Phase5/GetPreprocessingReport*
+     Evid.  : VariantA/B logs
+     Status : Implemented and verified
+
+[REL-4] MATLAB verification: checkcode, fresh sessions, e2e, reopened outputs
+     Spec   : MATLAB verification: checkcode, fresh sessions, e2e, reopened outputs
+     Impl   : -
+     Tests  : all
+     Evid.  : VariantA/B logs + Checkcode txt
+     Status : Implemented and verified
+
+[REL-5] Error handling: Preprocessing: identifiers, SUCCESS/PARTIAL/FAILED
+     Spec   : Error handling: Preprocessing: identifiers, SUCCESS/PARTIAL/FAILED
+     Impl   : all
+     Tests  : Phase5/ExportFailureGuards; Phase5/PreprocessRunPartialAndStrict; Phase5/PreprocessRunFailureMarkerAndRetrieval
+     Evid.  : VariantA/B logs
+     Status : Implemented and verified
+
+[REL-6] Protected content: Blocks 1-8, registry, manifests untouched
+     Spec   : Protected content: Blocks 1-8, registry, manifests untouched
+     Impl   : -
+     Tests  : integrity verification
+     Evid.  : Block9_Final_Integrity_20261115_192615.txt (415 OK; registry exact)
+     Status : Implemented and verified
+
+[REL-7] Test evidence: actual MATLAB execution only
+     Spec   : Test evidence: actual MATLAB execution only
+     Impl   : -
+     Tests  : all
+     Evid.  : all logs
+     Status : Implemented and verified
+
+[PH1] Phase 1: config, contracts, quality flags, validation; missing-sensor policy continue/strict/required
+     Spec   : Phase 1: config, contracts, quality flags, validation; missing-sensor policy continue/strict/required
+     Impl   : PreprocessingConfig.m, SensorDataContracts.m, QualityFlags.m, ValidatePreprocessingConfig.m
+     Tests  : Phase1/* (11 tests)
+     Evid.  : VariantA/B logs
+     Status : Implemented and verified
+
+[PH2] Phase 2: DiscoverRuns/InspectRun; FinalRunDirectory; stale paths; unregistered separated; WorkingRuns/FailedRuns excluded; read-only
+     Spec   : Phase 2: DiscoverRuns/InspectRun; FinalRunDirectory; stale paths; unregistered separated; WorkingRuns/FailedRuns excluded; read-only
+     Impl   : DiscoverRuns.m, InspectRun.m
+     Tests  : Phase2/* (8 tests); B/RegistryDiscoveryReadOnly
+     Evid.  : VariantA/B logs; stress log
+     Status : Implemented and verified
+
+[PH3] Phase 3: ingestion; MAT v7/v7.3; 3 dialects; availability synthesis; units; traceability; GT exclusion; missing/malformed
+     Spec   : Phase 3: ingestion; MAT v7/v7.3; 3 dialects; availability synthesis; units; traceability; GT exclusion; missing/malformed
+     Impl   : LoadSensorData.m, NormalizeSensorSchema.m, NormalizeSensorUnits.m
+     Tests  : Phase3/* (11 tests); C/Ingest*; C/IdealDialectSynthesis; C/MissingAndExtraColumns
+     Evid.  : VariantA/B logs; stress log/JSON
+     Status : Implemented and verified
+
+[PH4] Phase 4: timestamps, segmentation, quality, outliers (frozen)
+     Spec   : Phase 4: timestamps, segmentation, quality, outliers (frozen)
+     Impl   : ProcessSensorTimestamps.m, InspectSensorQuality.m, DetectSensorOutliers.m
+     Tests  : Phase4/* (15 tests)
+     Evid.  : VariantA/B logs
+     Status : Approved and frozen (unchanged this closure)
+
+[PH5] Phase 5: optional alignment, report, MAT/JSON/CSV export, orchestration, retrieval
+     Spec   : Phase 5: optional alignment, report, MAT/JSON/CSV export, orchestration, retrieval
+     Impl   : BuildAlignedSensorData.m, BuildPreprocessingReport.m, ExportPreprocessedData.m, PreprocessRun.m, GetPreprocessingReport.m
+     Tests  : Phase5/* (53 tests)
+     Evid.  : VariantA/B logs
+     Status : Implemented and verified
+
+[F-01] RunDirectory override: no bypass of registration/eligibility/approval; basename match; protected trees; fail-closed canonicalization
+     Spec   : RunDirectory override: no bypass of registration/eligibility/approval; basename match; protected trees; fail-closed canonicalization
+     Impl   : PreprocessRun.m (override branch, canonicalPath)
+     Tests  : Phase5/RunDirectory*; Phase5/CanonicalPath*; Phase5/ProtectedDirectoryViaTraversal; B/ProtectedTreeExclusions; B/NameMismatchStorm
+     Evid.  : VariantA/B logs; stress JSON
+     Status : Fixed and verified
+
+[F-02] Failed output never retrievable as SUCCESS; transactional JSON publication
+     Spec   : Failed output never retrievable as SUCCESS; transactional JSON publication
+     Impl   : GetPreprocessingReport.m (marker precedence); ExportPreprocessedData.m (temp->validate->publish)
+     Tests  : Phase5/GetReportMarker*; Phase5/ExportJson*; Phase5/MarkerPrecedenceUnchanged; F/InterruptedExportUnretrievable; I/*
+     Evid.  : VariantA/B logs; stress JSON
+     Status : Fixed and verified
+
+[F-03] Source-row provenance mapped through Stream.SourceRowIdx; upstream invariant enforced
+     Spec   : Source-row provenance mapped through Stream.SourceRowIdx; upstream invariant enforced
+     Impl   : BuildAlignedSensorData.m:265-272; ProcessSensorTimestamps.m:112
+     Tests  : Provenance/OffsetMapping; Provenance/RowOrderInvariant
+     Evid.  : VariantA/B logs
+     Status : Fixed and verified (invariant documented and enforced)
+
+[F-04] Partial-output reporting accurate; no false references
+     Spec   : Partial-output reporting accurate; no false references
+     Impl   : BuildPreprocessingReport.m (ExpectedReviewFiles/ReviewFiles); ExportPreprocessedData.m finalize
+     Tests  : Outputs/SuccessFourCsvs; Outputs/PartialThreeCsvs; Outputs/PartialOneCsv; Outputs/EmptyStreamConsistency; Outputs/FailedExportNoFalseRefs
+     Evid.  : VariantA/B logs
+     Status : Fixed and verified
+
+[F-05] Malformed metadata is DecodeFailed, never NotRecorded; structured warning
+     Spec   : Malformed metadata is DecodeFailed, never NotRecorded; structured warning
+     Impl   : BuildPreprocessingReport.m (RunRecorded.Status/DecodeError)
+     Tests  : Metadata/AbsentNotRecorded; Metadata/ValidRecorded; Metadata/MalformedDecodeFailed; Metadata/EmptyJson; Metadata/MissingOptionalFields
+     Evid.  : VariantA/B logs
+     Status : Fixed and verified
+
+[F-06] Round-trip verification of MAT/JSON/4 CSVs (content-level)
+     Spec   : Round-trip verification of MAT/JSON/4 CSVs (content-level)
+     Impl   : ExportPreprocessedData.m read-back (content comparisons)
+     Tests  : RoundTrip/FullVerification
+     Evid.  : VariantA/B logs
+     Status : Fixed and verified
+
+[F-07] Concurrency-safe PreprocessID allocation (exclusive creation)
+     Spec   : Concurrency-safe PreprocessID allocation (exclusive creation)
+     Impl   : PreprocessRun.m allocateOutputDirectory (java.nio exclusive)
+     Tests  : Allocation/* (4 tests); G/2ProcessAllocation; G/4ProcessAllocation
+     Evid.  : VariantA/B logs; ConcurrencyResults
+     Status : Fixed and verified (8-worker tier skipped on memory guard)
+
+[STRESS-A] Configuration stress (min/max/out-of-range/types/fields/repetition)
+     Spec   : Configuration stress (min/max/out-of-range/types/fields/repetition)
+     Impl   : -
+     Tests  : A/* (4 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-B] Discovery/eligibility stress (registry read-only, invalid IDs, protected trees, mismatches, missing sensors)
+     Spec   : Discovery/eligibility stress (registry read-only, invalid IDs, protected trees, mismatches, missing sensors)
+     Impl   : -
+     Tests  : B/* (5 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-C] Ingestion stress (sizes 10-100k, unequal lengths, columns, NaN/Inf, empty, dialects)
+     Spec   : Ingestion stress (sizes 10-100k, unequal lengths, columns, NaN/Inf, empty, dialects)
+     Impl   : -
+     Tests  : C/* (9 checks)
+     Evid.  : stress JSON + Performance CSV
+     Status : Verified
+
+[STRESS-D] Timestamp/quality stress (duplicates, backward, gaps, resets, FP jitter, extremes, determinism)
+     Spec   : Timestamp/quality stress (duplicates, backward, gaps, resets, FP jitter, extremes, determinism)
+     Impl   : -
+     Tests  : D/* (8 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-E] Alignment stress (rate ratios, causality sweep, MaxAge/coverage edges, segments/outages, empty streams)
+     Spec   : Alignment stress (rate ratios, causality sweep, MaxAge/coverage edges, segments/outages, empty streams)
+     Impl   : -
+     Tests  : E/* (6 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-F] Export/retrieval stress (repeated exports, interrupted exports, corruption, markers, valid retrieval)
+     Spec   : Export/retrieval stress (repeated exports, interrupted exports, corruption, markers, valid retrieval)
+     Impl   : -
+     Tests  : F/* (5 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-G] Concurrency: independent MATLAB processes, unique allocation
+     Spec   : Concurrency: independent MATLAB processes, unique allocation
+     Impl   : -
+     Tests  : G/2ProcessAllocation; G/4ProcessAllocation
+     Evid.  : Block9_ConcurrencyResults_20261115_192615.txt
+     Status : Verified (2 and 4 processes); 8-process tier skipped (<12 GB free memory) - disclosed
+
+[STRESS-H] Idempotency: 10/25/50 sequential runs, unique IDs, no overwrite
+     Spec   : Idempotency: 10/25/50 sequential runs, unique IDs, no overwrite
+     Impl   : -
+     Tests  : H/* (4 checks)
+     Evid.  : stress JSON
+     Status : Verified (85 sequential runs)
+
+[STRESS-I] Failure injection: exact identifiers, markers, cleanup, recovery
+     Spec   : Failure injection: exact identifiers, markers, cleanup, recovery
+     Impl   : -
+     Tests  : I/* (3 checks)
+     Evid.  : stress JSON
+     Status : Verified
+
+[STRESS-J] Scalability: 10k/100k/500k/1M samples per stream with stage timings
+     Spec   : Scalability: 10k/100k/500k/1M samples per stream with stage timings
+     Impl   : -
+     Tests  : J/Scale*
+     Evid.  : Block9_StressPerformance_20261115_192615.csv
+     Status : See campaign log for level outcomes and timing data
+
+NOTES AND DISCLOSURES
+- All statuses backed by executed MATLAB logs; no planned-but-unexecuted test is claimed.
+- RunPreprocessingStressTests.m is a sanctioned stress entry point in +preprocessing (20th file); the 19 planned modules and their closure are unaffected.
+- Block9_StressWorker.m lives under TestArtifacts (concurrency worker script).
+- Concurrency tiers landed in distinct wall-clock seconds; same-second cross-process
+  collision is covered by the exclusive-creation mechanism and the in-suite
+  Allocation/CollisionSequence test rather than by a forced same-second race.
+- Registry-manipulation scenarios (malformed registry entries, fabricated registered runs)
+  were not executed because RunRegistry.json is protected; discovery-registry integrity was
+  verified read-only (B/RegistryDiscoveryReadOnly).
+- A directory named RunMetadata.json is treated as file-absent (documented boundary, F-05 test).
+- Unreadable-file-on-Windows case for RunMetadata.json not force-tested (permission changes
+  would alter protected state); undecodable content covered by MalformedDecodeFailed.

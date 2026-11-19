@@ -1,0 +1,29 @@
+{
+  "Generated": "2026-11-16 14:26:02",
+  "Results": [
+    {
+      "Category": "N",
+      "Name": "EightProcessBarrier",
+      "Status": "SKIP",
+      "Detail": "8 workers skipped: <12 GB free memory",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "N",
+      "Name": "2ProcessBarrierAllocation",
+      "Status": "PASS",
+      "Detail": "2 simultaneous independent MATLAB processes (release window 0.03 s): 2 unique PreprocessIDs, one owner per directory, no marker contamination, no overwrites, sources and registry byte-identical. SUPERVISOR PID=7284 EXITCODE=0\r | SUPERVISOR PID=4328 EXITCODE=0",
+      "Seconds": 25.2728722,
+      "ErrorId": ""
+    },
+    {
+      "Category": "N",
+      "Name": "4ProcessBarrierAllocation",
+      "Status": "PASS",
+      "Detail": "4 simultaneous independent MATLAB processes (release window 0.02 s): 4 unique PreprocessIDs, one owner per directory, no marker contamination, no overwrites, sources and registry byte-identical. SUPERVISOR PID=28204 EXITCODE=0\r | SUPERVISOR PID=27792 EXITCODE=0\r | SUPERVISOR PID=7456 EXITCODE=0\r | SUPERVISOR PID=6832 EXITCODE=0",
+      "Seconds": 31.6891269,
+      "ErrorId": ""
+    }
+  ]
+}

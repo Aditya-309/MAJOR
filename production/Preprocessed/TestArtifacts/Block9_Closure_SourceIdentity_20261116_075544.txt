@@ -1,0 +1,43 @@
+BLOCK 9 CLOSURE - SOURCE/EVIDENCE IDENTITY RECORD (20261116_075544)
+=========================================================
+
+1. CURRENT SOURCE INVENTORY
+   20 MATLAB files (19 planned modules + RunPreprocessingStressTests.m).
+   Inventory: Block9_Closure_SourceManifest_20261116_075544.sha256
+   Comparison vs latest manifest Block9_Final_SourceManifest_20261115_193252.sha256:
+   IDENTICAL - current sources equal the manifest captured at the end of the
+   stress campaign.
+
+2. COMPARISON VS PRE-REGRESSION MANIFEST (Block9_Final_SourceManifest_20261115_190622.sha256)
+   18 of 19 planned modules IDENTICAL.
+   RunPreprocessingTests.m DIFFERS:
+     manifest 190622 : 44f2c8f44f2ec97aba21226774094e45f9090935fd27607905ae2fb405ae682e
+     current         : b71ad16102eaa922149bf08d02ced6b52350792623b5a11c2752672aa731a2ec
+   Cause: single test-only edit at 00:42:17 (dependency-graph word-boundary
+   regex \b -> \> plus an EdgeCount>30 vacuity guard in Closure/AcyclicArchitecture).
+   No production implementation file changed.
+
+3. PER-LOG SOURCE MAPPING (file mtimes, local time)
+   Block9_Final_VariantA_20261115_190622.log  00:37:44  -> test source 44f2c8f4
+   Block9_Final_VariantB_20261115_190622.log  00:39:08  -> test source 44f2c8f4
+   Block9_Final_Checkcode_20261115_190622.txt 00:39:21  -> test source 44f2c8f4
+   RunPreprocessingTests.m edit               00:42:17  -> test source b71ad161
+   RunPreprocessingStressTests.m last edit    00:55:42
+   Block9_StressTests_20261115_192615.log     00:59:31+ -> CURRENT sources
+   Block9_ConcurrencyResults_...192615.txt    01:02:12  -> CURRENT sources
+
+4. VERDICTS
+   [SUPERSEDED] Block9_Final_VariantA/B_190622.log: ran 128/128 but on a
+     test source ONE EDIT behind the final package (production modules
+     identical). Not accepted as final regression evidence. Re-run under
+     Block9_Closure_VariantA/B_<ts>.log on the exact final source hashes.
+   [VERIFIED]   Stress campaign 20261115_192615 (+ H/G/J batches): executed
+     after the last source edit; matches current 20-file inventory for all
+     production modules and the stress harness. Affected tests will be
+     re-run only where this closure changes source again (export seam).
+   [SUPERSEDED] All Phase5_*.log / Phase5_Fix* logs: earlier source
+     generations, retained as history only.
+
+5. HASH BASELINES (unchanged)
+   Original baseline manifest self-hash: 89dff5c0eb7d6631698f637a4aab12a5c0e7adf4eea2693926bb7c21f38ef9fb
+   RunRegistry.json: eeec2220fb68c34094f265b7c72e224b84b41c72fe31341e732e15e82a8cdeab

@@ -1,0 +1,23 @@
+== Block 9 stress campaign ST20261115dev3 ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Full | Categories: B,C,I
+
+-- Category B: discovery/eligibility stress --
+[PASS] B/RegistryDiscoveryReadOnly - 1 runs discovered read-only; registry bytes identical before/after
+[PASS] B/ManyInvalidRunIDs - 100 invalid run selections all rejected with typed errors
+[PASS] B/ProtectedTreeExclusions - WorkingRuns/FailedRuns roots refused under all approvals
+[PASS] B/NameMismatchStorm - 50 RunID/directory mismatches rejected with typed errors
+[PASS] B/MissingSensorEligibility - missing-sensor run proceeds PARTIAL under Continue policy
+
+-- Category C: ingestion stress --
+[FAIL] C/Ingest10Samples - MATLAB:TooManyOutputs: Too many output arguments.
+{Error using preprocessing.RunPreprocessingStressTests>addPerf
+Too many input arguments.
+
+Error in preprocessing.RunPreprocessingStressTests>categoryC (line 354)
+        Perf = addPerf(Perf, 'C', sprintf('Ingest%d', Samples), ...
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in preprocessing.RunPreprocessingStressTests (line 101)
+                [Results, Perf] = categoryC(Results, Perf, Level);
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 

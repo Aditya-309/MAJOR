@@ -1,0 +1,29 @@
+{
+  "Generated": "2026-11-16 00:50:50",
+  "Results": [
+    {
+      "Category": "I",
+      "Name": "ProcessingStageFailure",
+      "Status": "PASS",
+      "Detail": "injected failure: FAILED + marker + unretrievable + typed errors",
+      "Seconds": 0.4994184,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ExportSeamFailures",
+      "Status": "PASS",
+      "Detail": "all four export seams raise exact typed identifiers",
+      "Seconds": 0.5598828,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "RecoveryAfterFailure",
+      "Status": "FAIL",
+      "Detail": "recovery run returned status PARTIAL (errors: , streams: IMU=Malformed, GNSS=Malformed, AirData=Malformed, Magnetometer=Malformed)",
+      "Seconds": 0.1992078,
+      "ErrorId": "Preprocessing:Stress:RecoveryStatus"
+    }
+  ]
+}

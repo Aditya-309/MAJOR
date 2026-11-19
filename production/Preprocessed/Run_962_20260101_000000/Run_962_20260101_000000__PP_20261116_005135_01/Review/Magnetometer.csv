@@ -1,0 +1,6 @@
+SourceRowIdx,Time_s,SegmentID,RowValid,MeasurementValid,Available,Flags_NonFiniteTimestamp,Flags_BackwardTimestamp,Flags_DuplicateTimestampLater,Flags_UnexpectedGap,Flags_Unavailable,Flags_NonFiniteMeasurement,Flags_PhysicalOutlier,Flags_StatisticalOutlier,Flags_SuddenChange,Flags_StartupTransient,MagneticFieldBody_X_T,MagneticFieldBody_Y_T,MagneticFieldBody_Z_T
+1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2.09999998333333e-08,3.09999998333333e-08,4.09999998333333e-08
+2,0.01,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2.19999986666669e-08,3.19999986666669e-08,4.19999986666669e-08
+3,0.02,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2.2999995500002e-08,3.2999995500002e-08,4.2999995500002e-08
+4,0.03,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2.39999893333419e-08,3.39999893333419e-08,4.39999893333419e-08
+5,0.04,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2.49999791666927e-08,3.49999791666927e-08,4.49999791666927e-08

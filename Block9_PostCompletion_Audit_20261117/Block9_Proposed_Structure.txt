@@ -1,0 +1,69 @@
+PROPOSED CLEAN PROJECT STRUCTURE (Block 10 preparation)
+=======================================================
+NOTE: Existing MATLAB package paths and production layout are preserved.
+No package is relocated; +preprocessing and production/ structure unchanged.
+Only the audit-identified clutter is proposed to move to an archive area.
+
+MAJOR/
+├── +config/                         KEEP (Block 1 source)
+├── +coordinates/                    KEEP (Block 2 source)
+├── +dynamics/                       KEEP (Block 3 source)
+├── +flightscenario/                 KEEP (Block 4 source)
+├── +groundtruthtelemetry/           KEEP (Block 5 source)
+├── +noisemodels/                    KEEP (Block 6 source)
+├── +sensormodels/                   KEEP (Block 7 source)
+├── +sensorsimulation/               KEEP (Block 8 source)
+├── +preprocessing/                  KEEP (Block 9 source - 20 files, protected)
+├── production/
+│   ├── Runs/                        KEEP (original run data - frozen)
+│   ├── RunRegistry.json             KEEP (frozen)
+│   ├── WorkingRuns/                 KEEP (in-flight workspace)
+│   ├── FailedRuns/                  KEEP (failed-run workspace)
+│   ├── PreprocessingValidationEvidence/
+│   │   └── Block9_RegistryValidation_20261116_223106/   KEEP (permanent)
+│   ├── CreateProductionRun.m        KEEP (production tooling)
+│   ├── ExecuteProductionRun.m       KEEP
+│   ├── FinalizeProductionRun.m      KEEP
+│   ├── ProductionRunConfig.m        KEEP
+│   ├── RegisterProductionRun.m      KEEP
+│   ├── ValidateProductionRun.m      KEEP
+│   ├── Write*.m (3 files)           KEEP
+│   ├── testrunscripts.txt           KEEP
+│   └── Preprocessed/
+│       ├── Run_001_20260906_160634/
+│       │   └── ...__PP_20261116_222744_01/   KEEP (validation output)
+│       ├── ... (14 registered runs)         KEEP their 14 validation outputs
+│       ├── Run_001_20261107_110817/
+│       │   ├── ...__PP_20261116_215747_01/   KEEP (interactive test)
+│       │   └── ...__PP_20261116_222812_01/   KEEP (validation output)
+│       │   [other 80 historical __PP_* folders]  -> ARCHIVE
+│       ├── Run_001_20260906_160342/ (26 outputs)  -> ARCHIVE (unregistered)
+│       ├── Run_9xx_*/ (synthetic stress outputs)  -> ARCHIVE / DELETE markers
+│       └── TestArtifacts/
+│           ├── [closure evidence logs/manifests/reports/scripts]  KEEP
+│           ├── Barrier_*/, Concurrency_*/                          KEEP (concurrency records)
+│           ├── StressFixtures/       -> ARCHIVE (regenerable, 1.4 GB)
+│           └── Phase3Fixtures/       -> ARCHIVE (regenerable, 8.6 MB)
+├── source data/
+│   ├── New folder/                  KEEP (original project docs)
+│   ├── PPTS Docs/                   KEEP (original presentations/reports)
+│   └── New folder.zip               -> ARCHIVE (redundant copy)
+├── Block9_Upload_Packages/          KEEP (final review evidence)
+├── Block9_Closure_Source_*.zip      KEEP (final source archive)
+├── Block9_Closure_TestArtifacts_*.zip  KEEP (final evidence archive)
+├── RunOnePreprocessing.m            KEEP (interactive workflow demo)
+├── JSBSim_Test/                     KEEP/REVIEW (dynamics test artifact)
+├── .vscode/                         KEEP (editor config)
+│
+├── [NEW] Block9_Dev_Archive/        PROPOSED destination for ARCHIVE_CANDIDATEs
+│   ├── dev_outputs_registered_runs/   (80 historical outputs)
+│   ├── dev_outputs_unregistered_run/  (26 outputs)
+│   ├── synthetic_stress_outputs/      (Run_9xx outputs)
+│   ├── old_zip_backups/               (zipz/)
+│   ├── redundant_exports/             (Run_001_20261107_110817.zip, New folder.zip)
+│   └── regenerable_fixtures/          (StressFixtures/, Phase3Fixtures/)
+│
+└── [NEW] Block10_WorkingArea/       PROPOSED Block 10 scratch/working area
+
+DELETES (after archive + approval): stray Run_921 marker file, failure-marker
+output folders (optionally keep one representative).

@@ -1,0 +1,101 @@
+== Block 9 stress campaign 20261116_153000 ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Full | Categories: A,B,C,D,E,F,G,H,I,J,K,L,M
+
+-- Category A: configuration stress --
+[PASS] A/RepeatedConfigCreation - 200 repeated default creations + 50 coexisting configs
+[PASS] A/MinMaxAndBoundaryValues - minimum and maximum valid values accepted
+[PASS] A/InvalidTypesAndThresholds - typed errors: Preprocessing:ValidatePreprocessingConfig:InvalidGapAbsolute, Preprocessing:ValidatePreprocessingConfig:InvalidStatistical
+[PASS] A/MissingFieldsRejected - missing configuration fields rejected with typed errors
+
+-- Category B: discovery/eligibility stress --
+[PASS] B/RegistryDiscoveryReadOnly - 1 runs discovered read-only; registry bytes identical before/after
+[PASS] B/ManyInvalidRunIDs - 100 invalid run selections all rejected with typed errors
+[PASS] B/ProtectedTreeExclusions - WorkingRuns/FailedRuns roots refused under all approvals
+[PASS] B/NameMismatchStorm - 50 RunID/directory mismatches rejected with typed errors
+[PASS] B/MissingSensorEligibility - missing-sensor run proceeds PARTIAL under Continue policy
+
+-- Category C: ingestion stress --
+[PASS] C/Ingest10Samples - four streams loaded
+[PASS] C/Ingest1000Samples - four streams loaded
+[PASS] C/Ingest10000Samples - four streams loaded
+[PASS] C/Ingest100000Samples - four streams loaded
+[PASS] C/UnequalStreamLengths - unequal stream lengths (500/37/211/999) preserved exactly
+[PASS] C/MissingAndExtraColumns - missing required column -> Malformed; extra unexpected column deterministically -> Malformed
+[PASS] C/NaNInfAndMixedValues - NaN/Inf/-Inf rows preserved exactly and flagged, never dropped
+[PASS] C/EmptyStreamsLoad - empty CSV handled safely (status Malformed)
+[PASS] C/IdealDialectSynthesis - ideal dialect loaded with 1 synthesized fields
+
+-- Category D: timestamp/quality stress --
+[PASS] D/StrictlyIncreasing - 1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/LongDuplicateSequences - 1000 rows -> 1 segments, 199 excluded; flags deterministic across repeated runs
+[PASS] D/BackwardJumpsAndResets - 1000 rows -> 1 segments, 500 excluded; flags deterministic across repeated runs
+[PASS] D/HugeAndTinyGaps - 5 rows -> 3 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/NonFiniteTimestamps - 7 rows -> 4 segments, 3 excluded; flags deterministic across repeated runs
+[PASS] D/FpJitterNonuniformEnd - 1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/ExtremeFiniteMeasurements - extreme finite values retained unmodified and flagged
+[PASS] D/DeterministicSegmentation - three timestamp resets -> exactly 3 segments, 300 rows kept
+
+-- Category E: alignment stress --
+[PASS] E/ExtremeRateRatios - reference 2000 vs source 2 samples: causal ZOH holds, 1 aligned valid
+[PASS] E/CausalityPropertySweep - 5 randomized trials: no future sample ever selected; invalid samples never become valid
+[PASS] E/MaxAgeBoundaries - age == MaxAge valid (inclusive); MaxAge + 1e-6 stale
+[PASS] E/CoverageBoundaries - before-first and after-last coverage edges handled exactly
+[PASS] E/SegmentsOutagesDuplicates - segment boundaries, outages and duplicate exclusions respected
+[PASS] E/EmptyRefAndSource - empty reference and empty source handled without fabrication
+
+-- Category F: export/retrieval stress --
+[PASS] F/RepeatedExportsUnique - 10 repeated exports to unique directories; 10 distinct MAT outputs (PreprocessID-differentiated); no overwrite
+[PASS] F/InterruptedExportUnretrievable - 4 interrupted-export seams: typed errors, no success JSON, no temp residue
+[PASS] F/CorruptedArtifactsRefused - corrupted JSON refused with ReportDecodeFailure
+[PASS] F/MarkerPrecedenceStorm - 10 marked directories with SUCCESS JSON all refused (marker wins)
+[PASS] F/ValidResultRetrieval - valid published result retrieved with embedded-ID verification
+
+-- Category G: concurrency stress (independent processes) --
+
+-- Category H: idempotency stress --
+[PASS] H/Sequential10Runs - unique IDs
+  10 sequential runs in 2.8 s (unique IDs: 1)
+[PASS] H/Sequential25Runs - unique IDs
+  25 sequential runs in 6.3 s (unique IDs: 1)
+[PASS] H/Sequential50Runs - unique IDs
+  50 sequential runs in 11.9 s (unique IDs: 1)
+[PASS] H/FirstOutputUntouched - 170 distinct output directories for the same synthetic run; earlier outputs never overwritten
+
+-- Category I: failure-injection stress --
+[PASS] I/ProcessingStageFailure - injected failure: FAILED + marker + unretrievable + typed errors
+[PASS] I/ExportSeamFailures - all four export seams raise exact typed identifiers
+[PASS] I/RecoveryAfterFailure - fresh valid run after failure: SUCCESS and retrievable
+
+-- Category J: scalability stress --
+  10000 samples/stream: ingest 0.1s, process 0.1s, align 0.25s, export 0.8s, retrieve 0.00s, total 1.3s, mem 2712MB
+  100000 samples/stream: ingest 0.7s, process 1.1s, align 2.42s, export 6.8s, retrieve 0.00s, total 11.0s, mem 2761MB
+  500000 samples/stream: ingest 3.1s, process 5.7s, align 12.41s, export 33.5s, retrieve 0.00s, total 54.7s, mem 3039MB
+
+-- Category K: discovery scalability (synthetic sandbox) --
+  worker: STATUS=OK ELAPSED=0.778 TOTAL=216 REGISTERED=106 UNREGISTERED=100 ELIGIBLE=50 INELIGIBLE=56 EXCLUDEDTREE=10
+[PASS] K/SyntheticRegistryDiscovery - isolated synthetic registry (106 entries: 100 well-formed + 5 malformed + 1 directory/RunID mismatch) and 215 synthetic run directories discovered in 0.778 s: 106 registered (50 eligible / 56 ineligible), 100 unregistered, 10 excluded-tree entries; registry bytes unchanged
+
+-- Category L: MAT v7/v7.3 ingestion stress --
+[PASS] L/MatV7_100000Samples - -v7 MAT, 100000 samples/stream, 13.5 MB: loaded in 1.09 s (format MatLevel5), values preserved, row counts exact
+[PASS] L/MatV73_100000Samples - -v7.3 MAT, 100000 samples/stream, 13.6 MB: loaded in 0.73 s (format MatV73), values preserved, row counts exact
+[PASS] L/MatV7_500000Samples - -v7 MAT, 500000 samples/stream, 67.5 MB: loaded in 5.17 s (format MatLevel5), values preserved, row counts exact
+[PASS] L/MatV73_500000Samples - -v7.3 MAT, 500000 samples/stream, 67.9 MB: loaded in 3.38 s (format MatV73), values preserved, row counts exact
+[PASS] L/UnknownVariableDiscovery - MAT variable named TelemetryDumpUnknownName discovered by whos-based scanning (TelemetryDumpUnknownName)
+[PASS] L/MissingStreamVariable - missing stream sub-struct -> Malformed with recorded issue; other streams loaded
+[PASS] L/MalformedMatFile - garbage MAT file -> Malformed with recorded issue (never silently accepted)
+
+-- Category M: corrupted MAT/CSV artifact stress --
+[PASS] M/Corrupted_MatCorrupt - MatCorrupt detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_MatSectionMissing - MatSectionMissing detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_MatPreprocessIDWrong - MatPreprocessIDWrong detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvTruncated - CsvTruncated detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvMissingColumn - CsvMissingColumn detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvColumnOrder - CsvColumnOrder detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvInvalidNumeric - CsvInvalidNumeric detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvSourceRowIdx - CsvSourceRowIdx detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvTimestamp - CsvTimestamp detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvFlag - CsvFlag detected (ReadBackValidationFailure); no success JSON, no temp residue
+[PASS] M/Corrupted_CsvMeasurement - CsvMeasurement detected (ReadBackValidationFailure); no success JSON, no temp residue
+
+== STRESS SUMMARY: 68 PASS, 0 FAIL, 2 SKIP (70 total) ==

@@ -1,0 +1,6 @@
+Time_s,MagneticFieldBody_X_uT,MagneticFieldBody_Y_uT,MagneticFieldBody_Z_uT
+0,0.002,0.003,0.004
+0.01,0.004,0.006,0.008
+0.02,0.006,0.009,0.012
+0.03,0.008,0.012,0.016
+0.04,0.01,0.015,0.02

@@ -1,0 +1,545 @@
+%% ================================================================
+% ASRTE — PRODUCTION RUN EXPERIMENT LAUNCHER
+%
+% Frozen project:
+%   Blocks 1–8
+%   Production P1–P9
+%
+% User controls:
+%   1. Scenario
+%   2. Block 8 corruption: AUTO / MANUAL
+%   3. Noise seed
+%   4. Persistence
+%   5. Experiment label
+%
+% IMPORTANT:
+% production/ is an ORDINARY folder.
+% It is NOT a MATLAB package.
+%
+% No project source files are modified.
+% ================================================================
+
+clearvars;
+clc;
+
+fprintf('\n============================================================\n');
+fprintf(' ASRTE PRODUCTION RUN — EXPERIMENT LAUNCHER\n');
+fprintf('============================================================\n\n');
+
+%% ---------------------------------------------------------------
+% 0. PROJECT ROOT
+% ---------------------------------------------------------------
+
+ProjectRoot = pwd;
+
+if ~isfolder(fullfile(ProjectRoot,'production'))
+    error(['Current folder is not the MAJOR project root.\n' ...
+           'production/ was not found under:\n%s'], ProjectRoot);
+end
+
+% Production is an ordinary folder, therefore add it directly.
+addpath(ProjectRoot);
+addpath(fullfile(ProjectRoot,'production'));
+
+fprintf('Project root verified:\n%s\n\n', ProjectRoot);
+
+%% ---------------------------------------------------------------
+% 1. SCENARIO
+% ---------------------------------------------------------------
+
+fprintf('SCENARIOS\n');
+fprintf('  1 = StraightAndLevelCruise\n');
+fprintf('  2 = ControlledClimb\n');
+fprintf('  3 = CoordinatedTurn\n');
+fprintf('  4 = CombinedManeuver\n');
+fprintf('  5 = WindDisturbance\n');
+fprintf('  6 = GPSOutageReference\n\n');
+
+ScenarioSelector = input('Select scenario [1-6]: ');
+
+if isempty(ScenarioSelector) || ...
+        ~isscalar(ScenarioSelector) || ...
+        ~isfinite(ScenarioSelector) || ...
+        ScenarioSelector ~= floor(ScenarioSelector) || ...
+        ScenarioSelector < 1 || ...
+        ScenarioSelector > 6
+
+    error('Scenario must be an integer from 1 to 6.');
+
+end
+
+%% ---------------------------------------------------------------
+% 2. CORRUPTION MODE
+% ---------------------------------------------------------------
+
+fprintf('\nCORRUPTION MODE\n');
+fprintf('  1 = AUTO / DEFAULT BLOCK 8 CONFIGURATION\n');
+fprintf('  2 = MANUAL sensor-wise corruption\n\n');
+
+CorruptionMode = input('Select corruption mode [1-2]: ');
+
+if isempty(CorruptionMode) || ...
+        ~isscalar(CorruptionMode) || ...
+        ~ismember(CorruptionMode,[1 2])
+
+    error('Corruption mode must be 1 or 2.');
+
+end
+
+ManualCorruption = (CorruptionMode == 2);
+
+if ManualCorruption
+
+    fprintf('\nMANUAL SENSOR CORRUPTION\n');
+    fprintf('Enter values from 0 to 100 %%.\n\n');
+
+    GNSSCorruption = input('GNSS corruption [%]: ');
+    IMUCorruption  = input('IMU corruption [%]: ');
+    AirCorruption  = input('Airspeed corruption [%]: ');
+    MagCorruption  = input('Magnetometer corruption [%]: ');
+
+    CorruptionValues = [ ...
+        GNSSCorruption ...
+        IMUCorruption ...
+        AirCorruption ...
+        MagCorruption ];
+
+    if any(~isfinite(CorruptionValues)) || ...
+            any(CorruptionValues < 0) || ...
+            any(CorruptionValues > 100)
+
+        error('Every corruption percentage must be between 0 and 100.');
+
+    end
+
+else
+
+    fprintf('\nUsing default frozen Block 8 SensorSimulationConfig.\n');
+
+end
+
+%% ---------------------------------------------------------------
+% 3. NOISE SEED
+% ---------------------------------------------------------------
+
+fprintf('\nNOISE SEED\n');
+fprintf('Default frozen Block 5 seed = 20260801\n');
+fprintf('Press ENTER to use the default.\n\n');
+
+SeedInput = input('Enter noise seed: ');
+
+if isempty(SeedInput)
+
+    NoiseSeed = 20260801;
+
+else
+
+    NoiseSeed = SeedInput;
+
+end
+
+if ~isnumeric(NoiseSeed) || ...
+        ~isscalar(NoiseSeed) || ...
+        ~isfinite(NoiseSeed) || ...
+        NoiseSeed ~= floor(NoiseSeed) || ...
+        NoiseSeed < 0
+
+    error('Noise seed must be a non-negative integer.');
+
+end
+
+%% ---------------------------------------------------------------
+% 4. PERSISTENCE
+% ---------------------------------------------------------------
+
+fprintf('\nPERSISTENCE\n');
+fprintf('  1 = Save and register production run\n');
+fprintf('  2 = Do not create production run\n\n');
+
+PersistenceChoice = input('Select persistence [1-2]: ');
+
+if isempty(PersistenceChoice) || ...
+        ~isscalar(PersistenceChoice) || ...
+        ~ismember(PersistenceChoice,[1 2])
+
+    error('Persistence choice must be 1 or 2.');
+
+end
+
+SaveRun = (PersistenceChoice == 1);
+
+%% ---------------------------------------------------------------
+% 5. EXPERIMENT LABEL
+% ---------------------------------------------------------------
+
+fprintf('\nEXPERIMENT LABEL\n');
+fprintf('This label is used for this launcher session only.\n');
+fprintf('The frozen RunMetadata schema is not modified.\n\n');
+
+ExperimentLabel = input('Enter label: ','s');
+
+if isempty(strtrim(ExperimentLabel))
+
+    ExperimentLabel = 'ManualProductionTest';
+
+end
+
+%% ---------------------------------------------------------------
+% 6. DISPLAY SELECTION
+% ---------------------------------------------------------------
+
+Scenario = flightscenario.ScenarioConfig(ScenarioSelector);
+
+fprintf('\n============================================================\n');
+fprintf(' SELECTED EXPERIMENT\n');
+fprintf('============================================================\n');
+
+fprintf('Scenario       : %s\n', Scenario.Name);
+fprintf('Scenario ID    : %g\n', Scenario.ID);
+
+if ManualCorruption
+
+    fprintf('Corruption     : MANUAL\n');
+    fprintf('  GNSS         : %.2f %%\n', GNSSCorruption);
+    fprintf('  IMU          : %.2f %%\n', IMUCorruption);
+    fprintf('  Airspeed     : %.2f %%\n', AirCorruption);
+    fprintf('  Magnetometer : %.2f %%\n', MagCorruption);
+
+else
+
+    fprintf('Corruption     : AUTO / DEFAULT\n');
+
+end
+
+fprintf('Noise seed     : %d\n', NoiseSeed);
+fprintf('Save run       : %s\n', string(SaveRun));
+fprintf('Experiment     : %s\n', ExperimentLabel);
+
+fprintf('============================================================\n\n');
+
+%% ---------------------------------------------------------------
+% 7. PRODUCTION P1 — CONFIGURATION
+%
+% CORRECT:
+%   ProductionConfig = ProductionRunConfig(...)
+%
+% NOT:
+%   production.ProductionRunConfig(...)
+% ---------------------------------------------------------------
+
+ProductionConfig = ProductionRunConfig(ScenarioSelector);
+
+%% ---------------------------------------------------------------
+% 8. IF USER DOES NOT WANT TO SAVE, STOP AFTER CONFIGURATION
+% ---------------------------------------------------------------
+
+if ~SaveRun
+
+    fprintf('\nPersistence disabled.\n');
+    fprintf('No production run directory will be created.\n');
+    fprintf('Use persistence = 1 for a registered production run.\n');
+
+    return;
+
+end
+
+%% ---------------------------------------------------------------
+% 9. PRODUCTION P2 — CREATE RUN
+% ---------------------------------------------------------------
+
+RunContext = CreateProductionRun(ProductionConfig);
+
+fprintf('\nProduction run created:\n');
+fprintf('  Run ID : %s\n', RunContext.RunID);
+fprintf('  Working directory:\n  %s\n\n', ...
+    RunContext.WorkingRunDirectory);
+
+%% ---------------------------------------------------------------
+% 10. BLOCK 6 — SCENARIO + TIMELINE
+% ---------------------------------------------------------------
+
+Scenario = flightscenario.ScenarioConfig( ...
+    ProductionConfig.ScenarioSelector);
+
+if ~isequaln(Scenario.ID,ProductionConfig.ScenarioID) || ...
+        ~strcmp(Scenario.Name,ProductionConfig.ScenarioName)
+
+    error('Scenario identity does not match ProductionConfig.');
+
+end
+
+Timeline = flightscenario.BuildScenarioTimeline(Scenario);
+
+%% ---------------------------------------------------------------
+% 11. BLOCK 7 — GROUND TRUTH
+% ---------------------------------------------------------------
+
+GroundTruth = ...
+    groundtruthtelemetry.BuildGroundTruthTelemetry( ...
+        Scenario, Timeline);
+
+if ~isfield(GroundTruth,'SourceFile') || ...
+        ~isfile(GroundTruth.SourceFile)
+
+    error('GroundTruth.SourceFile is missing or invalid.');
+
+end
+
+Block7SourceDirectory = fileparts(GroundTruth.SourceFile);
+
+RequiredBlock7Files = { ...
+    'Init.xml'
+    'Script.xml'
+    'Output.xml'
+    'Telemetry.csv'};
+
+Block7CapturedDirectory = RunContext.Block7Directory;
+
+for k = 1:numel(RequiredBlock7Files)
+
+    SourceFile = fullfile( ...
+        Block7SourceDirectory, ...
+        RequiredBlock7Files{k});
+
+    if ~isfile(SourceFile)
+
+        error('Required Block 7 artifact missing: %s',SourceFile);
+
+    end
+
+    DestinationFile = fullfile( ...
+        Block7CapturedDirectory, ...
+        RequiredBlock7Files{k});
+
+    [ok,msg] = copyfile(SourceFile,DestinationFile);
+
+    if ~ok
+
+        error('Failed to capture Block 7 artifact:\n%s',msg);
+
+    end
+
+end
+
+%% ---------------------------------------------------------------
+% 12. BLOCK 4 — IDEAL SENSOR TELEMETRY
+% ---------------------------------------------------------------
+
+SensorConfig = sensormodels.SensorConfig();
+
+IdealSensorTelemetry = ...
+    sensormodels.BuildIdealSensorTelemetry( ...
+        GroundTruth, ...
+        SensorConfig, ...
+        Scenario);
+
+%% ---------------------------------------------------------------
+% 13. BLOCK 5 — SENSOR TIMELINES
+% ---------------------------------------------------------------
+
+SensorTimeline.GNSS = ...
+    sensormodels.BuildSensorTimeline( ...
+        GroundTruth, ...
+        SensorConfig.GNSS.SampleRate_Hz);
+
+SensorTimeline.IMU = ...
+    sensormodels.BuildSensorTimeline( ...
+        GroundTruth, ...
+        SensorConfig.IMU.SampleRate_Hz);
+
+SensorTimeline.AirData = ...
+    sensormodels.BuildSensorTimeline( ...
+        GroundTruth, ...
+        SensorConfig.AirData.SampleRate_Hz);
+
+SensorTimeline.Magnetometer = ...
+    sensormodels.BuildSensorTimeline( ...
+        GroundTruth, ...
+        SensorConfig.Magnetometer.SampleRate_Hz);
+
+%% ---------------------------------------------------------------
+% 14. BLOCK 5 — NOISE
+% ---------------------------------------------------------------
+
+NoiseConfig = noisemodels.SensorNoiseConfig();
+
+NoiseConfig.RandomSeed = NoiseSeed;
+
+Noise = noisemodels.GenerateSensorNoise( ...
+    SensorTimeline, ...
+    NoiseConfig);
+
+NoisySensorTelemetry = ...
+    noisemodels.ApplySensorNoise( ...
+        IdealSensorTelemetry, ...
+        Noise);
+
+%% ---------------------------------------------------------------
+% 15. BLOCK 8 — SENSOR SIMULATION
+% ---------------------------------------------------------------
+
+SimulationConfig = ...
+    sensorsimulation.SensorSimulationConfig();
+
+if ManualCorruption
+
+    SimulationConfig.Corruption.GNSS = ...
+        GNSSCorruption;
+
+    SimulationConfig.Corruption.IMU = ...
+        IMUCorruption;
+
+    SimulationConfig.Corruption.Airspeed = ...
+        AirCorruption;
+
+    SimulationConfig.Corruption.Magnetometer = ...
+        MagCorruption;
+
+end
+
+RealisticSensorTelemetry = ...
+    sensorsimulation.BuildSensorSimulation( ...
+        NoisySensorTelemetry, ...
+        SimulationConfig);
+
+%% ---------------------------------------------------------------
+% 16. P3-COMPATIBLE RUN RESULT
+%
+% We construct the same frozen P3 result contract because P3 itself
+% does not accept a custom SimulationConfig.
+% ---------------------------------------------------------------
+
+RunResult.RunID = RunContext.RunID;
+RunResult.Status = 'EXECUTED';
+RunResult.RunContext = RunContext;
+RunResult.Scenario = Scenario;
+RunResult.Timeline = Timeline;
+RunResult.GroundTruth = GroundTruth;
+RunResult.SensorConfig = SensorConfig;
+RunResult.IdealSensorTelemetry = IdealSensorTelemetry;
+RunResult.SensorTimeline = SensorTimeline;
+RunResult.NoiseConfig = NoiseConfig;
+RunResult.Noise = Noise;
+RunResult.NoisySensorTelemetry = NoisySensorTelemetry;
+RunResult.SimulationConfig = SimulationConfig;
+RunResult.RealisticSensorTelemetry = RealisticSensorTelemetry;
+
+RunResult.Block7SourceDirectory = Block7SourceDirectory;
+RunResult.Block7TelemetrySource = GroundTruth.SourceFile;
+RunResult.Block7CapturedDirectory = Block7CapturedDirectory;
+
+RunResult.OutputPaths = ...
+    sensorsimulation.WriteSensorTelemetry( ...
+        RealisticSensorTelemetry, ...
+        RunContext.RealisticSensorDirectory);
+
+%% ---------------------------------------------------------------
+% 17. P4 — VALIDATE PRODUCTION RUN
+% ---------------------------------------------------------------
+
+ValidationResult = ...
+    ValidateProductionRun( ...
+        ProductionConfig, ...
+        RunResult);
+
+%% ---------------------------------------------------------------
+% 18. P5 — WRITE GROUND TRUTH
+% ---------------------------------------------------------------
+
+GroundTruthOutputPaths = ...
+    WriteGroundTruthTelemetry( ...
+        GroundTruth, ...
+        RunContext.GroundTruthDirectory);
+
+%% ---------------------------------------------------------------
+% 19. P6 — WRITE IDEAL SENSOR TELEMETRY
+% ---------------------------------------------------------------
+
+IdealOutputPaths = ...
+    WriteIdealSensorTelemetry( ...
+        IdealSensorTelemetry, ...
+        RunContext.IdealSensorDirectory);
+
+%% ---------------------------------------------------------------
+% 20. P7 — WRITE RUN METADATA
+% ---------------------------------------------------------------
+
+% P7's frozen interface does not include ExperimentLabel.
+% Therefore we do NOT alter the frozen metadata schema.
+
+MetadataPath = ...
+    WriteRunMetadata( ...
+        ProductionConfig, ...
+        RunContext, ...
+        RunResult, ...
+        ValidationResult);
+
+%% ---------------------------------------------------------------
+% 21. P8 — FINALIZE
+% ---------------------------------------------------------------
+
+FinalizedRun = ...
+    FinalizeProductionRun( ...
+        ProductionConfig, ...
+        RunContext, ...
+        RunResult, ...
+        ValidationResult);
+
+%% ---------------------------------------------------------------
+% 22. P9 — REGISTER
+% ---------------------------------------------------------------
+
+RegistryEntry = ...
+    RegisterProductionRun( ...
+        ProductionConfig, ...
+        FinalizedRun);
+
+%% ---------------------------------------------------------------
+% 23. FINAL REPORT
+% ---------------------------------------------------------------
+
+fprintf('\n============================================================\n');
+fprintf(' PRODUCTION RUN COMPLETE\n');
+fprintf('============================================================\n');
+
+fprintf('Experiment       : %s\n', ExperimentLabel);
+fprintf('Run ID           : %s\n', FinalizedRun.RunID);
+fprintf('Scenario         : %s\n', Scenario.Name);
+fprintf('Scenario ID      : %g\n', Scenario.ID);
+
+fprintf('\nGroundTruth      : %d samples\n', ...
+    GroundTruth.SampleCount);
+
+fprintf('GNSS             : %d samples\n', ...
+    RealisticSensorTelemetry.GNSS.SampleCount);
+
+fprintf('IMU              : %d samples\n', ...
+    RealisticSensorTelemetry.IMU.SampleCount);
+
+fprintf('AirData          : %d samples\n', ...
+    RealisticSensorTelemetry.AirData.SampleCount);
+
+fprintf('Magnetometer     : %d samples\n', ...
+    RealisticSensorTelemetry.Magnetometer.SampleCount);
+
+fprintf('\nNoise seed       : %d\n', NoiseSeed);
+
+fprintf('\nBlock 8 corruption:\n');
+fprintf('  GNSS           : %.2f %%\n', ...
+    SimulationConfig.Corruption.GNSS);
+fprintf('  IMU            : %.2f %%\n', ...
+    SimulationConfig.Corruption.IMU);
+fprintf('  Airspeed       : %.2f %%\n', ...
+    SimulationConfig.Corruption.Airspeed);
+fprintf('  Magnetometer   : %.2f %%\n', ...
+    SimulationConfig.Corruption.Magnetometer);
+
+fprintf('\nFinal status     : %s\n', ...
+    RegistryEntry.Status);
+
+fprintf('Final directory  :\n%s\n', ...
+    FinalizedRun.FinalRunDirectory);
+
+fprintf('\nRegistry entry verified.\n');
+
+fprintf('============================================================\n');

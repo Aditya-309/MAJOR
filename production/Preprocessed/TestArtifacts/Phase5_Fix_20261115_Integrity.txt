@@ -1,0 +1,25 @@
+== F-01/F-02 post-edit integrity 2026-11-15T17:52:25Z ==
+--- protected inventory (415) ---
+production/WriteIdealSensorTelemetry.m: OK
+production/WriteRunMetadata.m: OK
+production/testrunscripts.txt: OK
+OK: 415
+--- manifest self-hash ---
+89dff5c0eb7d6631698f637a4aab12a5c0e7adf4eea2693926bb7c21f38ef9fb *production/Preprocessed/TestArtifacts/BaselineManifest_20261113_212130.sha256
+--- registry ---
+eeec2220fb68c34094f265b7c72e224b84b41c72fe31341e732e15e82a8cdeab *production/RunRegistry.json
+eeec2220fb68c34094f265b7c72e224b84b41c72fe31341e732e15e82a8cdeab *production/RunRegistry.json
+--- Phase 1-4 files vs pre-edit baseline ---
+ProjectPaths.m: OK
+SensorDataContracts.m: OK
+QualityFlags.m: OK
+PreprocessingConfig.m: OK
+ValidatePreprocessingConfig.m: OK
+DiscoverRuns.m: OK
+InspectRun.m: OK
+LoadSensorData.m: OK
+NormalizeSensorSchema.m: OK
+NormalizeSensorUnits.m: OK
+ProcessSensorTimestamps.m: OK
+InspectSensorQuality.m: OK
+DetectSensorOutliers.m: OK

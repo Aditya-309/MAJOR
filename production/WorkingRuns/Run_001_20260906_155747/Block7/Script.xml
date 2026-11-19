@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<runscript name="Block7GroundTruthRun">
+  <description>
+    Block 7 generated JSBSim ground-truth execution script.
+  </description>
+
+  <use aircraft="c172p" initialize="C:/Users/lalit/OneDrive/Documents/Aditya Docs/ENGINEERING/MAJOR/+groundtruthtelemetry/Runs/Scenario/Init.xml">
+  </use>
+
+  <run start="0.0" end="300" dt="0.01">
+  </run>
+
+</runscript>

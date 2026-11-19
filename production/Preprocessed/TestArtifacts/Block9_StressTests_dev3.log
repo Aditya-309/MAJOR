@@ -1,0 +1,12 @@
+== Block 9 stress campaign dev3 ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Quick | Categories: L
+
+-- Category L: MAT v7/v7.3 ingestion stress --
+[FAIL] L/MatV7_100000Samples - MATLAB:nonExistentField: Unrecognized field name "NominalRate_Hz".
+[FAIL] L/MatV73_100000Samples - MATLAB:nonExistentField: Unrecognized field name "NominalRate_Hz".
+[FAIL] L/UnknownVariableDiscovery - MATLAB:nonExistentField: Unrecognized field name "NominalRate_Hz".
+[FAIL] L/MissingStreamVariable - MATLAB:nonExistentField: Unrecognized field name "NominalRate_Hz".
+[PASS] L/MalformedMatFile - garbage MAT file -> Malformed with recorded issue (never silently accepted)
+
+== STRESS SUMMARY: 1 PASS, 4 FAIL, 0 SKIP (5 total) ==

@@ -1,0 +1,28 @@
+== Block 9 stress campaign ST20261115dev ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Full | Categories: D,E,I
+
+-- Category D: timestamp/quality stress --
+[PASS] D/StrictlyIncreasing - 1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/LongDuplicateSequences - 1000 rows -> 1 segments, 199 excluded; flags deterministic across repeated runs
+[PASS] D/BackwardJumpsAndResets - 1000 rows -> 1 segments, 500 excluded; flags deterministic across repeated runs
+[PASS] D/HugeAndTinyGaps - 5 rows -> 3 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/NonFiniteTimestamps - 7 rows -> 4 segments, 3 excluded; flags deterministic across repeated runs
+[PASS] D/FpJitterNonuniformEnd - 1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs
+[PASS] D/ExtremeFiniteMeasurements - extreme finite values retained unmodified and flagged
+[PASS] D/DeterministicSegmentation - three timestamp resets -> exactly 3 segments, 300 rows kept
+
+-- Category E: alignment stress --
+[PASS] E/ExtremeRateRatios - reference 2000 vs source 2 samples: causal ZOH holds, 1 aligned valid
+[PASS] E/CausalityPropertySweep - 5 randomized trials: no future sample ever selected; invalid samples never become valid
+[PASS] E/MaxAgeBoundaries - age == MaxAge valid (inclusive); MaxAge + 1e-6 stale
+[PASS] E/CoverageBoundaries - before-first and after-last coverage edges handled exactly
+[PASS] E/SegmentsOutagesDuplicates - segment boundaries, outages and duplicate exclusions respected
+[PASS] E/EmptyRefAndSource - empty reference and empty source handled without fabrication
+
+-- Category I: failure-injection stress --
+[PASS] I/ProcessingStageFailure - injected failure: FAILED + marker + unretrievable + typed errors
+[PASS] I/ExportSeamFailures - all four export seams raise exact typed identifiers
+[FAIL] I/RecoveryAfterFailure - Preprocessing:Stress:RecoveryStatus: recovery run returned status PARTIAL (errors: )
+
+== STRESS SUMMARY: 16 PASS, 1 FAIL, 0 SKIP (17 total) ==

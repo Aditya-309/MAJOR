@@ -1,0 +1,93 @@
+{
+  "Generated": "2026-11-16 13:42:07",
+  "Results": [
+    {
+      "Category": "M",
+      "Name": "Corrupted_MatCorrupt",
+      "Status": "PASS",
+      "Detail": "MatCorrupt detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1601216,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_MatSectionMissing",
+      "Status": "PASS",
+      "Detail": "MatSectionMissing detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1077899,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_MatPreprocessIDWrong",
+      "Status": "PASS",
+      "Detail": "MatPreprocessIDWrong detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.0939088,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvTruncated",
+      "Status": "PASS",
+      "Detail": "CsvTruncated detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.2984193,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvMissingColumn",
+      "Status": "PASS",
+      "Detail": "CsvMissingColumn detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1425304,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvColumnOrder",
+      "Status": "PASS",
+      "Detail": "CsvColumnOrder detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1428666,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvInvalidNumeric",
+      "Status": "PASS",
+      "Detail": "CsvInvalidNumeric detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.2678916,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvSourceRowIdx",
+      "Status": "PASS",
+      "Detail": "CsvSourceRowIdx detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1401223,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvTimestamp",
+      "Status": "FAIL",
+      "Detail": "CsvTimestamp produced \"\" instead of ReadBackValidationFailure",
+      "Seconds": 0.2067997,
+      "ErrorId": "StressHarness:CorruptionUndetected"
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvFlag",
+      "Status": "PASS",
+      "Detail": "CsvFlag detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1355765,
+      "ErrorId": ""
+    },
+    {
+      "Category": "M",
+      "Name": "Corrupted_CsvMeasurement",
+      "Status": "PASS",
+      "Detail": "CsvMeasurement detected (ReadBackValidationFailure); no success JSON, no temp residue",
+      "Seconds": 0.1296396,
+      "ErrorId": ""
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+== Block 9 stress campaign dev9 ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Quick | Categories: K,L
+
+-- Category K: discovery scalability (synthetic sandbox) --
+  worker: STATUS=OK ELAPSED=0.879 TOTAL=216 REGISTERED=106 UNREGISTERED=100 ELIGIBLE=50 INELIGIBLE=56 EXCLUDEDTREE=10
+[PASS] K/SyntheticRegistryDiscovery - synthetic registry (100 registered + 5 malformed entries) and 205 run directories discovered in an isolated process in 0.879 s: 106 registered (50 eligible / 56 ineligible), 100 unregistered, 10 excluded-tree entries; registry bytes unchanged
+
+-- Category L: MAT v7/v7.3 ingestion stress --
+[FAIL] L/MatV7_100000Samples - MATLAB:nonExistentField: Unrecognized field name "Name".
+[FAIL] L/MatV73_100000Samples - MATLAB:nonExistentField: Unrecognized field name "Name".
+[PASS] L/UnknownVariableDiscovery - MAT variable named TelemetryDumpUnknownName discovered by whos-based scanning (TelemetryDumpUnknownName)
+[FAIL] L/MissingStreamVariable - Preprocessing:Stress:AssertionFailed: absent stream -> Missing (actual: Malformed): assertion failed
+[PASS] L/MalformedMatFile - garbage MAT file -> Malformed with recorded issue (never silently accepted)
+
+== STRESS SUMMARY: 3 PASS, 3 FAIL, 0 SKIP (6 total) ==

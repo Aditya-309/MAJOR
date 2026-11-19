@@ -1,0 +1,25 @@
+== F-01/F-02 post-fix checkcode + which -all 2026-11-15T17:52:52Z ==
+PreprocessRun.m: 1 message(s)
+  151:5 [] NASGU
+  86:97 [lue assigned to variable might be unused.] GetPreprocessingReport.m: 2 message(s)
+  82:13 [] AGROW
+  86:97 [riable appears to change size on every loop iteration. Consider preallocating for speed.]   102:13 [] NBRAK2
+  85:115 [e of brackets [] is unnecessary.] ExportPreprocessedData.m: 0 message(s)
+RunPreprocessingTests.m: 2 message(s)
+  1088:50 [8] BDSCI
+  86:97 [riable might be set by a nonscalar operator.]   2254:13 [] AGROW
+  86:97 [riable appears to change size on every loop iteration. Consider preallocating for speed.] TOTAL: 5, UNDEFINED-REFERENCE: 0
+== WHICH -ALL ==
+PreprocessRun: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\PreprocessRun.m
+GetPreprocessingReport: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\GetPreprocessingReport.m
+ExportPreprocessedData: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\ExportPreprocessedData.m
+RunPreprocessingTests: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\RunPreprocessingTests.m
+BuildAlignedSensorData: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\BuildAlignedSensorData.m
+BuildPreprocessingReport: 1 resolution(s)
+  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\BuildPreprocessingReport.m
+EXIT: 0

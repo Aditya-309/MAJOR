@@ -1,0 +1,501 @@
+{
+  "Generated": "2026-11-16 00:48:57",
+  "Results": [
+    {
+      "Category": "A",
+      "Name": "RepeatedConfigCreation",
+      "Status": "PASS",
+      "Detail": "200 repeated default creations + 50 coexisting configs",
+      "Seconds": 0.3603786,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MinMaxAndBoundaryValues",
+      "Status": "PASS",
+      "Detail": "minimum and maximum valid values accepted",
+      "Seconds": 0.0131486,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "InvalidTypesAndThresholds",
+      "Status": "PASS",
+      "Detail": "typed errors: Preprocessing:ValidatePreprocessingConfig:InvalidGapAbsolute, Preprocessing:ValidatePreprocessingConfig:InvalidStatistical",
+      "Seconds": 0.0329257,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MissingFieldsRejected",
+      "Status": "PASS",
+      "Detail": "missing configuration fields rejected with typed errors",
+      "Seconds": 0.02146,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "RegistryDiscoveryReadOnly",
+      "Status": "PASS",
+      "Detail": "1 runs discovered read-only; registry bytes identical before/after",
+      "Seconds": 0.2394855,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ManyInvalidRunIDs",
+      "Status": "PASS",
+      "Detail": "100 invalid run selections all rejected with typed errors",
+      "Seconds": 1.0012057,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ProtectedTreeExclusions",
+      "Status": "PASS",
+      "Detail": "WorkingRuns/FailedRuns roots refused under all approvals",
+      "Seconds": 0.0543743,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "NameMismatchStorm",
+      "Status": "PASS",
+      "Detail": "50 RunID/directory mismatches rejected with typed errors",
+      "Seconds": 3.9021021,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "MissingSensorEligibility",
+      "Status": "PASS",
+      "Detail": "missing-sensor run proceeds PARTIAL under Continue policy",
+      "Seconds": 0.7317582,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "StrictlyIncreasing",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0100967,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "LongDuplicateSequences",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0051905,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "BackwardJumpsAndResets",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.005008,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "HugeAndTinyGaps",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0023981,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "NonFiniteTimestamps",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0071402,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "FpJitterNonuniformEnd",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0266487,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "ExtremeFiniteMeasurements",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0034229,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "D",
+      "Name": "DeterministicSegmentation",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0037203,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "ExtremeRateRatios",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0081279,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "CausalityPropertySweep",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0072528,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "MaxAgeBoundaries",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0035365,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "CoverageBoundaries",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0057135,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "SegmentsOutagesDuplicates",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.003412,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "E",
+      "Name": "EmptyRefAndSource",
+      "Status": "FAIL",
+      "Detail": "Raw data is missing source field(s): AccelerometerX_mps2, AccelerometerY_mps2, AccelerometerZ_mps2, GyroscopeX_radps, GyroscopeY_radps, GyroscopeZ_radps.",
+      "Seconds": 0.0037791,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:MissingSourceField"
+    },
+    {
+      "Category": "F",
+      "Name": "RepeatedExportsUnique",
+      "Status": "PASS",
+      "Detail": "10 repeated exports to unique directories; 10 distinct MAT outputs (PreprocessID-differentiated); no overwrite",
+      "Seconds": 0.7910669,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "InterruptedExportUnretrievable",
+      "Status": "PASS",
+      "Detail": "4 interrupted-export seams: typed errors, no success JSON, no temp residue",
+      "Seconds": 0.3625241,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "CorruptedArtifactsRefused",
+      "Status": "PASS",
+      "Detail": "corrupted JSON refused with ReportDecodeFailure",
+      "Seconds": 0.0252716,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "MarkerPrecedenceStorm",
+      "Status": "PASS",
+      "Detail": "10 marked directories with SUCCESS JSON all refused (marker wins)",
+      "Seconds": 0.1745579,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "ValidResultRetrieval",
+      "Status": "FAIL",
+      "Detail": "Options.RunDirectory \"C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressF5Fixture\\Run_972_20260101_000000\" does not exist.",
+      "Seconds": 0.2021476,
+      "ErrorId": "Preprocessing:PreprocessRun:RunNotEligible"
+    },
+    {
+      "Category": "I",
+      "Name": "ProcessingStageFailure",
+      "Status": "FAIL",
+      "Detail": "Options.RunDirectory \"C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressIFixture\\Run_975_20260101_000000\" does not exist.",
+      "Seconds": 0.0100982,
+      "ErrorId": "Preprocessing:PreprocessRun:RunNotEligible"
+    },
+    {
+      "Category": "I",
+      "Name": "ExportSeamFailures",
+      "Status": "PASS",
+      "Detail": "all four export seams raise exact typed identifiers",
+      "Seconds": 0.3502487,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "RecoveryAfterFailure",
+      "Status": "FAIL",
+      "Detail": "Options.RunDirectory \"C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressIFixture\\Run_975_20260101_000000\" does not exist.",
+      "Seconds": 0.0058579,
+      "ErrorId": "Preprocessing:PreprocessRun:RunNotEligible"
+    },
+    {
+      "Category": "A",
+      "Name": "RepeatedConfigCreation",
+      "Status": "PASS",
+      "Detail": "200 repeated default creations + 50 coexisting configs",
+      "Seconds": 0.3329231,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MinMaxAndBoundaryValues",
+      "Status": "PASS",
+      "Detail": "minimum and maximum valid values accepted",
+      "Seconds": 0.0122532,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "InvalidTypesAndThresholds",
+      "Status": "PASS",
+      "Detail": "typed errors: Preprocessing:ValidatePreprocessingConfig:InvalidGapAbsolute, Preprocessing:ValidatePreprocessingConfig:InvalidStatistical",
+      "Seconds": 0.029775,
+      "ErrorId": ""
+    },
+    {
+      "Category": "A",
+      "Name": "MissingFieldsRejected",
+      "Status": "PASS",
+      "Detail": "missing configuration fields rejected with typed errors",
+      "Seconds": 0.0206668,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "RegistryDiscoveryReadOnly",
+      "Status": "PASS",
+      "Detail": "1 runs discovered read-only; registry bytes identical before/after",
+      "Seconds": 0.1928735,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ManyInvalidRunIDs",
+      "Status": "PASS",
+      "Detail": "100 invalid run selections all rejected with typed errors",
+      "Seconds": 0.9402775,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "ProtectedTreeExclusions",
+      "Status": "PASS",
+      "Detail": "WorkingRuns/FailedRuns roots refused under all approvals",
+      "Seconds": 0.0630299,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "NameMismatchStorm",
+      "Status": "PASS",
+      "Detail": "50 RunID/directory mismatches rejected with typed errors",
+      "Seconds": 3.5419474,
+      "ErrorId": ""
+    },
+    {
+      "Category": "B",
+      "Name": "MissingSensorEligibility",
+      "Status": "PASS",
+      "Detail": "missing-sensor run proceeds PARTIAL under Continue policy",
+      "Seconds": 0.7177502,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "StrictlyIncreasing",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.1951125,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "LongDuplicateSequences",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 199 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0702972,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "BackwardJumpsAndResets",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 500 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0379619,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "HugeAndTinyGaps",
+      "Status": "PASS",
+      "Detail": "5 rows -> 3 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0304344,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "NonFiniteTimestamps",
+      "Status": "PASS",
+      "Detail": "7 rows -> 4 segments, 3 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.054858,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "FpJitterNonuniformEnd",
+      "Status": "PASS",
+      "Detail": "1000 rows -> 1 segments, 0 excluded; flags deterministic across repeated runs",
+      "Seconds": 0.0496369,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "ExtremeFiniteMeasurements",
+      "Status": "PASS",
+      "Detail": "extreme finite values retained unmodified and flagged",
+      "Seconds": 0.0244992,
+      "ErrorId": ""
+    },
+    {
+      "Category": "D",
+      "Name": "DeterministicSegmentation",
+      "Status": "FAIL",
+      "Detail": "three reset segments: assertion failed",
+      "Seconds": 0.0168141,
+      "ErrorId": "Preprocessing:Stress:AssertionFailed"
+    },
+    {
+      "Category": "E",
+      "Name": "ExtremeRateRatios",
+      "Status": "PASS",
+      "Detail": "reference 2000 vs source 2 samples: causal ZOH holds, 1 aligned valid",
+      "Seconds": 0.1295689,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CausalityPropertySweep",
+      "Status": "PASS",
+      "Detail": "5 randomized trials: no future sample ever selected; invalid samples never become valid",
+      "Seconds": 0.1707652,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "MaxAgeBoundaries",
+      "Status": "PASS",
+      "Detail": "age == MaxAge valid (inclusive); MaxAge + 1e-6 stale",
+      "Seconds": 0.0911242,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "CoverageBoundaries",
+      "Status": "PASS",
+      "Detail": "before-first and after-last coverage edges handled exactly",
+      "Seconds": 0.0447796,
+      "ErrorId": ""
+    },
+    {
+      "Category": "E",
+      "Name": "SegmentsOutagesDuplicates",
+      "Status": "FAIL",
+      "Detail": "excluded row never used; no cross-segment holds: assertion failed",
+      "Seconds": 0.03223,
+      "ErrorId": "Preprocessing:Stress:AssertionFailed"
+    },
+    {
+      "Category": "E",
+      "Name": "EmptyRefAndSource",
+      "Status": "FAIL",
+      "Detail": "Source field \"Time_s\" must be a nonempty real numeric vector.",
+      "Seconds": 0.0097729,
+      "ErrorId": "Preprocessing:NormalizeSensorSchema:InvalidSourceData"
+    },
+    {
+      "Category": "F",
+      "Name": "RepeatedExportsUnique",
+      "Status": "PASS",
+      "Detail": "10 repeated exports to unique directories; 10 distinct MAT outputs (PreprocessID-differentiated); no overwrite",
+      "Seconds": 0.7301751,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "InterruptedExportUnretrievable",
+      "Status": "PASS",
+      "Detail": "4 interrupted-export seams: typed errors, no success JSON, no temp residue",
+      "Seconds": 0.4338165,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "CorruptedArtifactsRefused",
+      "Status": "PASS",
+      "Detail": "corrupted JSON refused with ReportDecodeFailure",
+      "Seconds": 0.0272071,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "MarkerPrecedenceStorm",
+      "Status": "PASS",
+      "Detail": "10 marked directories with SUCCESS JSON all refused (marker wins)",
+      "Seconds": 0.1680719,
+      "ErrorId": ""
+    },
+    {
+      "Category": "F",
+      "Name": "ValidResultRetrieval",
+      "Status": "PASS",
+      "Detail": "valid published result retrieved with embedded-ID verification",
+      "Seconds": 0.3997971,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ProcessingStageFailure",
+      "Status": "PASS",
+      "Detail": "injected failure: FAILED + marker + unretrievable + typed errors",
+      "Seconds": 0.1498756,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "ExportSeamFailures",
+      "Status": "PASS",
+      "Detail": "all four export seams raise exact typed identifiers",
+      "Seconds": 0.3381324,
+      "ErrorId": ""
+    },
+    {
+      "Category": "I",
+      "Name": "RecoveryAfterFailure",
+      "Status": "FAIL",
+      "Detail": "recovery SUCCESS: assertion failed",
+      "Seconds": 0.1945685,
+      "ErrorId": "Preprocessing:Stress:AssertionFailed"
+    }
+  ]
+}

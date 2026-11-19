@@ -1,0 +1,39 @@
+== Phase 5 review probes 2026-11-15T15:07:52Z ==
+== P1: SourceRowIdx provenance mapping ==
+  [OK P1a] offset SourceRowIdx rejected upstream: SourceRowIdx must be the unmodified original order 1..N; row reordering is not permitted.
+  ref rows carried (mapped)  : [1 2 3]
+  source rows carried (raw)  : [1 1 1 2 2 2 3 3 3 4]
+  stream SourceRowIdx field  : [101 102 103 104 105]
+  [FINDING P1b] BuildAlignedSensorData stores the ARRAY INDEX (lines 262/265), not Stream.SourceRowIdx(row); the reference side maps through the field (line 112). Safe only because ProcessSensorTimestamps.m:112 enforces SourceRowIdx == (1:N)'. Defense-in-depth gap, not a live pipeline defect.
+== P2: overlapping failure-category counts ==
+  ref 0.2 s vs source 0 s, MaxAge 0.1 s: age=0.200 AgeOk=0 WithinCoverage=0
+  Total=1 Valid=0 Invalid=1 NoSource=0 Stale=1 Beyond=1 Unavail=0 SrcInvalid=0
+  [OBSERVED P2] one invalid sample counted in BOTH StaleCount and BeyondCoverageCount (categories overlap, only Valid/Invalid partition the total); documented in code as independent counts.
+== P3: exact maximum-age and coverage boundary ==
+  age==MaxAge (0.1==0.1): AgeOk=1 (INCLUSIVE at line 268: Age_s <= MaxAge_s)
+  tref==tlast  (0.2==0.2): WithinCoverage=1 (INCLUSIVE at line 269)
+  AlignedValid = [1 1]
+== P4: JSON numeric preservation ==
+  FiniteArray : [1.5;2.5;3.5] (class double)
+  ScalarFinite: 42.5 (class double)
+  TrueFlag    : class logical
+  ScalarNan   : "NaN"
+  MixedArray  :    {[1.5000]}
+    {'NaN'   }
+    {'Inf'   }
+    {'-Inf'  }
+
+  [OK P4] finite numerics numeric, non-finite marked, logical boolean.
+== P5: failed-export artifact state ==
+  export error (expected): Preprocessing:ExportPreprocessedData:CsvWriteFailure
+  directory after FAILED export: PreprocessedData.mat, PreprocessingReport.json, Review
+  [FINDING P5] leftover JSON claims RunInfo.Status = "SUCCESS" although the export FAILED and Review CSVs are missing. GetPreprocessingReport.m has no check for a ProcessingFailed.txt marker (grep-verified).
+== P6: empty/degenerate streams safety ==
+  all-invalid reference: Status=Generated, 0 aligned rows
+  [OK P6] empty reference handled without fabricated rows.
+== P7: report Outputs vs actually exported files ==
+  Report.Outputs.ReviewFiles fields : IMU, GNSS, AirData, Magnetometer
+  Artifacts.ReviewFiles fields      : IMU, AirData, Magnetometer
+  [FINDING P7] JSON report names a GNSS review CSV that is never written for the missing sensor.
+PROBES DONE
+PROBE EXIT CODE: 0

@@ -1,0 +1,53 @@
+{
+  "Generated": "2026-11-16 13:58:50",
+  "Results": [
+    {
+      "Category": "K",
+      "Name": "SyntheticRegistryDiscovery",
+      "Status": "FAIL",
+      "Detail": "100 unregistered discovered: assertion failed",
+      "Seconds": 15.6736508,
+      "ErrorId": "Preprocessing:Stress:AssertionFailed"
+    },
+    {
+      "Category": "L",
+      "Name": "MatV7_100000Samples",
+      "Status": "FAIL",
+      "Detail": "Index in position 2 is invalid. Array indices must be positive integers or logical values.",
+      "Seconds": 0.0443502,
+      "ErrorId": "MATLAB:badsubscript"
+    },
+    {
+      "Category": "L",
+      "Name": "MatV73_100000Samples",
+      "Status": "FAIL",
+      "Detail": "Index in position 2 is invalid. Array indices must be positive integers or logical values.",
+      "Seconds": 0.0147925,
+      "ErrorId": "MATLAB:badsubscript"
+    },
+    {
+      "Category": "L",
+      "Name": "UnknownVariableDiscovery",
+      "Status": "FAIL",
+      "Detail": "Index in position 2 is invalid. Array indices must be positive integers or logical values.",
+      "Seconds": 0.0113766,
+      "ErrorId": "MATLAB:badsubscript"
+    },
+    {
+      "Category": "L",
+      "Name": "MissingStreamVariable",
+      "Status": "FAIL",
+      "Detail": "Index in position 2 is invalid. Array indices must be positive integers or logical values.",
+      "Seconds": 0.0063427,
+      "ErrorId": "MATLAB:badsubscript"
+    },
+    {
+      "Category": "L",
+      "Name": "MalformedMatFile",
+      "Status": "PASS",
+      "Detail": "garbage MAT file -> Malformed with recorded issue (never silently accepted)",
+      "Seconds": 0.1034415,
+      "ErrorId": ""
+    }
+  ]
+}

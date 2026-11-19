@@ -1,0 +1,10 @@
+== Block 9 stress campaign ST20261115dev2 ==
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Host: OMEN-LARIZZ | Level: Full | Categories: I
+
+-- Category I: failure-injection stress --
+[PASS] I/ProcessingStageFailure - injected failure: FAILED + marker + unretrievable + typed errors
+[PASS] I/ExportSeamFailures - all four export seams raise exact typed identifiers
+[FAIL] I/RecoveryAfterFailure - Preprocessing:Stress:RecoveryStatus: recovery run returned status PARTIAL (errors: , streams: IMU=Malformed, GNSS=Malformed, AirData=Malformed, Magnetometer=Malformed)
+
+== STRESS SUMMARY: 2 PASS, 1 FAIL, 0 SKIP (3 total) ==

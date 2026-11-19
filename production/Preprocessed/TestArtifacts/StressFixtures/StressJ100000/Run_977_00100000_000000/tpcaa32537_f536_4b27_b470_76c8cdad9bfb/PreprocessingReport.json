@@ -1,0 +1,665 @@
+{
+  "RunInfo": {
+    "RunID": "Run_990_20260101_000000",
+    "PreprocessID": "Run_977_00100000_000000__PP_20260101_000000_01",
+    "Eligibility": "NotInspected",
+    "Category": "StressFixture",
+    "RunDirectory": "",
+    "OutputDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb",
+    "ProcessingTimestamp": "2026-11-16T14:35:06",
+    "MATLABRelease": "2024b",
+    "MATLABVersion": "24.2.0.3212159 (R2024b) Update 9",
+    "ApprovalUsed": true,
+    "Status": "SUCCESS"
+  },
+  "Configuration": {
+    "Name": "Block9PreprocessingConfiguration",
+    "Version": "1.0",
+    "Source": "RealisticSensorTelemetry",
+    "MissingSensors": {
+      "Policy": "Continue",
+      "RequiredSensors": [
+        "IMU",
+        "GNSS",
+        "AirData",
+        "Magnetometer"
+      ]
+    },
+    "Timestamps": {
+      "DuplicatePolicy": "KeepFirst",
+      "GapAbsolute_s": 1,
+      "GapRelative": 1.5,
+      "NominalRateSource": "Auto"
+    },
+    "Quality": {
+      "StartupTransient": {
+        "Enabled": true,
+        "WindowSamples": 5
+      },
+      "Statistical": {
+        "Enabled": true,
+        "WindowSamples": 51,
+        "SigmaThreshold": 4,
+        "DeviationFloor": 0
+      },
+      "SuddenChange": {
+        "Enabled": false,
+        "Thresholds": {}
+      },
+      "Physical": {
+        "Bounds": {}
+      }
+    },
+    "Alignment": {
+      "Enabled": true,
+      "ReferenceStream": "IMU",
+      "MaxSampleAge_s": {
+        "IMU": 1,
+        "GNSS": 1,
+        "AirData": 1,
+        "Magnetometer": 1
+      }
+    }
+  },
+  "ConfigurationProvenance": "Current preprocessing code defaults as configured for this run; not historical run settings.",
+  "RunRecorded": {
+    "Source": "RunMetadata.json",
+    "Status": "NotRecorded",
+    "DecodeError": "NotApplicable",
+    "Run": "NotRecorded",
+    "Scenario": "NotRecorded",
+    "ConfigurationPath": "NotRecorded",
+    "RecordedSampleCounts": "NotRecorded",
+    "SensorSampleRates_Hz": {
+      "IMU": "NotRecorded",
+      "GNSS": "NotRecorded",
+      "AirData": "NotRecorded",
+      "Magnetometer": "NotRecorded"
+    },
+    "SensorSampleRatesSource": "MAT artifact field SampleRate_Hz where present."
+  },
+  "CurrentCodeDefaults": {
+    "Description": "Current preprocessing code defaults; not evidence of historical run settings.",
+    "MissingSensorPolicy": "Continue",
+    "RequiredSensors": [
+      "IMU",
+      "GNSS",
+      "AirData",
+      "Magnetometer"
+    ],
+    "GapAbsolute_s": 1,
+    "GapRelative": 1.5,
+    "DuplicatePolicy": "KeepFirst",
+    "StartupTransientWindowSamples": 5,
+    "StatisticalWindowSamples": 51,
+    "StatisticalSigmaThreshold": 4,
+    "StatisticalDeviationFloor": 0,
+    "SensorRateFallbacks_Hz": {
+      "IMU": 100,
+      "GNSS": 10,
+      "AirData": 50,
+      "Magnetometer": 50
+    },
+    "SensorRateFallbackProvenance": "CodeDefault reference mirroring +sensormodels/SensorConfig.m; not evidence of historical run sample rates"
+  },
+  "MeasuredStatistics": {
+    "IMU": {
+      "Status": "Loaded",
+      "SampleCount": 100000,
+      "EstimatorReadyCount": 100000,
+      "OriginalSampleCount": 100000,
+      "NominalRate_Hz": 100.00000000009095,
+      "NominalPeriod_s": 0.0099999999999909051,
+      "NominalRateSource": "Measured",
+      "NominalRateEvidence": "median of 99999 positive original adjacent finite intervals",
+      "TimestampSummary": {
+        "TotalRows": 100000,
+        "ValidRows": 100000,
+        "ExcludedRows": 0,
+        "NonFiniteTimeCount": 0,
+        "DuplicateCount": 0,
+        "BackwardCount": 0,
+        "GapCount": 0,
+        "SegmentCount": 1
+      },
+      "QualitySummary": {
+        "Accelerometer_X_mps2": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.979999999860236,
+          "Max": 1.01999999983134,
+          "Mean": 0.021374279334183285,
+          "Median": 0.0282962316185097
+        },
+        "Accelerometer_Y_mps2": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.969999999860236,
+          "Max": 1.02999999983134,
+          "Mean": 0.031374279334183332,
+          "Median": 0.0382962316185097
+        },
+        "Accelerometer_Z_mps2": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.959999999860236,
+          "Max": 1.03999999983134,
+          "Mean": 0.041374279334183292,
+          "Median": 0.0482962316185097
+        },
+        "Gyroscope_X_radps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.949999999860236,
+          "Max": 1.04999999983134,
+          "Mean": 0.051374279334183266,
+          "Median": 0.0582962316185097
+        },
+        "Gyroscope_Y_radps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.939999999860236,
+          "Max": 1.05999999983134,
+          "Mean": 0.061374279334183338,
+          "Median": 0.0682962316185097
+        },
+        "Gyroscope_Z_radps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.929999999860236,
+          "Max": 1.06999999983134,
+          "Mean": 0.07137427933418336,
+          "Median": 0.0782962316185097
+        },
+        "Availability": {
+          "UnavailableCount": 0,
+          "OutageCount": 0
+        },
+        "MeasurementValidCount": 100000,
+        "MeasurementInvalidCount": 0
+      },
+      "OutlierSummary": {
+        "Accelerometer_X_mps2": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Accelerometer_Y_mps2": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Accelerometer_Z_mps2": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Gyroscope_X_radps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Gyroscope_Y_radps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Gyroscope_Z_radps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        }
+      },
+      "OutageCount": 0,
+      "SegmentCount": 1
+    },
+    "GNSS": {
+      "Status": "Loaded",
+      "SampleCount": 100000,
+      "EstimatorReadyCount": 100000,
+      "OriginalSampleCount": 100000,
+      "NominalRate_Hz": 100.00000000009095,
+      "NominalPeriod_s": 0.0099999999999909051,
+      "NominalRateSource": "Measured",
+      "NominalRateEvidence": "median of 99999 positive original adjacent finite intervals",
+      "TimestampSummary": {
+        "TotalRows": 100000,
+        "ValidRows": 100000,
+        "ExcludedRows": 0,
+        "NonFiniteTimeCount": 0,
+        "DuplicateCount": 0,
+        "BackwardCount": 0,
+        "GapCount": 0,
+        "SegmentCount": 1
+      },
+      "QualitySummary": {
+        "Latitude_rad": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.979999999860236,
+          "Max": 1.01999999983134,
+          "Mean": 0.021374279334183285,
+          "Median": 0.0282962316185097
+        },
+        "Longitude_rad": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.969999999860236,
+          "Max": 1.02999999983134,
+          "Mean": 0.031374279334183332,
+          "Median": 0.0382962316185097
+        },
+        "Altitude_m": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.959999999860236,
+          "Max": 1.03999999983134,
+          "Mean": 0.041374279334183292,
+          "Median": 0.0482962316185097
+        },
+        "Velocity_North_mps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.949999999860236,
+          "Max": 1.04999999983134,
+          "Mean": 0.051374279334183266,
+          "Median": 0.0582962316185097
+        },
+        "Velocity_East_mps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.939999999860236,
+          "Max": 1.05999999983134,
+          "Mean": 0.061374279334183338,
+          "Median": 0.0682962316185097
+        },
+        "Velocity_Down_mps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.929999999860236,
+          "Max": 1.06999999983134,
+          "Mean": 0.07137427933418336,
+          "Median": 0.0782962316185097
+        },
+        "Availability": {
+          "UnavailableCount": 0,
+          "OutageCount": 0
+        },
+        "MeasurementValidCount": 100000,
+        "MeasurementInvalidCount": 0
+      },
+      "OutlierSummary": {
+        "Latitude_rad": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Longitude_rad": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Altitude_m": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Velocity_North_mps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Velocity_East_mps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "Velocity_Down_mps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        }
+      },
+      "OutageCount": 0,
+      "SegmentCount": 1
+    },
+    "AirData": {
+      "Status": "Loaded",
+      "SampleCount": 100000,
+      "EstimatorReadyCount": 100000,
+      "OriginalSampleCount": 100000,
+      "NominalRate_Hz": 100.00000000009095,
+      "NominalPeriod_s": 0.0099999999999909051,
+      "NominalRateSource": "Measured",
+      "NominalRateEvidence": "median of 99999 positive original adjacent finite intervals",
+      "TimestampSummary": {
+        "TotalRows": 100000,
+        "ValidRows": 100000,
+        "ExcludedRows": 0,
+        "NonFiniteTimeCount": 0,
+        "DuplicateCount": 0,
+        "BackwardCount": 0,
+        "GapCount": 0,
+        "SegmentCount": 1
+      },
+      "QualitySummary": {
+        "TrueAirspeed_mps": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.979999999860236,
+          "Max": 1.01999999983134,
+          "Mean": 0.021374279334183285,
+          "Median": 0.0282962316185097
+        },
+        "DynamicPressure_Pa": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -0.969999999860236,
+          "Max": 1.02999999983134,
+          "Mean": 0.031374279334183332,
+          "Median": 0.0382962316185097
+        },
+        "Availability": {
+          "UnavailableCount": 0,
+          "OutageCount": 0
+        },
+        "MeasurementValidCount": 100000,
+        "MeasurementInvalidCount": 0
+      },
+      "OutlierSummary": {
+        "TrueAirspeed_mps": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "DynamicPressure_Pa": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        }
+      },
+      "OutageCount": 0,
+      "SegmentCount": 1
+    },
+    "Magnetometer": {
+      "Status": "Loaded",
+      "SampleCount": 100000,
+      "EstimatorReadyCount": 100000,
+      "OriginalSampleCount": 100000,
+      "NominalRate_Hz": 100.00000000009095,
+      "NominalPeriod_s": 0.0099999999999909051,
+      "NominalRateSource": "Measured",
+      "NominalRateEvidence": "median of 99999 positive original adjacent finite intervals",
+      "TimestampSummary": {
+        "TotalRows": 100000,
+        "ValidRows": 100000,
+        "ExcludedRows": 0,
+        "NonFiniteTimeCount": 0,
+        "DuplicateCount": 0,
+        "BackwardCount": 0,
+        "GapCount": 0,
+        "SegmentCount": 1
+      },
+      "QualitySummary": {
+        "MagneticFieldBody_X_T": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -9.79999999860236E-7,
+          "Max": 1.01999999983134E-6,
+          "Mean": 2.1374279334183303E-8,
+          "Median": 2.82962316185097E-8
+        },
+        "MagneticFieldBody_Y_T": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -9.69999999860236E-7,
+          "Max": 1.02999999983134E-6,
+          "Mean": 3.1374279334183356E-8,
+          "Median": 3.82962316185097E-8
+        },
+        "MagneticFieldBody_Z_T": {
+          "FiniteCount": 100000,
+          "NonFiniteCount": 0,
+          "Min": -9.5999999986023588E-7,
+          "Max": 1.03999999983134E-6,
+          "Mean": 4.1374279334183346E-8,
+          "Median": 4.8296231618509694E-8
+        },
+        "Availability": {
+          "UnavailableCount": 0,
+          "OutageCount": 0
+        },
+        "MeasurementValidCount": 100000,
+        "MeasurementInvalidCount": 0
+      },
+      "OutlierSummary": {
+        "MagneticFieldBody_X_T": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "MagneticFieldBody_Y_T": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        },
+        "MagneticFieldBody_Z_T": {
+          "PhysicalOutlierCount": 0,
+          "StatisticalOutlierCount": 800,
+          "SuddenChangeCount": 0,
+          "StartupTransientCount": 0
+        }
+      },
+      "OutageCount": 0,
+      "SegmentCount": 1
+    }
+  },
+  "MissingSensors": [],
+  "MalformedSensors": [],
+  "Units": {
+    "IMU": {
+      "Accelerometer_X_mps2": {
+        "Factor": 1,
+        "SourceUnit": "m/s^2",
+        "Unit": "m/s^2"
+      },
+      "Accelerometer_Y_mps2": {
+        "Factor": 1,
+        "SourceUnit": "m/s^2",
+        "Unit": "m/s^2"
+      },
+      "Accelerometer_Z_mps2": {
+        "Factor": 1,
+        "SourceUnit": "m/s^2",
+        "Unit": "m/s^2"
+      },
+      "Gyroscope_X_radps": {
+        "Factor": 1,
+        "SourceUnit": "rad/s",
+        "Unit": "rad/s"
+      },
+      "Gyroscope_Y_radps": {
+        "Factor": 1,
+        "SourceUnit": "rad/s",
+        "Unit": "rad/s"
+      },
+      "Gyroscope_Z_radps": {
+        "Factor": 1,
+        "SourceUnit": "rad/s",
+        "Unit": "rad/s"
+      }
+    },
+    "GNSS": {
+      "Latitude_rad": {
+        "Factor": 1,
+        "SourceUnit": "rad",
+        "Unit": "rad"
+      },
+      "Longitude_rad": {
+        "Factor": 1,
+        "SourceUnit": "rad",
+        "Unit": "rad"
+      },
+      "Altitude_m": {
+        "Factor": 1,
+        "SourceUnit": "m",
+        "Unit": "m"
+      },
+      "Velocity_North_mps": {
+        "Factor": 1,
+        "SourceUnit": "m/s",
+        "Unit": "m/s"
+      },
+      "Velocity_East_mps": {
+        "Factor": 1,
+        "SourceUnit": "m/s",
+        "Unit": "m/s"
+      },
+      "Velocity_Down_mps": {
+        "Factor": 1,
+        "SourceUnit": "m/s",
+        "Unit": "m/s"
+      }
+    },
+    "AirData": {
+      "TrueAirspeed_mps": {
+        "Factor": 1,
+        "SourceUnit": "m/s",
+        "Unit": "m/s"
+      },
+      "DynamicPressure_Pa": {
+        "Factor": 1,
+        "SourceUnit": "Pa",
+        "Unit": "Pa"
+      }
+    },
+    "Magnetometer": {
+      "MagneticFieldBody_X_T": {
+        "Factor": 1E-6,
+        "SourceUnit": "uT",
+        "Unit": "T"
+      },
+      "MagneticFieldBody_Y_T": {
+        "Factor": 1E-6,
+        "SourceUnit": "uT",
+        "Unit": "T"
+      },
+      "MagneticFieldBody_Z_T": {
+        "Factor": 1E-6,
+        "SourceUnit": "uT",
+        "Unit": "T"
+      }
+    }
+  },
+  "CoordinateConventions": {
+    "NavigationFrame": "NED (North-East-Down)",
+    "BodyFrame": "x forward, y right, z down (JSBSim u/v/w mapping)",
+    "Quaternion": "[w x y z]; ZYX yaw-pitch-roll (+coordinates)",
+    "Accelerometer": "specific force f_b = dv_b/dt + omega_b x v_b - g_b (+sensormodels/GenerateIdealIMU.m)",
+    "Gravity": "standard g = 9.80665 m/s^2, +Z down in NED (+dynamics/GravityModel.m)",
+    "MagneticField": "body frame, canonical unit T"
+  },
+  "Alignment": {
+    "Enabled": true,
+    "Status": "Generated",
+    "ReferenceStream": "IMU",
+    "MaxSampleAge_s": {
+      "IMU": {
+        "Seconds": 1,
+        "Source": "Configured"
+      },
+      "GNSS": {
+        "Seconds": 1,
+        "Source": "Configured"
+      },
+      "AirData": {
+        "Seconds": 1,
+        "Source": "Configured"
+      },
+      "Magnetometer": {
+        "Seconds": 1,
+        "Source": "Configured"
+      }
+    },
+    "ReferenceSampleCount": 100000,
+    "StreamCounts": {
+      "IMU": {
+        "TotalSamples": 100000,
+        "ValidCount": 100000,
+        "InvalidCount": 0,
+        "NoSourceCount": 0,
+        "StaleCount": 0,
+        "BeyondCoverageCount": 0,
+        "SourceUnavailableCount": 0,
+        "SourceInvalidCount": 0
+      },
+      "GNSS": {
+        "TotalSamples": 100000,
+        "ValidCount": 100000,
+        "InvalidCount": 0,
+        "NoSourceCount": 0,
+        "StaleCount": 0,
+        "BeyondCoverageCount": 0,
+        "SourceUnavailableCount": 0,
+        "SourceInvalidCount": 0
+      },
+      "AirData": {
+        "TotalSamples": 100000,
+        "ValidCount": 100000,
+        "InvalidCount": 0,
+        "NoSourceCount": 0,
+        "StaleCount": 0,
+        "BeyondCoverageCount": 0,
+        "SourceUnavailableCount": 0,
+        "SourceInvalidCount": 0
+      },
+      "Magnetometer": {
+        "TotalSamples": 100000,
+        "ValidCount": 100000,
+        "InvalidCount": 0,
+        "NoSourceCount": 0,
+        "StaleCount": 0,
+        "BeyondCoverageCount": 0,
+        "SourceUnavailableCount": 0,
+        "SourceInvalidCount": 0
+      }
+    }
+  },
+  "Outputs": {
+    "MatFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\PreprocessedData.mat",
+    "JsonFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\PreprocessingReport.json",
+    "ReviewDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review",
+    "ExpectedReviewFiles": {
+      "IMU": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\IMU.csv",
+      "GNSS": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\GNSS.csv",
+      "AirData": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\AirData.csv",
+      "Magnetometer": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\Magnetometer.csv"
+    },
+    "ReviewFiles": {
+      "IMU": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\IMU.csv",
+      "GNSS": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\GNSS.csv",
+      "AirData": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\AirData.csv",
+      "Magnetometer": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Preprocessed\\TestArtifacts\\StressFixtures\\StressJ100000\\Run_977_00100000_000000\\tpcaa32537_f536_4b27_b470_76c8cdad9bfb\\Review\\Magnetometer.csv"
+    },
+    "ReviewFilesStatus": "Written"
+  },
+  "Warnings": [],
+  "Errors": [],
+  "Status": "SUCCESS"
+}

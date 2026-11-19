@@ -1,0 +1,29 @@
+{
+  "Generated": "2026-11-16 14:11:22",
+  "Results": [
+    {
+      "Category": "N",
+      "Name": "EightProcessBarrier",
+      "Status": "SKIP",
+      "Detail": "8 workers skipped: <12 GB free memory",
+      "Seconds": 0,
+      "ErrorId": ""
+    },
+    {
+      "Category": "N",
+      "Name": "2ProcessBarrierAllocation",
+      "Status": "FAIL",
+      "Detail": "Could not open file C:\\Users\\lalit\\OneDrive\\Documents\\Aditya\\PreprocessingReport.json. No such file or directory.",
+      "Seconds": 26.8778235,
+      "ErrorId": "MATLAB:fileread:cannotOpenFile"
+    },
+    {
+      "Category": "N",
+      "Name": "4ProcessBarrierAllocation",
+      "Status": "FAIL",
+      "Detail": "Could not open file C:\\Users\\lalit\\OneDrive\\Documents\\Aditya\\PreprocessingReport.json. No such file or directory.",
+      "Seconds": 34.6823202,
+      "ErrorId": "MATLAB:fileread:cannotOpenFile"
+    }
+  ]
+}

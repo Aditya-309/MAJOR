@@ -1,0 +1,42 @@
+BLOCK 9 CLOSURE - PROTECTED INTEGRITY VERIFICATION (20261116_153000)
+=================================================================
+Generated: 
+*** EVIDENCE CORRECTION 2026-11-16 (verification result) ***
+Item [9] 'Self-verified' originally read '0 OK / 20 FAILED' while marked PASS.
+CAUSE: the count was captured from a sha256sum -c run against the manifest while
+it still had CRLF line endings (filename\r not found -> all FAILED). The manifest
+was corrected to LF-only and re-verified from +preprocessing/ against the actual
+20 files. OLD: 0 OK / 20 FAILED. NEW: 20 OK / 0 FAILED. Manifest self-SHA-256
+independently confirmed = 71528264c9cf54039422ff3f4ccbba0da39c13db0517af798c15dca5f8ada9f4.
+Source files and manifest contents unchanged by this correction.
+2026-11-16 14:42:52
+
+[1] Original 415-file protected inventory
+    Command: sha256sum -c BaselineManifest_20261113_212130.sha256
+    Result: 415 OK / 0 FAILED   (expect 415 OK / 0 FAILED)  PASS
+[2] Original baseline manifest self-hash
+    SHA256 = 89dff5c0eb7d6631698f637a4aab12a5c0e7adf4eea2693926bb7c21f38ef9fb
+    Expected = 89dff5c0eb7d6631698f637a4aab12a5c0e7adf4eea2693926bb7c21f38ef9fb   PASS
+[3] production/RunRegistry.json
+    SHA256 = eeec2220fb68c34094f265b7c72e224b84b41c72fe31341e732e15e82a8cdeab
+    Expected = eeec2220fb68c34094f265b7c72e224b84b41c72fe31341e732e15e82a8cdeab   PASS
+    (read-only throughout; never modified)
+[4] Phase 1-4 files vs approved baseline (Block9_Final_SourceManifest_20261115_193252)
+    13/13 match, mismatches: []   PASS
+[5] Blocks 1-8 unchanged
+    Covered by the 415-file protected inventory ([1], 415 OK): includes +config,
+    +coordinates, +dynamics, +flightscenario, +groundtruthtelemetry, +noisemodels,
+    +sensormodels, +sensorsimulation and their production data.   PASS
+[6] No production source data changed
+    Covered by [1] (415 OK).   PASS
+[7] No WorkingRuns / FailedRuns data changed
+    Covered by [1]; 8 WorkingRuns + 0 FailedRuns contents intact.   PASS
+[8] Generated evidence in authorized locations
+    All new artifacts under production/Preprocessed/TestArtifacts/ with unique
+    names; no prior artifact overwritten or deleted.   PASS
+[9] Fresh SHA-256 manifest of all 20 final MATLAB source files
+    Block9_Closure_SourceManifest_20261116_153000.sha256  (self-hash 71528264c9cf5403...)
+    Self-verified: 20 OK / 0 FAILED.   PASS   [CORRECTED 2026-11-16]
+
+NOTE: The original baseline manifest was NOT regenerated. Integrity is proven
+against the ORIGINAL 20261113_212130 manifest only.

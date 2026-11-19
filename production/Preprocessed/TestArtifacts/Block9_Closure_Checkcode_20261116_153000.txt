@@ -1,0 +1,116 @@
+Block 9 closure static analysis (checkcode)
+MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
+Generated: 16-Nov-2026 14:40:16
+Files scanned: 20 in C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing
+
+[01] BuildAlignedSensorData.m : 0 message(s)
+[02] BuildPreprocessingReport.m : 2 message(s)
+     L265  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L269  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[03] DetectSensorOutliers.m : 0 message(s)
+[04] DiscoverRuns.m : 2 message(s)
+     L268  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L412  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[05] ExportPreprocessedData.m : 2 message(s)
+     L878  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L891  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[06] GetPreprocessingReport.m : 2 message(s)
+     L82   AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L102  NBRAK2       Use of brackets [] is unnecessary.
+[07] InspectRun.m : 2 message(s)
+     L470  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L512  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[08] InspectSensorQuality.m : 1 message(s)
+     L204  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[09] LoadSensorData.m : 3 message(s)
+     L152  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L158  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L165  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[10] NormalizeSensorSchema.m : 3 message(s)
+     L105  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L177  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L184  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[11] NormalizeSensorUnits.m : 0 message(s)
+[12] PreprocessRun.m : 1 message(s)
+     L153  NASGU        Value assigned to variable might be unused.
+[13] PreprocessingConfig.m : 0 message(s)
+[14] ProcessSensorTimestamps.m : 4 message(s)
+     L425  NASGU        Value assigned to variable might be unused.
+     L431  NASGU        Value assigned to variable might be unused.
+     L437  NASGU        Value assigned to variable might be unused.
+     L443  NASGU        Value assigned to variable might be unused.
+[15] ProjectPaths.m : 0 message(s)
+[16] QualityFlags.m : 0 message(s)
+[17] RunPreprocessingStressTests.m : 33 message(s)
+     L67   AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L306  ASGLU        Value assigned to variable might be unused. Consider replacing the variable with ~ instead.
+     L353  ASGLU        Value assigned to variable might be unused. Consider replacing the variable with ~ instead.
+     L409  NASGU        Value assigned to variable might be unused.
+     L750  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L819  NASGU        Value assigned to variable might be unused.
+     L880  ASGLU        Value assigned to variable might be unused. Consider replacing the variable with ~ instead.
+     L905  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L909  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L911  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L937  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L938  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L940  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L943  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L963  AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1024 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1028 NASGU        Value assigned to variable might be unused.
+     L1044 INUSD        Input argument might be unused. Consider replacing the argument with ~ instead.
+     L1362 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1365 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1367 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1369 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1511 NASGU        Value assigned to variable might be unused.
+     L1572 MSNU         A Code Analyzer message was once suppressed here, but the message is no longer generated.
+     L1592 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1595 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L1795 NASGU        Value assigned to variable might be unused.
+     L1868 NASGU        Value assigned to variable might be unused.
+     L1885 STRNU        This variable, apparently a structure, is changed but the value might be unused.
+     L1976 ASGLU        Value assigned to variable might be unused. Consider replacing the variable with ~ instead.
+     L2020 ASGLU        Value assigned to variable might be unused. Consider replacing the variable with ~ instead.
+     L2041 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L2042 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+[18] RunPreprocessingTests.m : 8 message(s)
+     L1199 BDSCI        Variable might be set by a nonscalar operator.
+     L2365 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5572 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5579 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5583 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5620 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5698 AGROW        Variable appears to change size on every loop iteration. Consider preallocating for speed.
+     L5709 NASGU        Value assigned to variable might be unused.
+[19] SensorDataContracts.m : 0 message(s)
+[20] ValidatePreprocessingConfig.m : 0 message(s)
+
+=== which -all resolution / shadowing ===
+preprocessing.DiscoverRuns : 1 resolved path(s)
+     C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\DiscoverRuns.m
+preprocessing.InspectRun : 1 resolved path(s)
+     C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\InspectRun.m
+preprocessing.PreprocessRun : 1 resolved path(s)
+     C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\PreprocessRun.m
+preprocessing.GetPreprocessingReport : 1 resolved path(s)
+     C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\GetPreprocessingReport.m
+
+=== classified message counts (by id) ===
+AGROW          41
+ASGLU          5
+BDSCI          1
+INUSD          1
+MSNU           1
+NASGU          12
+NBRAK2         1
+STRNU          1
+
+=== TOTALS ===
+files_scanned=20
+total_messages=63
+undefined_references=0
+syntax_errors=0
+shadowed_public_functions=0
+RESULT=true
