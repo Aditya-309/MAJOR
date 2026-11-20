@@ -1,41 +1,0 @@
-== Block9 FINAL checkcode (20261115_190622) — 19 planned modules ==
-DiscoverRuns.m               268:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. DiscoverRuns.m               412:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. InspectRun.m                 470:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. InspectRun.m                 512:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. LoadSensorData.m             152:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. LoadSensorData.m             158:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. LoadSensorData.m             165:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. NormalizeSensorSchema.m      105:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. NormalizeSensorSchema.m      177:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. NormalizeSensorSchema.m      184:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. ProcessSensorTimestamps.m    425:13 [] NASGU
-Value assigned to variable might be unused. ProcessSensorTimestamps.m    431:13 [] NASGU
-Value assigned to variable might be unused. ProcessSensorTimestamps.m    437:13 [] NASGU
-Value assigned to variable might be unused. ProcessSensorTimestamps.m    443:13 [] NASGU
-Value assigned to variable might be unused. InspectSensorQuality.m       204:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. BuildPreprocessingReport.m   265:17 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. BuildPreprocessingReport.m   269:17 [ ] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. ExportPreprocessedData.m     778:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. ExportPreprocessedData.m     791:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. PreprocessRun.m              153:5 [] NASGU
-Value assigned to variable might be unused. GetPreprocessingReport.m     82:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. GetPreprocessingReport.m     102:13 [] NBRAK2
-Use of brackets [] is unnecessary. RunPreprocessingTests.m      1199:50 [8] BDSCI
-Variable might be set by a nonscalar operator. RunPreprocessingTests.m      2365:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5571:17 [%] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5578:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5582:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5617:17 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5695:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed. RunPreprocessingTests.m      5706:5 [	] NASGU
-Value assigned to variable might be unused. TOTAL: 30, UNDEFINED-REFERENCE: 0
-== WHICH -ALL ==
-DiscoverRuns: 1 resolution(s)
-  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\DiscoverRuns.m
-InspectRun: 1 resolution(s)
-  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\InspectRun.m
-PreprocessRun: 1 resolution(s)
-  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\PreprocessRun.m
-GetPreprocessingReport: 1 resolution(s)
-  C:\Users\lalit\OneDrive\Documents\Aditya Docs\ENGINEERING\MAJOR\+preprocessing\GetPreprocessingReport.m

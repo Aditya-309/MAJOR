@@ -1,9 +1,0 @@
-== Block 9 stress campaign dev5 ==
-MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
-Host: OMEN-LARIZZ | Level: Quick | Categories: K
-
--- Category K: discovery scalability (synthetic sandbox) --
-  worker: STATUS=ERROR ID=Preprocessing:ProjectPaths:InvalidRootLayout
-[FAIL] K/SyntheticRegistryDiscovery - Preprocessing:Stress:AssertionFailed: worker OK: assertion failed
-
-== STRESS SUMMARY: 0 PASS, 1 FAIL, 0 SKIP (1 total) ==

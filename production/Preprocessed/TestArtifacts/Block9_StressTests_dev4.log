@@ -1,9 +1,0 @@
-== Block 9 stress campaign dev4 ==
-MATLAB: 24.2.0.3212159 (R2024b) Update 9 (2024b)
-Host: OMEN-LARIZZ | Level: Quick | Categories: K
-
--- Category K: discovery scalability (synthetic sandbox) --
-  worker: STATUS=OK ELAPSED=0.624 TOTAL=23 REGISTERED=14 UNREGISTERED=1 ELIGIBLE=14 INELIGIBLE=0 EXCLUDEDTREE=8
-[FAIL] K/SyntheticRegistryDiscovery - Preprocessing:Stress:AssertionFailed: 100 registered discovered: assertion failed
-
-== STRESS SUMMARY: 0 PASS, 1 FAIL, 0 SKIP (1 total) ==

@@ -1,3 +1,0 @@
-SourceRowIdx,Time_s,SegmentID,RowValid,MeasurementValid,Available,Flags_NonFiniteTimestamp,Flags_BackwardTimestamp,Flags_DuplicateTimestampLater,Flags_UnexpectedGap,Flags_Unavailable,Flags_NonFiniteMeasurement,Flags_PhysicalOutlier,Flags_StatisticalOutlier,Flags_SuddenChange,Flags_StartupTransient,Accelerometer_X_mps2,Accelerometer_Y_mps2,Accelerometer_Z_mps2,Gyroscope_X_radps,Gyroscope_Y_radps,Gyroscope_Z_radps
-1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0.0209999998333333,0.0309999998333333,0.0409999998333333,0.0509999998333333,0.0609999998333333,0.0709999998333334
-2,0.01,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0.0219999986666669,0.0319999986666669,0.0419999986666669,0.0519999986666669,0.0619999986666669,0.0719999986666669

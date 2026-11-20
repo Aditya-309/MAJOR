@@ -1,4 +1,0 @@
-Category,Name,Samples,SecondsIngest,SecondsProcess,SecondsAlign,SecondsExport,SecondsRetrieve,SecondsTotal,MemMB
-J,Scale10000,10000,3.3139,0.4091,0.4566,2.3931,0.0000,6.5776,2695.7
-J,Scale100000,100000,1.1848,1.7389,3.3663,9.6817,0.0000,15.9796,2767.1
-J,Scale500000,500000,4.6009,8.5433,18.7004,48.7617,0.0000,80.6090,3042.5

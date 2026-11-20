@@ -1,6 +1,0 @@
-Time_s,Accelerometer_X_mps2,Accelerometer_Y_mps2,Accelerometer_Z_mps2,Gyroscope_X_radps,Gyroscope_Y_radps,Gyroscope_Z_radps
-0,0.002,0.003,0.004,0.005,0.006,0.007
-0.01,0.004,0.006,0.008,0.01,0.012,0.014
-0.02,0.006,0.009,0.012,0.015,0.018,0.021
-0.03,0.008,0.012,0.016,0.02,0.024,0.028
-0.04,0.01,0.015,0.02,0.025,0.03,0.035

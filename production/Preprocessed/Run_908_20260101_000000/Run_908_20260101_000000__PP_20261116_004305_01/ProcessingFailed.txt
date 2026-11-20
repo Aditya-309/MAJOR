@@ -1,1 +1,0 @@
-Preprocessing:PreprocessRun:InjectedTestFailure: Controlled test failure injected (Options.TestFailureInjection='ProcessingStage').

@@ -1,7 +1,0 @@
-== Block9 FINAL DependencyAudit (20261115_190622) ==
-Planned modules: 19, on disk: 19
-Closure files: 19
-Unexpected project deps: 0, external files: 0
-Products (1): MATLAB
-EDGE: PreprocessRun.m -> InspectRun.m
-Total call edges: 1 (acyclic status asserted by Closure/AcyclicArchitecture test)

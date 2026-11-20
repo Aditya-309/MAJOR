@@ -1,9 +1,0 @@
-{
-  "GeneratedAt": "2026-11-13T21:21:50+05:30",
-  "ProjectRoot": "C:/Users/lalit/OneDrive/Documents/Aditya Docs/ENGINEERING/MAJOR",
-  "Scope": "Blocks 1-8 packages, production scripts, RunRegistry.json, production/Runs, production/WorkingRuns",
-  "FileCount": 415,
-  "ManifestFile": "production/Preprocessed/TestArtifacts/BaselineManifest_20261113_212130.sha256",
-  "ManifestSHA256": "89dff5c0eb7d6631698f637a4aab12a5c0e7adf4eea2693926bb7c21f38ef9fb",
-  "VerificationCommand": "sha256sum -c BaselineManifest_20261113_212130.sha256 (run from project root)"
-}

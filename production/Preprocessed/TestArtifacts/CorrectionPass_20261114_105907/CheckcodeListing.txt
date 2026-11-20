@@ -1,18 +1,0 @@
-DiscoverRuns.m:268:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:DiscoverRuns.m:412:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:InspectRun.m:470:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:InspectRun.m:512:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:LoadSensorData.m:152:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:LoadSensorData.m:158:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:LoadSensorData.m:165:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:NormalizeSensorSchema.m:105:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:NormalizeSensorSchema.m:177:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:NormalizeSensorSchema.m:184:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:ProcessSensorTimestamps.m:425:13 [] NASGU
-Value assigned to variable might be unused.:ProcessSensorTimestamps.m:431:13 [] NASGU
-Value assigned to variable might be unused.:ProcessSensorTimestamps.m:437:13 [] NASGU
-Value assigned to variable might be unused.:ProcessSensorTimestamps.m:443:13 [] NASGU
-Value assigned to variable might be unused.:InspectSensorQuality.m:204:9 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:RunPreprocessingTests.m:931:50 [8] BDSCI
-Variable might be set by a nonscalar operator.:RunPreprocessingTests.m:2097:13 [] AGROW
-Variable appears to change size on every loop iteration. Consider preallocating for speed.:
