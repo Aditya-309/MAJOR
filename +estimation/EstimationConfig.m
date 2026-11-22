@@ -172,6 +172,11 @@ function Config = EstimationConfig(varargin)
 
     Config.State = struct();
     Config.State.Model = 'ZYX15';
+
+    % Realism change A1 (authorized 2026-11-21): augment the state with
+    % 3 Gauss-Markov GNSS position-bias states (15 -> 18). Default FALSE
+    % preserves the approved 15-state behavior exactly.
+    Config.State.EnableGNSSBiasStates = false;
     Config.State.PitchWarning_deg = 85;
     Config.State.PitchHardStop_deg = 89;
 

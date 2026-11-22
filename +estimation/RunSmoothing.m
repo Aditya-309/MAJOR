@@ -53,7 +53,9 @@ function Smoothing = RunSmoothing(Filter, FilterLabel, Config, Forward)
 %
 %   See also: RunFilter, CreateEKF, CreateUKF.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition( ...
+        isfield(Config.State, 'EnableGNSSBiasStates') && ...
+        Config.State.EnableGNSSBiasStates);
 
     Smoothing = struct();
     Smoothing.Status = 'NotRequested';

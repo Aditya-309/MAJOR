@@ -49,3 +49,38 @@ an estimator input, initialization source, tuning input, or measurement update.
 
 These limitations are reported for upstream action in Blocks 5 and 7; this integration
 deliberately does not modify those frozen blocks.
+
+---
+
+## Addendum 2026-11-22 — A1 / A3 / A4 / B1 integration (user-authorized)
+
+### A1 — 18-state GNSS position-bias estimator option
+`Config.State.EnableGNSSBiasStates` (default OFF = bit-identical 15-state behavior).
+ON: states 16-18 are Gauss-Markov GNSS position biases
+(b_{k+1} = exp(-dt/tau) b_k, Q_bb = sigma_b^2 (1 - phi^2)), measurement model
+z_pos = p + b, and the initialization P0 carries the joint leveling/bias prior
+(Cov(delta theta, delta b) = -J_level * Sigma_a). Physical basis: the observed
+position NEES elevation came from treating a slowly-varying GNSS bias as white
+noise; the bias states close that gap honestly (no tuning).
+
+### A4 — evaluation-layer statistical soundness
+- NEES block decomposition (position / velocity / attitude) per estimate series,
+  expected mean 3 per block; inconsistency is now attributed to the block causing it.
+- Explicit DoF labels: NEES is the 9-DoF navigation block (bias states excluded;
+  ground truth carries no bias channels), reported alongside StateDimension (15/18).
+- `Report.Limitations`: covariance-optimism disclosure under low dynamics,
+  single-run statistics caveat, smoothing honesty note.
+- `SmoothingNEESDelta`: whether smoothing improved consistency, as computed.
+
+### B1/A2 — validation lab (`ValidationLab/` folder, code only)
+Analytic maneuvering truth in the exact frozen ground-truth schema (Blocks 5/8 run
+unchanged on it) plus a seeded Monte-Carlo harness (independent trials,
+Bar-Shalom 95% bands, seed manifests). Runs isolated in MAJOR_ValidationLab;
+the frozen blocks and production data are never modified. Known limit: truth is
+kinematic (analytic trajectories through the audited sensor equations), not
+Block 3 6-DOF dynamics — by frozen-block design.
+
+### Verification
+Full regression suite: StatisticalCorrections 6/6, ReviewerFindings 14/14,
+GNSSBiasStates 7/7, StatisticalReporting 9/9, RegressionBaseline (frozen
+manifest + git provenance + root cleanliness) green after this commit.

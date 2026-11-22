@@ -58,7 +58,9 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 %
 %   See also: CreateEKF, CreateUKF, RunSmoothing, BuildMeasurementTimeline.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition( ...
+        isfield(Config.State, 'EnableGNSSBiasStates') && ...
+        Config.State.EnableGNSSBiasStates);
     Events = Timeline.Events;
     Codes = Timeline.EventCodes;
 

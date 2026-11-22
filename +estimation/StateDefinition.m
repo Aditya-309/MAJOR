@@ -1,4 +1,9 @@
-function Definition = StateDefinition()
+function Definition = StateDefinition(EnableGNSSBiasStates)
+%   Definition = STATEDEFINITION(EnableGNSSBiasStates) - optional logical
+%   flag (default FALSE = the approved 15-state model). When TRUE the
+%   estimator state is augmented with 3 Gauss-Markov GNSS position-bias
+%   states (realism change A1, authorized 2026-11-21): the model then
+%   matches the correlated GNSS error that Block 5 injects.
 %STATEDEFINITION Canonical Block 10 state-vector definition.
 %
 %   Definition = STATEDEFINITION() returns the approved 15-state ZYX
@@ -37,8 +42,19 @@ function Definition = StateDefinition()
 %
 %   See also: InitializeState, StateTransitionModel, MeasurementModel.
 
+    if nargin < 1 || isempty(EnableGNSSBiasStates)
+        EnableGNSSBiasStates = false;
+    end
+
     Definition = struct();
-    Definition.Count = 15;
+    Definition.EnableGNSSBiasStates = logical(EnableGNSSBiasStates);
+
+    if Definition.EnableGNSSBiasStates
+        Definition.Count = 18;
+    else
+        Definition.Count = 15;
+    end
+
     Definition.AttitudeOrder = 'ZYX';
     Definition.QuaternionOrder = 'wxyz';
 
@@ -48,6 +64,12 @@ function Definition = StateDefinition()
         'roll', 7, 'pitch', 8, 'yaw', 9, ...
         'bax', 10, 'bay', 11, 'baz', 12, ...
         'bgx', 13, 'bgy', 14, 'bgz', 15);
+
+    if Definition.EnableGNSSBiasStates
+        Definition.Index.bgn = 16;
+        Definition.Index.bge = 17;
+        Definition.Index.bgd = 18;
+    end
 
     Definition.Names = { ...
         'pN_m'; 'pE_m'; 'pD_m'; ...
@@ -66,6 +88,13 @@ function Definition = StateDefinition()
     Definition.Names = Definition.Names(:);
     Definition.Units = Definition.Units(:);
 
+    if Definition.EnableGNSSBiasStates
+        Definition.Names = [Definition.Names; ...
+            {'bgn_m'; 'bge_m'; 'bgd_m'}];
+        Definition.Units = [Definition.Units; ...
+            {'m'; 'm'; 'm'}];
+    end
+
     % Group spans for metric aggregation.
     Definition.Span = struct( ...
         'Position', 1:3, ...
@@ -73,5 +102,9 @@ function Definition = StateDefinition()
         'Attitude', 7:9, ...
         'AccelBias', 10:12, ...
         'GyroBias', 13:15);
+
+    if Definition.EnableGNSSBiasStates
+        Definition.Span.GNSSBias = 16:18;
+    end
 
 end

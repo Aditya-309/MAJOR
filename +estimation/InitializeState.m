@@ -95,7 +95,9 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
 %
 %   See also: BuildMeasurementTimeline, StateDefinition, ConvertLLA2NED.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition( ...
+        isfield(Config.State, 'EnableGNSSBiasStates') && ...
+        Config.State.EnableGNSSBiasStates);
     Warnings = {};
 
     Events = Timeline.Events;
@@ -412,6 +414,14 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
     WindowMagRows = find(InWindow & ...
         Events.Type == Codes.MagneticField & Events.Eligible);
 
+    % Statistical audit S1: the leveling tilt error and the zero-mean
+    % accel-bias prior share the same unknown turn-on bias, so they are
+    % jointly distributed (not independent). The joint-prior quantities
+    % are computed in the leveling branch and applied to P0 below.
+    LevelingJ = zeros(2, 3);
+    AttCov2 = zeros(2, 2);
+    AttBiasCross = zeros(2, 3);
+
     if strcmp(AttitudeSource, 'Prior')
 
         Prior = Config.Initialization.PriorAttitude;
@@ -455,6 +465,22 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
             NoiseIMU.AccelTurnOnBiasSigma_mps2 ^ 2 + ...
             (NoiseIMU.AccelVRW_mps2SqrtHz ^ 2) / dt_med / NSamples);
         RollPitchSigma = AccelMedianSigma / g;
+
+        % Statistical audit S1: exact leveling map Jacobian and joint
+        % attitude/bias prior. With a zero-mean bias prior the leveling
+        % error is delta_theta = J_level * b_a and the bias-state error is
+        % delta_b = -b_a, hence
+        %   Var(delta_theta)      = J*(Sigma_a + Sigma_n)*J'
+        %   Cov(delta_theta,db)   = -J*Sigma_a
+        % (Sigma_a = turn-on bias variance, Sigma_n = median noise
+        % variance above). All terms are derived from the Block 5 noise
+        % model; none is tuned. The joint block is positive semidefinite
+        % by construction.
+        LevelingJ = levelingJacobian(AccelMedian);
+        SigmaA = NoiseIMU.AccelTurnOnBiasSigma_mps2 ^ 2;
+        SigmaN = (NoiseIMU.AccelVRW_mps2SqrtHz ^ 2) / dt_med / NSamples;
+        AttCov2 = (SigmaA + SigmaN) * (LevelingJ * LevelingJ');
+        AttBiasCross = -LevelingJ * (SigmaA * eye(3));
 
         % Yaw from magnetometer heading against the WMM reference.
         % Reviewer finding F8: require sufficient eligible samples AND
@@ -532,6 +558,9 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
         end
 
         AttitudeSigma_rad = [RollPitchSigma; RollPitchSigma; YawSigma];
+        if any(AttCov2(:))
+            AttitudeSigma_rad(1:2) = sqrt(diag(AttCov2));
+        end
         AttitudeEvidence.SigmaDerivation = [ ...
             'Roll/pitch: (turn-on bias plus averaged VRW noise) / g; ', ...
             'yaw: averaged magnetometer noise over the WMM horizontal ', ...
@@ -593,9 +622,40 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
         Definition.Index.bgx:Definition.Index.bgz) = ...
         eye(3) * NoiseIMU.GyroTurnOnBiasSigma_radps ^ 2;
 
+    % Statistical audit S1: apply the joint leveling/bias prior derived in
+    % the leveling branch (zero elsewhere). The cross block is what keeps
+    % the unobservable attitude/bias direction from being over-shrunk by
+    % updates that constrain only their combination.
+    if any(AttCov2(:))
+        AttSpan = Definition.Index.roll:Definition.Index.pitch;
+        BiasSpan = Definition.Index.bax:Definition.Index.baz;
+        P0(AttSpan, AttSpan) = AttCov2;
+        P0(AttSpan, BiasSpan) = AttBiasCross;
+        P0(BiasSpan, AttSpan) = AttBiasCross';
+    end
+
+    % GNSS position-bias states (augmentation A1): zero-mean prior with
+    % Block 5 bias sigmas; the joint position/bias prior carries the
+    % exact cross term Cov(delta_p, delta_b) = -Sigma_b (first fix
+    % z = p + b + n, x0(p) = z, x0(b) = 0) - the same honest-joint-prior
+    % treatment as the leveling/bias block above.
+    if Definition.EnableGNSSBiasStates
+        PSpan = Definition.Index.pN:Definition.Index.pD;
+        GSpan = Definition.Index.bgn:Definition.Index.bgd;
+        BiasVar = [ ...
+            NoiseGNSS.BiasSigmaHorizontal_m ^ 2; ...
+            NoiseGNSS.BiasSigmaHorizontal_m ^ 2; ...
+            NoiseGNSS.BiasSigmaVertical_m ^ 2];
+        P0(GSpan, GSpan) = diag(BiasVar);
+        P0(PSpan, GSpan) = -diag(BiasVar);
+        P0(GSpan, PSpan) = -diag(BiasVar);
+    end
+
     %% Init info
 
     InitInfo = struct();
+    InitInfo.LevelingJacobian = LevelingJ;
+    InitInfo.AttBiasCrossCovariance = AttBiasCross;
     % Reviewer finding F3: the initial propagation input. The documented
     % ZOH rule is "the most recent eligible IMU sample at or before the
     % interval start"; the first interval [t_init, first event] therefore
@@ -641,5 +701,31 @@ function [x0, P0, InitInfo] = InitializeState(Data, Timeline, Config)
     InitInfo.Warnings = Warnings(:);
     InitInfo.PreInitializationEventCount = ...
         sum(Events.Time_s < t_init);
+
+end
+
+function J = levelingJacobian(A)
+%LEVELINGJACOBIAN d(roll,pitch)/d(accel) of the leveling map at A.
+%   Mirrors the leveling formulas above exactly (central differences -
+%   deterministic geometry, not statistics).
+
+    J = zeros(2, 3);
+
+    for i = 1:3
+        h = max(1e-6, 1e-4 * abs(A(i)));
+        Ap = A(:);
+        Am = A(:);
+        Ap(i) = Ap(i) + h;
+        Am(i) = Am(i) - h;
+        J(:, i) = (levelingMap(Ap) - levelingMap(Am)) / (2 * h);
+    end
+
+end
+
+function rp = levelingMap(A)
+%LEVELINGMAP Roll/pitch from the accelerometer median (rest solution).
+
+    rp = [atan2(-A(2), -A(3)); ...
+        asin(max(-1, min(1, A(1) / norm(A))))];
 
 end

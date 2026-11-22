@@ -1,4 +1,5 @@
-function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps)
+function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps, ...
+        TauGNSSBias_s)
 %STATETRANSITIONMODEL Approved 15-state strapdown inertial propagation.
 %
 %   xNext = STATETRANSITIONMODEL(x, dt, Accel_mps2, Gyro_radps)
@@ -48,14 +49,15 @@ function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps)
 %
 %   See also: StateTransitionJacobian, StateDefinition, MeasurementModel.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(numel(x) > 15);
 
-    if ~(isnumeric(x) && isreal(x) && isequal(size(x), [15, 1]) && ...
-            all(isfinite(x)))
+    if ~(isnumeric(x) && isreal(x) && ...
+            isequal(size(x), [Definition.Count, 1]) && all(isfinite(x)))
 
         error( ...
             'Estimation:StateTransitionModel:InvalidState', ...
-            'x must be a finite real 15x1 state vector.');
+            'x must be a finite real %dx1 state vector.', ...
+            Definition.Count);
 
     end
 
@@ -119,6 +121,24 @@ function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps)
     xNext(Idx.pN:Idx.pD) = p + v * dt;
     xNext(Idx.vN:Idx.vD) = v + (Cbn * f_bar + g_n) * dt;
     xNext(Idx.roll:Idx.yaw) = eta + (T * w_bar) * dt;
+
+    % GNSS position-bias states (augmentation A1): exact Gauss-Markov
+    % decay phi = exp(-dt/tau) driven by Block 5's BiasCorrelationTime_s.
+    if Definition.EnableGNSSBiasStates
+
+        if nargin < 5 || ~(isnumeric(TauGNSSBias_s) && isreal(TauGNSSBias_s) ...
+                && isscalar(TauGNSSBias_s) && isfinite(TauGNSSBias_s) ...
+                && TauGNSSBias_s > 0)
+
+            error( ...
+                'Estimation:StateTransitionModel:InvalidGNSSBiasTau', ...
+                ['TauGNSSBias_s must be a positive finite scalar when ', ...
+                'GNSS bias states are enabled.']);
+        end
+
+        Phi = exp(-dt / TauGNSSBias_s);
+        xNext(Idx.bgn:Idx.bgd) = Phi * x(Idx.bgn:Idx.bgd);
+    end
 
 end
 

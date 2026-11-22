@@ -28,14 +28,15 @@ function H = MeasurementJacobian(x, Type, Params)
 %   See also: MeasurementModel, StateTransitionJacobian,
 %   AttitudeKinematics.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(numel(x) > 15);
 
-    if ~(isnumeric(x) && isreal(x) && isequal(size(x), [15, 1]) && ...
-            all(isfinite(x)))
+    if ~(isnumeric(x) && isreal(x) && ...
+            isequal(size(x), [Definition.Count, 1]) && all(isfinite(x)))
 
         error( ...
             'Estimation:MeasurementJacobian:InvalidState', ...
-            'x must be a finite real 15x1 state vector.');
+            'x must be a finite real %dx1 state vector.', ...
+            Definition.Count);
 
     end
 
@@ -49,13 +50,17 @@ function H = MeasurementJacobian(x, Type, Params)
 
     Type = char(Type);
     Idx = Definition.Index;
-    H = zeros(3, 15);
+    H = zeros(3, Definition.Count);
 
     switch Type
 
         case 'GNSSPosition'
 
             H(:, Idx.pN:Idx.pD) = eye(3);
+
+            if Definition.EnableGNSSBiasStates
+                H(:, Idx.bgn:Idx.bgd) = eye(3);
+            end
 
         case 'GNSSVelocity'
 

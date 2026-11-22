@@ -34,7 +34,7 @@ function Metrics = CalculateEstimationMetrics(Estimate, Truth, Config, Label)
 %
 %   See also: EvaluateAgainstGroundTruth, CompareEstimators.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(size(Estimate.State, 2) > 15);
     Idx = Definition.Index;
 
     Steps = numel(Estimate.Time_s);
@@ -115,6 +115,7 @@ function Metrics = CalculateEstimationMetrics(Estimate, Truth, Config, Label)
     NavSpan = [Idx.pN:Idx.pD, Idx.vN:Idx.vD, Idx.roll:Idx.yaw];
     NEES = nan(Steps, 1);
     NEESDiag = nan(Steps, 1);
+    NEESBlock = nan(Steps, 3);
     PsdRejected = 0;
     HasFullCov = isfield(Estimate, 'CovFull') && ...
         ~isempty(Estimate.CovFull);
@@ -142,6 +143,23 @@ function Metrics = CalculateEstimationMetrics(Estimate, Truth, Config, Label)
 
                 if CholFlag == 0
                     NEES(k) = ErrorNav' * (Pnav \ ErrorNav);
+
+                    % A4: per-block NEES decomposition (position,
+                    % velocity, attitude 3x3 diagonal blocks of the same
+                    % nav covariance) so inconsistency is attributed to
+                    % the block that causes it. Expected mean 3 per block.
+                    for b = 1:3
+                        SpanB = (3 * (b - 1) + 1):(3 * b);
+                        Pb = Pnav(SpanB, SpanB);
+                        [~, FlagB] = chol(Pb);
+
+                        if FlagB == 0
+                            NEESBlock(k, b) = ErrorNav(SpanB)' * ...
+                                (Pb \ ErrorNav(SpanB));
+                        end
+
+                    end
+
                 else
                     PsdRejected = PsdRejected + 1;
                 end
@@ -165,6 +183,11 @@ function Metrics = CalculateEstimationMetrics(Estimate, Truth, Config, Label)
     Metrics.NEESPsdRejectedRows = PsdRejected;
     Metrics.NEESDoF = 9;
     Metrics.NEESExpectedMean = 9;
+    Metrics.NEESBlockLabels = {'Position', 'Velocity', 'Attitude'};
+    Metrics.NEESBlock = NEESBlock;
+    Metrics.NEESBlockMean = mean(NEESBlock, 1, 'omitnan');
+    Metrics.NEESBlockExpectedMean = [3, 3, 3];
+    Metrics.StateDimension = Definition.Count;
 
     % Confidence coverage per block.
     Coverage = struct();
@@ -193,18 +216,32 @@ function Metrics = CalculateEstimationMetrics(Estimate, Truth, Config, Label)
                         Truth.Euler_rad(:, 3))];
         end
 
+        % Statistical audit finding S5: apply the SAME valid-row selection
+        % to state errors, covariance values, numerators and denominators.
+        RowMask = ValidRow & all(isfinite(ErrBlock), 2) & ...
+            all(isfinite(SigmaBlock), 2);
+        ErrBlock = ErrBlock(RowMask, :);
+        SigmaBlock = SigmaBlock(RowMask, :);
+        ValidRows = size(ErrBlock, 1);
+        Denominator = ValidRows * size(ErrBlock, 2);
+
         Fractions = zeros(1, numel(Sigmas));
+        Counts = zeros(1, numel(Sigmas));
 
         for s = 1:numel(Sigmas)
 
             Inside = abs(ErrBlock) <= Sigmas(s) * SigmaBlock;
-            Fractions(s) = mean(Inside(:));
+            Counts(s) = sum(Inside(:));
+            Fractions(s) = Counts(s) / max(Denominator, 1);
 
         end
 
         Coverage.(BlockName) = struct( ...
             'Sigmas', Sigmas, ...
-            'CoveredFraction', Fractions);
+            'CoveredFraction', Fractions, ...
+            'CoveredCount', Counts, ...
+            'Denominator', Denominator, ...
+            'ValidRows', ValidRows);
 
     end
 

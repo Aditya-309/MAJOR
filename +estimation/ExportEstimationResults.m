@@ -250,7 +250,7 @@ end
 %% Local helpers
 
 function Path = writeStateCsv(Path, Time_s, State, CovDiag, Valid)
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(size(State, 2) > 15);
     Names = Definition.Names;
 
     fid = fopen(Path, 'w');

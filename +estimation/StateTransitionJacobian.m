@@ -1,4 +1,5 @@
-function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps)
+function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps, ...
+        TauGNSSBias_s)
 %STATETRANSITIONJACOBIAN Analytical Jacobian of the strapdown propagation.
 %
 %   F = STATETRANSITIONJACOBIAN(x, dt, Accel_mps2, Gyro_radps) returns
@@ -34,14 +35,15 @@ function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps)
 %
 %   See also: StateTransitionModel, MeasurementJacobian.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(numel(x) > 15);
 
-    if ~(isnumeric(x) && isreal(x) && isequal(size(x), [15, 1]) && ...
-            all(isfinite(x)))
+    if ~(isnumeric(x) && isreal(x) && ...
+            isequal(size(x), [Definition.Count, 1]) && all(isfinite(x)))
 
         error( ...
             'Estimation:StateTransitionJacobian:InvalidState', ...
-            'x must be a finite real 15x1 state vector.');
+            'x must be a finite real %dx1 state vector.', ...
+            Definition.Count);
 
     end
 
@@ -106,7 +108,7 @@ function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps)
     dT_dpitch = K.dT_dpitch;
 
     % Continuous Jacobian blocks
-    A = zeros(15);
+    A = zeros(Definition.Count);
 
     A(Idx.pN:Idx.pD, Idx.vN:Idx.vD) = eye(3);
     A(Idx.vN:Idx.vD, Idx.roll:Idx.yaw) = [ ...
@@ -120,6 +122,21 @@ function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps)
         zeros(3, 1)];
     A(Idx.roll:Idx.yaw, Idx.bgx:Idx.bgz) = -T;
 
-    F = eye(15) + A * dt;
+    F = eye(Definition.Count) + A * dt;
+
+    % GNSS position-bias states: exact Gauss-Markov derivative.
+    if Definition.EnableGNSSBiasStates
+
+        if nargin < 5 || ~(isnumeric(TauGNSSBias_s) && isscalar(TauGNSSBias_s) ...
+                && isfinite(TauGNSSBias_s) && TauGNSSBias_s > 0)
+
+            error( ...
+                'Estimation:StateTransitionJacobian:InvalidGNSSBiasTau', ...
+                'TauGNSSBias_s must be a positive finite scalar.');
+        end
+
+        F(Idx.bgn:Idx.bgd, Idx.bgn:Idx.bgd) = ...
+            exp(-dt / TauGNSSBias_s) * eye(3);
+    end
 
 end

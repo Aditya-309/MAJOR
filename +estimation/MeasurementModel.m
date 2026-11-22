@@ -30,14 +30,15 @@ function [zPredicted, Extra] = MeasurementModel(x, Type, Params)
 %   See also: MeasurementJacobian, StateTransitionModel,
 %   MagneticReferenceNED.
 
-    Definition = estimation.StateDefinition();
+    Definition = estimation.StateDefinition(numel(x) > 15);
 
-    if ~(isnumeric(x) && isreal(x) && isequal(size(x), [15, 1]) && ...
-            all(isfinite(x)))
+    if ~(isnumeric(x) && isreal(x) && ...
+            isequal(size(x), [Definition.Count, 1]) && all(isfinite(x)))
 
         error( ...
             'Estimation:MeasurementModel:InvalidState', ...
-            'x must be a finite real 15x1 state vector.');
+            'x must be a finite real %dx1 state vector.', ...
+            Definition.Count);
 
     end
 
@@ -58,6 +59,12 @@ function [zPredicted, Extra] = MeasurementModel(x, Type, Params)
         case 'GNSSPosition'
 
             zPredicted = x(Idx.pN:Idx.pD);
+
+            % Augmentation A1: the GNSS position measurement carries the
+            % Gauss-Markov bias state when those states are enabled.
+            if Definition.EnableGNSSBiasStates
+                zPredicted = zPredicted + x(Idx.bgn:Idx.bgd);
+            end
 
         case 'GNSSVelocity'
 
