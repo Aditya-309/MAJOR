@@ -81,6 +81,24 @@ kinematic (analytic trajectories through the audited sensor equations), not
 Block 3 6-DOF dynamics — by frozen-block design.
 
 ### Verification
-Full regression suite: StatisticalCorrections 6/6, ReviewerFindings 14/14,
-GNSSBiasStates 7/7, StatisticalReporting 9/9, RegressionBaseline (frozen
-manifest + git provenance + root cleanliness) green after this commit.
+Full regression suite (46 assertions, 0 failures): StatisticalCorrections 6/6,
+ReviewerFindings 14/14, GNSSBiasStates 7/7, StatisticalReporting 9/9,
+EstimationReportAssembly 6/6, RegressionBaseline 4/4 (frozen manifest,
+estimator-package hash manifest, git provenance, root cleanliness).
+End-to-end execution re-verified on real data (Run_001_20260906_161035 /
+PP_20261121_204831_01, 18-state, ES_20261122_092501_01): NEES blocks
+pos 0.76 / vel 2.73 / att 259.76 (total 269.20, expectation 9) - position and
+velocity blocks CONSISTENT, attitude-dominant optimism as disclosed above;
+NIS and all prior metrics unchanged from the pre-integration run on the same
+input (pipeline numerically identical where the config is unchanged).
+
+### Incident record (2026-11-22, fixed in 35b5e75)
+The first end-to-end run after 1a4cf71 failed at report assembly: a stray
+duplicated 'end' in the A4 BuildEstimationReport patch (parse error). Root
+cause: .m files have no auto-linter in this toolchain and the suite did not
+call the report assembler. Corrective actions: removed the defect; added
+TestEstimationReportAssembly (report assembly from synthetic pipeline data,
+current and legacy metric shapes) so the gap stays closed; A4 report fields
+are isfield-guarded for compatibility with runs saved by earlier package
+versions (export-recovery workflow). Rule now applied: every edited MATLAB
+file gets checkcode plus at least one real execution before commit.
