@@ -121,7 +121,9 @@ function Summary = RunMonteCarlo(ScenarioName, NSamples, Seed0, ...
             Row.PosRMSE = R.Evaluation.ForwardEKF.Position3DRMSE_m;
 
             S = load(fullfile(E.OutputDirectory, 'EstimationResults.mat'));
-            Row.NEESDoF = size(S.EstimationResults.Forward.EKF.State, 2);
+            % The report NEES is the navigation-block metric: use ITS
+            % DoF (9) as the expectation, not the state dimension (18).
+            Row.NEESDoF = R.Evaluation.ForwardEKF.NEESDoF;
             Inn = S.EstimationResults.Diagnostics.Innovations.EKF;
             sel = isfinite(Inn.NIS);
             Row.NISMean = mean(Inn.NIS(sel));
