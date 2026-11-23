@@ -46,9 +46,11 @@ function Summary = RunMonteCarlo(ScenarioName, NSamples, Seed0, ...
     EstCfg = estimation.EstimationConfig();
     EstCfg.State.EnableGNSSBiasStates = true;
 
-    Results = struct('RunID', {}, 'Seed', {}, 'Scenario', {}, ...
-        'PreprocessID', {}, 'EstimationID', {}, 'NEESForward', {}, ...
-        'NEESSmoothed', {}, 'PosRMSE', {}, 'NISMean', {}, 'Status', {});
+    % Results is derived from the Row template below so the two struct
+    % schemas can never desynchronize (2026-11-23: the DoF field was
+    % added to Row but not to a separate Results literal, which failed
+    % at the first row assignment).
+    Results = [];
 
     t0 = tic;
 
@@ -58,11 +60,27 @@ function Summary = RunMonteCarlo(ScenarioName, NSamples, Seed0, ...
         RunID = sprintf('Run_9%03d_%s', i, Stamp);
         fprintf('[%d/%d] %s seed=%d ... ', i, NSamples, RunID, Seed);
 
-        Row = struct('RunID', RunID, 'Seed', Seed, ...
-            'Scenario', ScenarioName, 'PreprocessID', '', ...
-            'EstimationID', '', 'NEESForward', NaN, ...
-            'NEESSmoothed', NaN, 'PosRMSE', NaN, 'NISMean', NaN, ...
-            'NEESDoF', NaN, 'Status', 'OK');
+        if isempty(Results)
+            RowTemplate = struct('RunID', RunID, 'Seed', Seed, ...
+                'Scenario', ScenarioName, 'PreprocessID', '', ...
+                'EstimationID', '', 'NEESForward', NaN, ...
+                'NEESSmoothed', NaN, 'PosRMSE', NaN, 'NISMean', NaN, ...
+                'NEESDoF', NaN, 'Status', 'OK');
+            Results = RowTemplate([]);
+        end
+
+        Row = RowTemplate;
+        Row.RunID = RunID;
+        Row.Seed = Seed;
+        Row.Scenario = ScenarioName;
+        Row.PreprocessID = '';
+        Row.EstimationID = '';
+        Row.NEESForward = NaN;
+        Row.NEESSmoothed = NaN;
+        Row.PosRMSE = NaN;
+        Row.NISMean = NaN;
+        Row.NEESDoF = NaN;
+        Row.Status = 'OK';
 
         try
             BuildValidationRun(RunID, ScenarioName, Duration_s, ...
