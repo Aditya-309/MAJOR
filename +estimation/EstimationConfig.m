@@ -97,6 +97,19 @@ function Config = EstimationConfig(varargin)
 %       .PriorAttitude    - struct(roll,pitch,yaw in rad and
 %                           sigma_rad [roll pitch yaw], Provenance);
 %                           used only when AttitudeSource='Prior'
+%       .RequireVerifiedWindow - true (default): initialization errors
+%                           unless a window verifies low-dynamic
+%                           conditions (approved contract). false:
+%                           degraded fallback for corrupted-sensor runs
+%                           (fault-injection severity > 0) - proceeds on
+%                           the best-effort window, yaw falls back to 0
+%                           if unresolvable, the alignment is flagged
+%                           UNVERIFIED with a warning and the attitude
+%                           sigma floor is applied. The estimation run
+%                           ALWAYS proceeds; it never pretends the
+%                           alignment was verified.
+%       .UnverifiedAlignmentSigmaFloor_rad - attitude uncertainty floor
+%                           for the unverified fallback (default 15 deg).
 %   Leveling tolerances are derived from the Block 5 noise parameters
 %   (5 sigma of turn-on bias plus discrete white noise over the measured
 %   sample interval) inside InitializeState; they are not hardcoded.
@@ -264,6 +277,8 @@ function Config = EstimationConfig(varargin)
     % direction, gyroscope rate-variation and magnetometer direction
     % criteria and to the magnetometer yaw decision.
     Config.Initialization.MinStabilitySamples = 3;
+    Config.Initialization.RequireVerifiedWindow = true;
+    Config.Initialization.UnverifiedAlignmentSigmaFloor_rad = deg2rad(15);
     Config.Initialization.PriorAttitude = struct( ...
         'roll_rad', NaN, 'pitch_rad', NaN, 'yaw_rad', NaN, ...
         'sigma_rad', [NaN, NaN, NaN], ...
