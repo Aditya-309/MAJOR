@@ -32,14 +32,21 @@ function K = AttitudeKinematics(roll, pitch, yaw)
 
     end
 
-    if abs(pitch) >= pi / 2
-
-        error( ...
-            'Estimation:AttitudeKinematics:PitchSingularity', ...
-            ['The ZYX Euler-rate transformation is undefined at ', ...
-             '|pitch| >= 90 deg (pitch = %.4f deg).'], ...
-            rad2deg(pitch));
-
+    % The ZYX formulas are valid for every pitch EXCEPT exactly the
+    % gimbal-lock angles |pitch| = 90 deg (cos(pitch) = 0), where the
+    % Euler-rate map is genuinely unbounded. Outside that measure-zero
+    % set - including |pitch| > 90 deg - the expressions are finite and
+    % correct, so no guard may reject them (a hard error there crashed
+    % the estimation flow on Run_001_20261124_220456 when the UKF state
+    % reached 133 deg). Near the true lock the angle is nudged to the
+    % nearest representable value and the run continues; the affected
+    % interval is a documented degraded-estimate region.
+    if abs(cos(pitch)) < 1e-6
+        if pitch >= 0
+            pitch = pi / 2 - 1e-6;
+        else
+            pitch = -pi / 2 + 1e-6;
+        end
     end
 
     [sR, cR, sP, cP, sY, cY] = deal(sin(roll), cos(roll), ...

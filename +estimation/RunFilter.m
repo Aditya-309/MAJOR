@@ -499,14 +499,18 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
         if k == TotalEvents || Events.Time_s(k + 1) > t_e
 
-            Filter.StateCovariance = ...
-                estimation.ProtectNullSpaceCovariance( ...
+            % S8a honesty at the OUTPUT boundary: the recorded
+            % covariance carries the no-information floors, while the
+            % filter recursion itself is left untouched (feeding the
+            % inflated covariance back destabilised the UKF sigma-point
+            % spread on long runs).
+            PRec = estimation.ProtectNullSpaceCovariance( ...
                 Filter.StateCovariance, ProtectionP0, Definition);
             StepCount = StepCount + 1;
             Time_s(StepCount) = t_e;
             State(StepCount, :) = Filter.State';
-            CovDiag(StepCount, :) = diag(Filter.StateCovariance)';
-            CovFull(StepCount, :) = Filter.StateCovariance(:)';
+            CovDiag(StepCount, :) = diag(PRec)';
+            CovFull(StepCount, :) = PRec(:)';
             Valid(StepCount) = StateValid;
             Degraded(StepCount) = DegradedNow;
 
@@ -518,14 +522,13 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
     if StepCount == 0 || Time_s(StepCount) < t_prev
 
-        Filter.StateCovariance = ...
-            estimation.ProtectNullSpaceCovariance( ...
+        PRec = estimation.ProtectNullSpaceCovariance( ...
             Filter.StateCovariance, ProtectionP0, Definition);
         StepCount = StepCount + 1;
         Time_s(StepCount) = t_prev;
         State(StepCount, :) = Filter.State';
-        CovDiag(StepCount, :) = diag(Filter.StateCovariance)';
-        CovFull(StepCount, :) = Filter.StateCovariance(:)';
+        CovDiag(StepCount, :) = diag(PRec)';
+        CovFull(StepCount, :) = PRec(:)';
         Valid(StepCount) = StateValid;
         Degraded(StepCount) = DegradedNow;
 
