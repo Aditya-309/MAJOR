@@ -119,12 +119,11 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
     Degraded = false(TotalEvents + 1, 1);
     StepCount = 0;
 
-    % S8a: null-space variance protection. The turn-on-bias split
-    % directions carry no information and must keep their prior variance;
-    % sequential updates leak it numerically (measured). Floors are the
-    % exact no-information levels derived from the initial covariance.
-    [NullDirections, NullFloors] = estimation.DefineNullSpaceDirections( ...
-        Filter.StateCovariance, Definition);
+    % S8a: null-space variance protection. The confounded turn-on-bias
+    % directions carry no information and must keep their no-information
+    % variance; sequential updates leak it numerically (measured). P0 is
+    % kept as the floor reference for the dynamic projection.
+    ProtectionP0 = Filter.StateCovariance;
 
     U = struct();
     U.Time_s = zeros(MaxUpdates, 1);
@@ -502,7 +501,7 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
             Filter.StateCovariance = ...
                 estimation.ProtectNullSpaceCovariance( ...
-                Filter.StateCovariance, NullDirections, NullFloors);
+                Filter.StateCovariance, ProtectionP0, Definition);
             StepCount = StepCount + 1;
             Time_s(StepCount) = t_e;
             State(StepCount, :) = Filter.State';
@@ -521,7 +520,7 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
         Filter.StateCovariance = ...
             estimation.ProtectNullSpaceCovariance( ...
-            Filter.StateCovariance, NullDirections, NullFloors);
+            Filter.StateCovariance, ProtectionP0, Definition);
         StepCount = StepCount + 1;
         Time_s(StepCount) = t_prev;
         State(StepCount, :) = Filter.State';
