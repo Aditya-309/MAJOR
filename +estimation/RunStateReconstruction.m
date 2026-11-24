@@ -110,31 +110,59 @@ function Result = RunStateReconstruction(RunID, PreprocessID, Config, Options)
 
     end
 
-    %% 5. Forward estimation (identical assumptions for both filters)
+    %% 5-6. Forward estimation + smoothing (EKF and UKF chains)
+    %
+    %   SPEED (2026-11-25): the EKF and UKF chains (forward + smoothing)
+    %   are independent. When the Parallel Computing Toolbox and a pool
+    %   are available, the two chains run on two workers. The per-filter
+    %   math is untouched - only the scheduling differs - so the outputs
+    %   are identical to the sequential path. ANY parallel failure falls
+    %   back to the original sequential execution below, so the flow can
+    %   never break.
 
     MemBefore_MB = memoryInUseMB();
     tStart = tic;
 
     FilterEKF = estimation.CreateEKF(x0, P0, EffectiveConfig, ...
         NoiseModels, MaxSmoothingSteps);
-    [ForwardEKF, RunLogEKF] = estimation.RunFilter(FilterEKF, 'EKF', ...
-        Timeline, EffectiveConfig, NoiseModels, InitInfo);
-
     FilterUKF = estimation.CreateUKF(x0, P0, EffectiveConfig, ...
         NoiseModels, MaxSmoothingSteps);
-    [ForwardUKF, RunLogUKF] = estimation.RunFilter(FilterUKF, 'UKF', ...
+
+    Chains = runFilterChainsParallel(FilterEKF, FilterUKF, ...
         Timeline, EffectiveConfig, NoiseModels, InitInfo);
 
-    ForwardTime_s = toc(tStart);
+    if isempty(Chains)
 
-    %% 6. Smoothing
+        % Original sequential path (kept bit-for-bit as the fallback).
 
-    tStart = tic;
-    SmoothingEKF = estimation.RunSmoothing(FilterEKF, 'EKF', ...
-        EffectiveConfig, ForwardEKF);
-    SmoothingUKF = estimation.RunSmoothing(FilterUKF, 'UKF', ...
-        EffectiveConfig, ForwardUKF);
-    SmoothingTime_s = toc(tStart);
+        [ForwardEKF, RunLogEKF] = estimation.RunFilter(FilterEKF, 'EKF', ...
+            Timeline, EffectiveConfig, NoiseModels, InitInfo);
+
+        [ForwardUKF, RunLogUKF] = estimation.RunFilter(FilterUKF, 'UKF', ...
+            Timeline, EffectiveConfig, NoiseModels, InitInfo);
+
+        ForwardTime_s = toc(tStart);
+
+        %% 6. Smoothing
+
+        tStart = tic;
+        SmoothingEKF = estimation.RunSmoothing(FilterEKF, 'EKF', ...
+            EffectiveConfig, ForwardEKF);
+        SmoothingUKF = estimation.RunSmoothing(FilterUKF, 'UKF', ...
+            EffectiveConfig, ForwardUKF);
+        SmoothingTime_s = toc(tStart);
+
+    else
+
+        [ForwardEKF, RunLogEKF, SmoothingEKF, Tf1, Ts1, ...
+            ForwardUKF, RunLogUKF, SmoothingUKF, Tf2, Ts2] = Chains{:};
+
+        % Phase-equivalent wall times: the chains run concurrently, so
+        % each phase costs the slower of the two chains.
+        ForwardTime_s = max(Tf1, Tf2);
+        SmoothingTime_s = max(Ts1, Ts2);
+
+    end
 
     MemAfter_MB = memoryInUseMB();
 
@@ -331,4 +359,71 @@ function MB = memoryInUseMB()
     catch
         MB = NaN;
     end
+end
+
+function Chains = runFilterChainsParallel(FilterEKF, FilterUKF, ...
+        Timeline, Config, NoiseModels, InitInfo)
+%RUNFILTERCHAINSPARALLEL Two independent filter chains on two workers.
+%
+%   Returns {} whenever parallel execution is unavailable or fails; the
+%   caller then runs the original sequential path unchanged. The per-
+%   filter math is identical either way - only scheduling differs.
+
+    Chains = {};
+
+    try
+
+        if ~license('test', 'Distrib_Computing_Toolbox')
+            return
+        end
+
+        Pool = gcp('nocreate');
+
+        if isempty(Pool)
+            Pool = parpool('local', 2);
+        end
+
+        if Pool.NumWorkers < 2
+            return
+        end
+
+        ProjectRoot = fileparts(fileparts(mfilename('fullpath')));
+
+        % Prime the workers' path (addpath is a builtin, resolvable even
+        % before the project root is on the worker path).
+        PathJob = parfeval(Pool, @addpath, 0, ProjectRoot);
+        wait(PathJob);
+
+        Jobs(1) = parfeval(Pool, @runOneChain, 5, FilterEKF, 'EKF', ...
+            Timeline, Config, NoiseModels, InitInfo);
+        Jobs(2) = parfeval(Pool, @runOneChain, 5, FilterUKF, 'UKF', ...
+            Timeline, Config, NoiseModels, InitInfo);
+
+        wait(Jobs);
+
+        [FwdE, LogE, SmE, Tf1, Ts1] = fetchOutputs(Jobs(1));
+        [FwdU, LogU, SmU, Tf2, Ts2] = fetchOutputs(Jobs(2));
+
+        Chains = {FwdE, LogE, SmE, Tf1, Ts1, FwdU, LogU, SmU, Tf2, Ts2};
+
+    catch
+        % Parallel execution failed: fall back to the sequential path.
+        Chains = {};
+    end
+
+end
+
+function [Forward, RunLog, Smoothing, TForward_s, TSmooth_s] = ...
+        runOneChain(Filter, Label, Timeline, Config, NoiseModels, InitInfo)
+%RUNONECHAIN One filter's full chain: forward pass then smoothing.
+
+    t0 = tic;
+    [Forward, RunLog] = estimation.RunFilter(Filter, Label, ...
+        Timeline, Config, NoiseModels, InitInfo);
+    TForward_s = toc(t0);
+
+    t0 = tic;
+    Smoothing = estimation.RunSmoothing(Filter, Label, Config, Forward);
+    TSmooth_s = toc(t0);
+
 end
