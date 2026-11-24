@@ -192,6 +192,18 @@
       "ScenarioName": "ControlledClimb",
       "FinalRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Runs\\Run_001_20261123_170803",
       "MetadataFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Runs\\Run_001_20261123_170803\\RunMetadata.json"
+    },
+    {
+      "RunID": "Run_001_20261124_220456",
+      "Status": "REGISTERED",
+      "CreatedAt": "2026-11-24T22:04:56.060",
+      "FinalizedAt": "2026-11-24T22:05:07.354",
+      "RegisteredAt": "2026-11-24T22:05:07.414",
+      "ScenarioSelector": 1,
+      "ScenarioID": 1,
+      "ScenarioName": "StraightAndLevelCruise",
+      "FinalRunDirectory": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Runs\\Run_001_20261124_220456",
+      "MetadataFile": "C:\\Users\\lalit\\OneDrive\\Documents\\Aditya Docs\\ENGINEERING\\MAJOR\\production\\Runs\\Run_001_20261124_220456\\RunMetadata.json"
     }
   ]
 }
