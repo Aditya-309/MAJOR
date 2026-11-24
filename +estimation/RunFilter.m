@@ -119,6 +119,13 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
     Degraded = false(TotalEvents + 1, 1);
     StepCount = 0;
 
+    % S8a: null-space variance protection. The turn-on-bias split
+    % directions carry no information and must keep their prior variance;
+    % sequential updates leak it numerically (measured). Floors are the
+    % exact no-information levels derived from the initial covariance.
+    [NullDirections, NullFloors] = estimation.DefineNullSpaceDirections( ...
+        Filter.StateCovariance, Definition);
+
     U = struct();
     U.Time_s = zeros(MaxUpdates, 1);
     U.Type = zeros(MaxUpdates, 1);
@@ -493,6 +500,9 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
         if k == TotalEvents || Events.Time_s(k + 1) > t_e
 
+            Filter.StateCovariance = ...
+                estimation.ProtectNullSpaceCovariance( ...
+                Filter.StateCovariance, NullDirections, NullFloors);
             StepCount = StepCount + 1;
             Time_s(StepCount) = t_e;
             State(StepCount, :) = Filter.State';
@@ -509,6 +519,9 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
     if StepCount == 0 || Time_s(StepCount) < t_prev
 
+        Filter.StateCovariance = ...
+            estimation.ProtectNullSpaceCovariance( ...
+            Filter.StateCovariance, NullDirections, NullFloors);
         StepCount = StepCount + 1;
         Time_s(StepCount) = t_prev;
         State(StepCount, :) = Filter.State';
