@@ -1,5 +1,5 @@
 function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps, ...
-        TauGNSSBias_s)
+        TauGNSSBias_s, TauIMUBias_s)
 %STATETRANSITIONJACOBIAN Analytical Jacobian of the strapdown propagation.
 %
 %   F = STATETRANSITIONJACOBIAN(x, dt, Accel_mps2, Gyro_radps) returns
@@ -139,6 +139,12 @@ function F = StateTransitionJacobian(x, dt, Accel_mps2, Gyro_radps, ...
 
         F(Idx.bgn:Idx.bgd, Idx.bgn:Idx.bgd) = ...
             exp(-dt / TauGNSSBias_s) * eye(3);
+    end
+
+    % S8e: see StateTransitionModel - GM decay tested and rejected;
+    % the IMU bias states remain constant (identity blocks).
+    if nargin >= 6 && isnumeric(TauIMUBias_s) && TauIMUBias_s < 0
+        F(Idx.bax:Idx.baz, Idx.bax:Idx.baz) = eye(3);
     end
 
 end

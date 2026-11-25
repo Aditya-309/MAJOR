@@ -50,6 +50,21 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s)
         Pbb0 = P0(BS, BS);
 
         PttNI = Ptt0 + t * (Ptb0 + Ptb0') + (t ^ 2) * Pbb0;
+
+        % S8d: the accelerometer turn-on bias is structurally
+        % indistinguishable from a tilt of bias/g (the leveling
+        % ambiguity) - a 2-DOF (roll/pitch) attitude uncertainty the
+        % data cannot rule out, derived exactly from the declared prior.
+        % For the isotropic prior eye(3)*sigma^2 used by InitializeState
+        % this is rotation-invariant: C*Pba0*C' = Pba0 for any attitude.
+        if isfield(Idx, 'bax') && max(Idx.bax:Idx.baz) <= Count
+            Pba0 = P0(Idx.bax:Idx.baz, Idx.bax:Idx.baz);
+            Gravity = 9.80665;
+            TiltNI = zeros(3);
+            TiltNI(1:2, 1:2) = Pba0(1:2, 1:2) / Gravity ^ 2;
+            PttNI = PttNI + TiltNI;
+        end
+
         PttNI = (PttNI + PttNI') / 2;
 
         Gap = PttNI - P(AS, AS);
@@ -61,6 +76,17 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s)
             P = (P + P') / 2;
         end
     end
+
+    % ---- Layer 1b: NOT USED (documented). The accel-bias integral
+    % floors for velocity (t^2 Pba) and position (t^4/4 Pba) were
+    % evaluated 2026-11-25 and rejected: the no-information bound is
+    % physically real but the data DOES constrain these directions
+    % (GNSS velocity aiding), so the block floor explodes the recorded
+    % sigma on long runs (km-scale position envelopes) while the real
+    % pipeline shows velocity blocks at 2.7 (consistent). The synthetic
+    % ValidationLab seeds with strong in-run GM draws show uncovered
+    % excursions - tracked as a fixture-level limitation in
+    % GuardrailUpdateProposal_S8a.md, not a product defect.
 
     % ---- Layer 2: confounded pair directions + pure bias floors
     Pairs = { ...
@@ -93,11 +119,12 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s)
         Pbb0 = P0(Bs, Bs);
 
         % Only the GYRO pair accumulates drift with time (the unlearnable
-        % bias integrates into attitude). Position is directly observed
-        % (GNSS) and its split floor stays at the static prior level -
-        % the t^2 growth there produced a bloated position sigma (47 m at
-        % 300 s) that diluted the gains when fed back and misrepresents
-        % the product (measured 2026-11-25).
+        % bias integrates into attitude). The GNSS-pair t^2 growth was
+        % tested 2026-11-25 in both states: it does NOT cover the
+        % synthetic mini's velocity block (55-60 with or without it) and
+        % it crushes the real 300-s run's position block to 0.007. The
+        % velocity coverage gap is addressed at its source instead: the
+        % IMU bias states are Gauss-Markov (S8e, StateTransitionModel).
         if numel(Xs) == 3 && numel(Bs) == 3 && all(Xs == Idx.roll:Idx.yaw)
             Growth = t * (Pxb0 + Pxb0') + (t ^ 2) * Pbb0;   % gyro drift
         else

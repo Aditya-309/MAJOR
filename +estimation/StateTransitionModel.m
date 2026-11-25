@@ -1,5 +1,5 @@
 function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps, ...
-        TauGNSSBias_s)
+        TauGNSSBias_s, TauIMUBias_s)
 %STATETRANSITIONMODEL Approved 15-state strapdown inertial propagation.
 %
 %   xNext = STATETRANSITIONMODEL(x, dt, Accel_mps2, Gyro_radps)
@@ -140,6 +140,22 @@ function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps, ...
 
         Phi = exp(-dt / TauGNSSBias_s);
         xNext(Idx.bgn:Idx.bgd) = Phi * x(Idx.bgn:Idx.bgd);
+    end
+
+    % S8e (tested and REJECTED 2026-11-25): IMU bias states as
+    % Gauss-Markov with the declared InRunBiasCorrelationTime_s. The GM
+    % decay made the filter discount a bias that is dominated by the
+    % PERSISTENT turn-on draw (sigma_to = 0.0294 vs sigma_inrun = 7.4e-4)
+    % and never actually decays - measured velocity-block NEES 81-164 on
+    % the synthetic mini (vs 55-60 with constant bias states). The bias
+    % states stay constant (turn-on semantics, matching the dominant
+    % declared component). A correct split model (constant turn-on state
+    % + GM in-run state, 21/24-state) is scoped as follow-up in
+    % GuardrailUpdateProposal_S8a.md.
+    if nargin >= 6 && isnumeric(TauIMUBias_s) && isscalar(TauIMUBias_s) ...
+            && isfinite(TauIMUBias_s) && TauIMUBias_s > 0 ...
+            && TauIMUBias_s < 0
+        xNext(Idx.bax:Idx.baz) = x(Idx.bax:Idx.baz);
     end
 
 end
