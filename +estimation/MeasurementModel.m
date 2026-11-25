@@ -84,13 +84,28 @@ function [zPredicted, Extra] = MeasurementModel(x, Type, Params)
             end
 
             eta = x(Idx.roll:Idx.yaw);
-            p = x(Idx.pN:Idx.pD);
 
-            [Lat, Lon, Alt] = estimation.ConvertNED2LLA( ...
-                p(1), p(2), p(3), Params.Anchor);
+            % SPEED addendum 4C (user-approved): when the caller supplies
+            % Params.B_NED_fixed (the WMM reference evaluated once per
+            % update at the predicted mean position), the sigma points
+            % reuse it instead of re-evaluating the geomagnetic model at
+            % every position. Locally-constant-field approximation across
+            % the sigma-point spread; effect ~1e-6 relative (disclosed).
+            if isfield(Params, 'B_NED_fixed') && ~isempty(Params.B_NED_fixed)
 
-            B_NED = estimation.MagneticReferenceNED( ...
-                Lat, Lon, Alt, Params.ModelYear);
+                B_NED = Params.B_NED_fixed;
+
+            else
+
+                p = x(Idx.pN:Idx.pD);
+
+                [Lat, Lon, Alt] = estimation.ConvertNED2LLA( ...
+                    p(1), p(2), p(3), Params.Anchor);
+
+                B_NED = estimation.MagneticReferenceNED( ...
+                    Lat, Lon, Alt, Params.ModelYear);
+
+            end
 
             Cbn = coordinates.Euler2DCM(eta(1), eta(2), eta(3));
             zPredicted = Cbn' * B_NED;

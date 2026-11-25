@@ -35,21 +35,48 @@ function B_NED_T = MagneticReferenceNED(Latitude_rad, Longitude_rad, Altitude_m,
     Count = numel(Lat_deg);
     B_NED_T = zeros(3, Count);
 
+    % Exact-key memoization (SPEED addendum 4B): wrldmagm is a
+    % deterministic function of its four arguments, so a stored value is
+    % bitwise identical to a recomputed one. The cache is bounded and
+    % rebuilt when full.
+    persistent MemoMap
+    if isempty(MemoMap)
+        MemoMap = containers.Map('KeyType', 'char', 'ValueType', 'any');
+    end
+
     for Index = 1:Count
 
-        B_nT = wrldmagm(Alt_km(Index), Lat_deg(Index), ...
-            Lon_deg(Index), ModelYear);
-        B_nT = B_nT(:);
+        Key = sprintf('%.17g|%.17g|%.17g|%.17g', Alt_km(Index), ...
+            Lat_deg(Index), Lon_deg(Index), ModelYear);
 
-        if numel(B_nT) ~= 3
+        if isKey(MemoMap, Key)
 
-            error( ...
-                'Estimation:MagneticReferenceNED:InvalidModelOutput', ...
-                'wrldmagm did not return a three-component magnetic field.');
+            B_NED_T(:, Index) = MemoMap(Key);
+
+        else
+
+            B_nT = wrldmagm(Alt_km(Index), Lat_deg(Index), ...
+                Lon_deg(Index), ModelYear);
+            B_nT = B_nT(:);
+
+            if numel(B_nT) ~= 3
+
+                error( ...
+                    'Estimation:MagneticReferenceNED:InvalidModelOutput', ...
+                    'wrldmagm did not return a three-component magnetic field.');
+
+            end
+
+            Value = B_nT * 1e-9;
+
+            if MemoMap.Count >= 300000
+                MemoMap = containers.Map('KeyType', 'char', 'ValueType', 'any');
+            end
+            MemoMap(Key) = Value;
+
+            B_NED_T(:, Index) = Value;
 
         end
-
-        B_NED_T(:, Index) = B_nT * 1e-9;
 
     end
 

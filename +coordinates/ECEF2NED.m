@@ -46,7 +46,15 @@ if ~(isequal(size(X),size(Y),size(Z)))
         'X, Y and Z must have identical dimensions.');
 end
 
-wgs84 = wgs84Ellipsoid("meter");
+% Cached: the WGS-84 ellipsoid is a mathematical constant. Building it
+% per call dominated estimation runtime (1.36M constructions per run);
+% the cached object is bitwise identical to a fresh one (user-approved
+% frozen edit, GuardrailUpdateProposal_S8a.md addendum 4).
+persistent wgs84Cache
+if isempty(wgs84Cache)
+    wgs84Cache = wgs84Ellipsoid("meter");
+end
+wgs84 = wgs84Cache;
 
 [north,east,down] = ecef2ned( ...
     X,...

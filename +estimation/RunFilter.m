@@ -90,7 +90,9 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
         'Jacobian', @(x) estimation.MeasurementJacobian( ...
             x, 'MagneticField', MagParams), ...
         'R', NoiseModels.R.MagneticField, ...
-        'RField', 'MagneticField');
+        'RField', 'MagneticField', ...
+        'MeasBuilder', @(state) fixedFieldMeas(state, MagParams, ...
+            InitInfo.Anchor, Definition.Index));
 
     GateEnabled = Config.MeasurementPolicy.Gate.Enabled;
 
@@ -409,7 +411,15 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
                     end
 
-                    Filter.MeasurementFcn = Binding.Meas;
+                    if isfield(Binding, 'MeasBuilder')
+                        % SPEED addendum 4C: the geomagnetic reference is
+                        % computed once per update at the predicted mean
+                        % and held constant across the sigma points.
+                        Filter.MeasurementFcn = Binding.MeasBuilder( ...
+                            Filter.State);
+                    else
+                        Filter.MeasurementFcn = Binding.Meas;
+                    end
 
                     if isprop(Filter, 'MeasurementJacobianFcn')
                         Filter.MeasurementJacobianFcn = Binding.Jacobian;
@@ -601,4 +611,21 @@ function S = trimStruct(S, Count)
         end
 
     end
+end
+
+function Meas = fixedFieldMeas(State, MagParams, Anchor, Idx)
+%FIXEDFIELDMEAS Magnetic model with the WMM reference held at the mean.
+%
+%   SPEED addendum 4C (user-approved): evaluates the geomagnetic
+%   reference ONCE at the predicted mean position and returns a
+%   measurement lambda that only rotates it per sigma point.
+
+    [Lat, Lon, Alt] = estimation.ConvertNED2LLA( ...
+        State(Idx.pN), State(Idx.pE), State(Idx.pD), Anchor);
+
+    MP = MagParams;
+    MP.B_NED_fixed = estimation.MagneticReferenceNED( ...
+        Lat, Lon, Alt, MagParams.ModelYear);
+
+    Meas = @(x) estimation.MeasurementModel(x, 'MagneticField', MP);
 end
