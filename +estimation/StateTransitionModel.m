@@ -100,14 +100,16 @@ function xNext = StateTransitionModel(x, dt, Accel_mps2, Gyro_radps, ...
     pitch = eta(2);
     yaw = eta(3);
 
-    if abs(pitch) >= pi / 2
-
-        error( ...
-            'Estimation:StateTransitionModel:PitchSingularity', ...
-            ['The ZYX Euler-rate transformation is undefined at ', ...
-             '|pitch| >= 90 deg (pitch = %.4f deg).'], ...
-            rad2deg(pitch));
-
+    % The ZYX formulas are valid for every pitch EXCEPT exactly the
+    % gimbal-lock angles (cos(pitch) = 0). Near the true lock the angle
+    % is nudged to the nearest representable value and the run continues
+    % (flow guarantee: estimation never crashes on any state trajectory).
+    if abs(cos(pitch)) < 1e-6
+        if pitch >= 0
+            pitch = pi / 2 - 1e-6;
+        else
+            pitch = -pi / 2 + 1e-6;
+        end
     end
 
     Cbn = coordinates.Euler2DCM(roll, pitch, yaw);

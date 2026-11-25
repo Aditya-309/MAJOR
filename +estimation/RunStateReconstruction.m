@@ -147,9 +147,9 @@ function Result = RunStateReconstruction(RunID, PreprocessID, Config, Options)
 
         tStart = tic;
         SmoothingEKF = estimation.RunSmoothing(FilterEKF, 'EKF', ...
-            EffectiveConfig, ForwardEKF);
+            EffectiveConfig, ForwardEKF, P0);
         SmoothingUKF = estimation.RunSmoothing(FilterUKF, 'UKF', ...
-            EffectiveConfig, ForwardUKF);
+            EffectiveConfig, ForwardUKF, P0);
         SmoothingTime_s = toc(tStart);
 
     else
@@ -395,9 +395,9 @@ function Chains = runFilterChainsParallel(FilterEKF, FilterUKF, ...
         wait(PathJob);
 
         Jobs(1) = parfeval(Pool, @runOneChain, 5, FilterEKF, 'EKF', ...
-            Timeline, Config, NoiseModels, InitInfo);
+            Timeline, Config, NoiseModels, InitInfo, P0);
         Jobs(2) = parfeval(Pool, @runOneChain, 5, FilterUKF, 'UKF', ...
-            Timeline, Config, NoiseModels, InitInfo);
+            Timeline, Config, NoiseModels, InitInfo, P0);
 
         wait(Jobs);
 
@@ -414,7 +414,8 @@ function Chains = runFilterChainsParallel(FilterEKF, FilterUKF, ...
 end
 
 function [Forward, RunLog, Smoothing, TForward_s, TSmooth_s] = ...
-        runOneChain(Filter, Label, Timeline, Config, NoiseModels, InitInfo)
+        runOneChain(Filter, Label, Timeline, Config, NoiseModels, ...
+        InitInfo, P0)
 %RUNONECHAIN One filter's full chain: forward pass then smoothing.
 
     t0 = tic;
@@ -423,7 +424,7 @@ function [Forward, RunLog, Smoothing, TForward_s, TSmooth_s] = ...
     TForward_s = toc(t0);
 
     t0 = tic;
-    Smoothing = estimation.RunSmoothing(Filter, Label, Config, Forward);
+    Smoothing = estimation.RunSmoothing(Filter, Label, Config, Forward, P0);
     TSmooth_s = toc(t0);
 
 end

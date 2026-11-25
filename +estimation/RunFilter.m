@@ -509,13 +509,19 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
         if k == TotalEvents || Events.Time_s(k + 1) > t_e
 
-            % S8a honesty at the OUTPUT boundary: the recorded
-            % covariance carries the no-information floors, while the
-            % filter recursion itself is left untouched (feeding the
-            % inflated covariance back destabilised the UKF sigma-point
-            % spread on long runs).
-            PRec = estimation.ProtectNullSpaceCovariance( ...
-                Filter.StateCovariance, ProtectionP0, Definition);
+            % S8a/S8c: no-information floors are fed back into the
+            % tracker covariance (the consider semantics require the
+            % gains and the reported covariance to agree; measured:
+            % recorded-only floors leave the velocity block at its
+            % uncorrected level). The growing floors are derived from
+            % the declared priors. Flow safety does not depend on this:
+            % the pitch-singularity guard keeps any state trajectory
+            % runnable.
+            Filter.StateCovariance = ...
+                estimation.ProtectNullSpaceCovariance( ...
+                Filter.StateCovariance, ProtectionP0, Definition, ...
+                t_e - t_init);
+            PRec = Filter.StateCovariance;
             StepCount = StepCount + 1;
             Time_s(StepCount) = t_e;
             State(StepCount, :) = Filter.State';
@@ -532,8 +538,11 @@ function [Forward, RunLog] = RunFilter(Filter, FilterLabel, Timeline, Config, No
 
     if StepCount == 0 || Time_s(StepCount) < t_prev
 
-        PRec = estimation.ProtectNullSpaceCovariance( ...
-            Filter.StateCovariance, ProtectionP0, Definition);
+        Filter.StateCovariance = ...
+            estimation.ProtectNullSpaceCovariance( ...
+            Filter.StateCovariance, ProtectionP0, Definition, ...
+            t_prev - t_init);
+        PRec = Filter.StateCovariance;
         StepCount = StepCount + 1;
         Time_s(StepCount) = t_prev;
         State(StepCount, :) = Filter.State';

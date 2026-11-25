@@ -1,35 +1,68 @@
-function P = ProtectNullSpaceCovariance(P, P0, Definition)
-%PROTECTNULLSPACECOVARIANCE No-information variance floors (S8a, dynamic).
+function P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s)
+%PROTECTNULLSPACECOVARIANCE No-information variance floors (S8c, growing).
 %
-%   P = ProtectNullSpaceCovariance(P, P0, Definition) restores the
-%   variance of the confounded turn-on-bias directions to their
-%   no-information level. The confounded subspace ROTATES with the
-%   dynamics (measured: fixed initial-manifold floors left vel/att blocks
-%   3-5x above expectation on maneuvering data), so the directions are
-%   recomputed from the CURRENT covariance at every call:
+%   P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s) keeps
+%   the recorded covariance from claiming more precision than the data
+%   can deliver along the weakly-observed directions. Two layers:
 %
-%       J = P(x,b) / P(b,b),  u = (J*e_k, e_k),  floor = u' * P0 * u
+%   1) ATTITUDE BLOCK - time-growing no-information floor. An unlearnable
+%      turn-on gyro bias accumulates attitude drift as t * b, so the
+%      no-information attitude variance at elapsed time t is
 %
-%   where (x,b) are the attitude/gyro-bias, position/GNSS-bias and
-%   tilt/accel-bias pairs. The floors are exact no-information levels of
-%   the current direction (its P0 variance) - derived, never tuned. The
-%   pure turn-on-bias directions are additionally floored at their prior
-%   (consider-parameter semantics: single-flight data is not credited
-%   with learning a turn-on bias below its declared prior).
+%          Ptt_NI(t) = Ptt0 + t*(Ptb0 + Ptb0') + t^2 * Pbb0
 %
-%   The projection only ADDS variance (PSD rank-one), preserves symmetry,
-%   and leaves all other directions untouched.
+%      (exact closed-form open-loop propagation of the S1 joint prior).
+%      The recorded attitude block is floored at Ptt_NI(t) in the
+%      Loewner order. Measured cause (S8c): on 300 s runs the static
+%      prior-level floor left the attitude blocks 3-12x inconsistent
+%      because the true error grows with the unlearnable-bias drift while
+%      the static floor cannot.
+%
+%   2) CONFOUNDED PAIR DIRECTIONS - the gyro-bias/attitude,
+%      accel-bias/tilt and GNSS-bias/position split directions and the
+%      pure turn-on-bias directions, floored at the same grown
+%      no-information blocks (consider-parameter semantics).
+%
+%   All floors are derived from the declared priors and the pair
+%   dynamics; there are no free parameters. The projection only ADDS
+%   variance (PSD), preserves symmetry, and leaves other directions
+%   untouched. The filter recursion itself is never modified (recorded
+%   covariance only).
 %
 %   INTERNAL function.
 
-    if nargin < 3
-        return
+    if nargin < 4
+        tElapsed_s = 0;
     end
 
     Idx = Definition.Index;
     Count = Definition.Count;
     P = (P + P') / 2;
+    t = max(tElapsed_s, 0);
 
+    AS = Idx.roll:Idx.yaw;
+    BS = Idx.bgx:Idx.bgz;
+
+    % ---- Layer 1: attitude-block no-information floor (time-growing)
+    if max(BS) <= Count
+        Ptt0 = P0(AS, AS);
+        Ptb0 = P0(AS, BS);
+        Pbb0 = P0(BS, BS);
+
+        PttNI = Ptt0 + t * (Ptb0 + Ptb0') + (t ^ 2) * Pbb0;
+        PttNI = (PttNI + PttNI') / 2;
+
+        Gap = PttNI - P(AS, AS);
+        Gap = (Gap + Gap') / 2;
+        [V, L] = eig(Gap);
+        l = diag(L);
+        if any(l > 0)
+            P(AS, AS) = P(AS, AS) + V * diag(max(l, 0)) * V';
+            P = (P + P') / 2;
+        end
+    end
+
+    % ---- Layer 2: confounded pair directions + pure bias floors
     Pairs = { ...
         Idx.roll:Idx.yaw,    Idx.bgx:Idx.bgz; ...   % gyro-bias / attitude
         Idx.roll:Idx.pitch,  Idx.bax:Idx.baz};      % accel-bias / tilt
@@ -52,13 +85,36 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition)
         end
         J = P(Xs, Bs) / Pbb;
 
+        % No-information reference blocks of this pair at time t. The
+        % gyro pair accumulates t^2 * Pbb0 drift; the leveling pair is a
+        % static ambiguity; the GNSS pair drifts with its bias walk.
+        Pxx0 = P0(Xs, Xs);
+        Pxb0 = P0(Xs, Bs);
+        Pbb0 = P0(Bs, Bs);
+
+        if numel(Xs) == 3 && numel(Bs) == 3 && all(Xs == Idx.roll:Idx.yaw)
+            Growth = t * (Pxb0 + Pxb0') + (t ^ 2) * Pbb0;   % gyro drift
+        elseif numel(Xs) == 3 && isfield(Idx, 'bgn') && all(Xs == Idx.pN:Idx.pD)
+            Growth = t * (Pxb0 + Pxb0') + (t ^ 2) * Pbb0;   % bias walk
+        else
+            Growth = zeros(size(Pxx0));                     % static pair
+        end
+
+        PxxNI = Pxx0 + Growth;
+        PxbNI = Pxb0;
+        PbbNI = Pbb0;
+
         for kk = 1:numel(Bs)
             u = zeros(Count, 1);
             u(Xs) = J(:, kk);
             u(Bs(kk)) = 1;
             u = u / max(norm(u), realmin);
-            Floor = u' * P0 * u;
+
+            Floor = u(Xs)' * PxxNI * u(Xs) ...
+                + 2 * u(Xs)' * PxbNI * u(Bs) ...
+                + u(Bs)' * PbbNI * u(Bs);
             v = u' * P * u;
+
             if isfinite(Floor) && Floor > 0 && v < Floor
                 P = P + (Floor - v) * (u * u');
             end
@@ -68,7 +124,7 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition)
         for kk = 1:numel(Bs)
             u = zeros(Count, 1);
             u(Bs(kk)) = 1;
-            Floor = P0(Bs(kk), Bs(kk));
+            Floor = PbbNI(kk, kk);
             v = u' * P * u;
             if isfinite(Floor) && Floor > 0 && v < Floor
                 P = P + (Floor - v) * (u * u');
