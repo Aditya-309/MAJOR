@@ -92,10 +92,14 @@ function P = ProtectNullSpaceCovariance(P, P0, Definition, tElapsed_s)
         Pxb0 = P0(Xs, Bs);
         Pbb0 = P0(Bs, Bs);
 
+        % Only the GYRO pair accumulates drift with time (the unlearnable
+        % bias integrates into attitude). Position is directly observed
+        % (GNSS) and its split floor stays at the static prior level -
+        % the t^2 growth there produced a bloated position sigma (47 m at
+        % 300 s) that diluted the gains when fed back and misrepresents
+        % the product (measured 2026-11-25).
         if numel(Xs) == 3 && numel(Bs) == 3 && all(Xs == Idx.roll:Idx.yaw)
             Growth = t * (Pxb0 + Pxb0') + (t ^ 2) * Pbb0;   % gyro drift
-        elseif numel(Xs) == 3 && isfield(Idx, 'bgn') && all(Xs == Idx.pN:Idx.pD)
-            Growth = t * (Pxb0 + Pxb0') + (t ^ 2) * Pbb0;   % bias walk
         else
             Growth = zeros(size(Pxx0));                     % static pair
         end
